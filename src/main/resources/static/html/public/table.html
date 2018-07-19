@@ -1,0 +1,35 @@
+<!--表格数据-->
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <td><input type="checkbox" ng-model="allcheck" ng-change="CheckDatas($event)"></td>
+        <th ng-repeat=" title in page.titleData" ng-bind="title"></th>
+        <th>操作</th>
+    </tr>
+    <tr ng-repeat="datas in page.datas">
+        <td><input type="checkbox" ng-model="check" ng-change="checkData($event,datas.id)"></td>
+        <td ng-repeat="data in datas " ng-bind="data"></td>
+        <td><button ng-repeat="tablework in page.tableworks" ng-bind="tablework.title" ng-class="tablework.class" ng-click="page.loadData(datas,tablework.callbacks,$event)"></button>
+        </td>
+    </tr>
+</table>
+<!-- 页码 -->
+<ul class="pagination col-sm-12">
+    <div class="col-sm-3">
+        <a class="btn disabled" ng-bind-template="位于第{{page.active}}页"></a>
+        <a class="btn disabled" ng-bind-template="共{{page.pageTotal}}页"></a>
+    </div>
+    <li ng-click="pageClick(pages)" ng-repeat="pages in page.pages" ng-class="{true:'active'}[page.active==pages]" class="{{addClass(pages)}}">
+        <a href="" ng-bind="pages"></a>
+    </li>
+    <div class="col-sm-4">
+        <div class="col-sm-4"><select class="form-control" ng-model="page.pagelist" ng-options="item for item in page.pageselect" ng-select="item==page.count"
+                ng-change="countclick()">
+     </select></div>
+        <div class="col-sm-3 loginpage">
+            <input type="text" class="form-control" ng-model="loginpage" placeholder="前往页数" style="font-size:6px">
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-info" ng-click="pageClick(loginpage)">前往</button>
+        </div>
+    </div>
+</ul>

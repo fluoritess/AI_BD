@@ -1,0 +1,38 @@
+<div class="confirmAlert" ng-controller="update_gongneng">
+    <div class="alert-update col-sm-6 col-sm-offset-3">
+        <span class="close alert_close" ng-click="alertMsg(false);delete_alert();delete_form_alert(myform,['myname','myurl','mydetail'])"> &times;</span>
+        <form class="col-sm-12 form form-horizontal" name="myform" >
+            <div class="form-group">
+                <label class="control-label col-sm-2"><span ng-bind="statesTitle"></span>名</label>
+                <div class="col-sm-6"><input type="text" class="form-control" name="myname" input-length ng-change="lengthText('myform','myname',20)"
+                         ng-model="updateGonenengData.pagename" required ng-maxlength="20" ng-blur="verNameData(updateGonenengData.pagename,'name')"></div>
+                <div ng-messages="myform.myname.$error" ng-show="myform.myname.$dirty" class="text-danger">
+                    <span ng-message="required"><span ng-bind="statesTitle"></span>名不能为空</span>
+                    <span ng-message="maxlength">名字长度超过规定长度</span>
+                </div>
+            </div>
+            <div class="form-group" ng-if="stateID=='gongnengguanli'">
+                <label class="control-label col-sm-2">功能url</label>
+                <div class="col-sm-6"><input type="text" name="myurl" class="form-control"  ng-model="updateGonenengData.url"
+                        required ng-pattern="/^[a-zA-Z0-9]+$/" ng-blur="verNameData(updateGonenengData.url,'url')"></div>
+                <div ng-messages="myform.myurl.$error" ng-show="myform.myurl.$dirty" class="text-danger">
+                    <span ng-message="required">功能url不能为空</span>
+                    <span ng-message="pattern">功能url格式不正确</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">详情描述</label>
+                <div class="col-sm-6">
+                    <textarea rows="6" class="form-control" name="mydetail" ng-model="updateGonenengData.detail" input-length
+                        ng-change="lengthText('myform','mydetail',50)" required ng-maxlength="50"></textarea></div>
+                <div ng-messages="myform.mydetail.$error" ng-show="myform.mydetail.$dirty" class="text-danger">
+                    <span ng-message="required">描述不能为空</span>
+                    <span ng-message="maxlength">描述长度超过规定长度</span>
+                </div>
+            </div>
+            <div class="form-group"><button type="button" class="btn btn-warning col-sm-3 col-sm-offset-1" ng-click="updateData(updateGonenengData);delete_alert();delete_form_alert(myform,['myname','myurl','mydetail'])">修改</button>
+                <button type="button" class="btn btn-primary col-sm-3 col-sm-offset-1"
+                    ng-click="delete_alert();delete_form_alert(myform,['myname','myurl','mydetail'])">取消</button></div>
+        </form>
+    </div>
+</div>

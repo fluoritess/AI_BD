@@ -1,0 +1,35 @@
+body{
+    background-image: url('../image/error.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    font-size: 1.5rem;
+}
+h2{
+    width:100%;
+    font-size: 10rem;
+} 
+a{
+    color: #fff;
+}
+a:hover{
+    text-decoration: underline;
+    color: #2758E0;
+}
+dl{
+    width: 60%;
+    margin: auto;
+}
+.div_a{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    height: 4rem;
+}
+.div_a a{
+    display:inline-block;
+    width:20%;
+}
+dl dd{
+    margin:0 6rem;
+}

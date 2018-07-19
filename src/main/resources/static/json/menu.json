@@ -1,0 +1,61 @@
+{
+    "menu": [{
+            "href": "jueseguanli",
+            "title": "角色管理"
+        },
+        {
+            "href": "gongnengguanli",
+            "title": "功能管理"
+        },
+        {
+            "href": "yonghuguanli",
+            "title": "用户管理"
+        },{
+            "href": "zhanquguanli",
+            "title": "站区管理"
+        }
+    ],
+    "childmenu":{
+        "jueseguanli":[
+            {
+                "href": "select",
+                "title": "显示"
+            },
+            {
+                "href": "add",
+                "title": "添加"
+            }
+        ],
+        "gongnengguanli":[
+            {
+                "href": "select",
+                "title": "显示"
+            },
+            {
+                "href": "add",
+                "title": "添加"
+            }
+        ],
+        "yonghuguanli":[
+            {
+                "href": "selectwill",
+                "title": "未审核"
+            },
+            {
+                "href": "selectok",
+                "title": "已审核"
+            }
+        ],
+        "zhanquguanli":[
+            {
+                "href": "select",
+                "title": "显示"
+            },
+            {
+                "href": "add",
+                "title": "添加"
+            }
+        ]
+    }
+
+}

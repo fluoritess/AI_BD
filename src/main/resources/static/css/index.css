@@ -1,0 +1,37 @@
+
+.form_box{
+    position: relative;
+    top:10rem;
+    padding-top:1rem;
+    background: rgba(33, 35, 36, 0.73);
+    border-radius: 0.5rem;
+    color: #fff;
+}
+.glyicon{
+    position: absolute;
+    top:0;
+    right:15px;
+    color: #000;
+    background: #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.43;
+    border: 1px solid transparent;
+    cursor: text;
+    border-radius:0 4px 4px 0;
+}
+.login a{
+    color: #fff!important;
+}
+.visi{
+    visibility: hidden;
+}
+.radio_class{
+    text-align: center;
+
+}
+.radio_class label{
+    margin-left: 0!important;
+}

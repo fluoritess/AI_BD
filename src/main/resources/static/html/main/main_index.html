@@ -1,0 +1,106 @@
+<div ng-controller="main_index_table">
+    <div ng-if="stateID!=''">
+        <!-- <button type="button" class="btn btn-warning" ng-click="page.updateDatas()">批量修改</button> -->
+        <div class="col-sm-6">
+            <ul class="nav nav-tabs nav-justified ">
+                <!--子菜单生成-->
+                <li ng-repeat="ChildMenu in childMenus" ui-sref-active="active" ng-class="{true:'active'}[ChildId==null&&$index==0]">
+                    <a ui-sref="main.state({ChildID:ChildMenu.href})"><span ng-bind="statesTitle"></span><span ng-bind="ChildMenu.title"></span></a></li>
+            </ul>
+        </div>
+        <!--表格-->
+        <div class=" col-sm-12" ng-if="ChildId!=''&&ChildId!='add'">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span ng-bind="statesTitle"></span>信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="table" page-list page="page" tablework="tablework" allcheck="allcheck" ng-show="page.datas">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--删除显示-->
+    <div ng-show="delete">
+        <div ng-include="'public/delete_alert.html'"></div>
+    </div>
+    <!--功能分配显示-->
+    <div ng-show="funUpdate" ng-if="stateID=='jueseguanli'">
+
+        <div ng-include="'public/itemTable.html'"></div>
+    </div>
+    <!--审核显示-->
+    <div ng-show="shenhe" ng-if="stateID=='yonghuguanli'">
+        <div ng-include="'public/shenhe.html'"></div>
+    </div>
+    <!--修改显示-->
+    <div ng-show="update" ng-if="stateID=='gongnengguanli'">
+        <div ng-include="'public/update.html'"></div>
+    </div>
+    <!--冻结显示-->
+    <div ng-show="freeze" ng-if="stateID=='yonghuguanli'">
+        <div ng-include="'public/freeze.html'"></div>
+    </div>
+    <div ng-show="departlogin" ng-if="stateID=='zhanquguanli'">
+        <div ng-include="'public/departloginData.html'"></div>
+    </div>
+    <div class="col-sm-12" ng-if="ChildId=='add'">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span ng-bind="statesTitle"></span>添加</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form form-horizontal col-sm-8" name="myform" color-input>
+                    <div class="form-group" ng-show="stateID=='zhanquguanli'">
+                        <label class="control-label col-sm-2"><span ng-bind="statesTitle"></span>编号</label>
+                        <div class="col-sm-6"><input type="text" class="form-control" name="myid" placeholder="{{'请输入位数为6位的战区编号'}}" ng-model="addData.id"
+                                required ng-minlength="6" ng-maxlength="6" ng-pattern=" /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6}$/"
+                                ng-blur="verNameData(addData.id,'departid',myform,'myid');"></div>
+                        <div ng-messages="myform.myid.$error" ng-show="myform.myid.$dirty" class="text-danger">
+                            <span ng-message="required">站区编号不能为空</span>
+                            <span ng-message="minlength">站区编号长度应为6位</span>
+                            <span ng-message="maxlength">站区编号长度应为6位</span>
+                            <span ng-message="pattern">站区编码格式不正确</span>
+                            <span ng-message="mark">已存在</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"><span ng-bind="statesTitle"></span>名</label>
+                        <div class="col-sm-6"><input type="text" class="form-control" name="myname" input-length ng-change="lengthText('myform','myname',20)"
+                                placeholder="{{'请输入'+statesTitle+'名'}},最多为20位" ng-model="addData.name" required ng-maxlength="20"
+                                ng-blur="verNameData(addData.name,'name',myform,'myname')"></div>
+                        <div ng-messages="myform.myname.$error" ng-show="myform.myname.$dirty" class="text-danger">
+                            <span ng-message="required"><span ng-bind="statesTitle"></span>名不能为空</span>
+                            <span ng-message="maxlength">名字长度超过规定长度</span>
+                            <span ng-message="mark">已存在</span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="stateID=='gongnengguanli'">
+                        <label class="control-label col-sm-2">功能url</label>
+                        <div class="col-sm-6"><input type="text" name="myurl" class="form-control" placeholder="请输入功能url,只能输入英文和数字" ng-model="addData.url"
+                                required ng-pattern="/^[a-zA-Z0-9]+$/" ng-blur="verNameData(addData.url,'url',myform,'myurl')"></div>
+                        <div ng-messages="myform.myurl.$error" ng-show="myform.myurl.$dirty" class="text-danger">
+                            <span ng-message="required">功能url不能为空</span>
+                            <span ng-message="pattern">功能url格式不正确</span>
+                            <span ng-message="mark" >已存在</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">详情描述</label>
+                        <div class="col-sm-6">
+                            <textarea rows="6" class="form-control" name="mydetail" placeholder="请输入描述信息，最多不超过50个字符" ng-model="addData.detail" input-length
+                                ng-change="lengthText('myform','mydetail',50)" required ng-maxlength="50"></textarea></div>
+                        <div ng-messages="myform.mydetail.$error" ng-show="myform.mydetail.$dirty" class="text-danger">
+                            <span ng-message="required">描述不能为空</span>
+                            <span ng-message="maxlength">描述长度超过规定长度</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12"><button type="button" class=" col-sm-3 col-sm-offset-3 btn btn-info" ng-click="addDatas(addData)">提交</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--未选中左侧菜单时-->
+    <div ng-if="stateID==''">没有数据</div>
+</div>

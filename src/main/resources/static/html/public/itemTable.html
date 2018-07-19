@@ -1,0 +1,31 @@
+<div class="confirmAlert" ng-controller="itemtables">
+    <div class="alert-update  bg-success col-sm-8 col-sm-offset-2">
+            <span class="close alert_close" ng-click="delete_alert()"> &times;</span>
+        <div  class="alert_top" >
+        <table class="table table-bordered table-striped table-hover">
+        <caption>为<span ng-bind="update.name"></span>角色选择功能</caption>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="itemitemAllcheck"></th>
+                    <th>功能名</th>
+                    <th>描述</th>
+        	<th>操作</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="overflow_srcoll">
+            <table class="table table-bordered table-striped table-hover overflow_srcoll">
+                <tr ng-repeat="items in itemtablesData.allpage track by items.id">
+                <td><input type="checkbox"  ng-model="items.createok" disabled></td><!--ng-model="items.createok"-->
+                <td ng-bind="items.pagename"></td>
+                <td ng-bind="items.detail"></td>
+                <td>
+                    <button class="btn btn-info" ng-click="createUpdate(items.id)" ng-show="!items.createok">选择</button>
+                    <button class="btn btn-warning" ng-click="deleteUpdate(items.id)" ng-show="items.createok">撤销</button>
+                </td>
+                </tr> 
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
