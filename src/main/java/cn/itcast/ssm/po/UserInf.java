@@ -22,6 +22,12 @@ public class UserInf implements Serializable {
 
     private Date regtime;
 
+    private Integer userTypeId;
+
+    private String userOtherId;
+
+    private Integer qq;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -96,6 +102,30 @@ public class UserInf implements Serializable {
         this.regtime = regtime;
     }
 
+    public Integer getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(Integer userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
+    public String getUserOtherId() {
+        return userOtherId;
+    }
+
+    public void setUserOtherId(String userOtherId) {
+        this.userOtherId = userOtherId == null ? null : userOtherId.trim();
+    }
+
+    public Integer getQq() {
+        return qq;
+    }
+
+    public void setQq(Integer qq) {
+        this.qq = qq;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -111,6 +141,9 @@ public class UserInf implements Serializable {
         sb.append(", idnumber=").append(idnumber);
         sb.append(", state=").append(state);
         sb.append(", regtime=").append(regtime);
+        sb.append(", userTypeId=").append(userTypeId);
+        sb.append(", userOtherId=").append(userOtherId);
+        sb.append(", qq=").append(qq);
         sb.append("]");
         return sb.toString();
     }

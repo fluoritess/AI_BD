@@ -11,6 +11,9 @@
     <result column="idnumber" jdbcType="CHAR" property="idnumber" />
     <result column="state" jdbcType="CHAR" property="state" />
     <result column="regtime" jdbcType="TIMESTAMP" property="regtime" />
+    <result column="user_type_id" jdbcType="INTEGER" property="userTypeId" />
+    <result column="user_other_id" jdbcType="VARCHAR" property="userOtherId" />
+    <result column="qq" jdbcType="INTEGER" property="qq" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, password, tel, email, name, idnumber, state, regtime
+    id, userid, password, tel, email, name, idnumber, state, regtime, user_type_id, user_other_id, 
+    qq
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.UserInfExample" resultMap="BaseResultMap">
     select
@@ -106,10 +110,12 @@
   <insert id="insert" parameterType="cn.itcast.ssm.po.UserInf">
     insert into user_inf (id, userid, password, 
       tel, email, name, idnumber, 
-      state, regtime)
+      state, regtime, user_type_id, 
+      user_other_id, qq)
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=CHAR}, #{password,jdbcType=CHAR}, 
       #{tel,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idnumber,jdbcType=CHAR}, 
-      #{state,jdbcType=CHAR}, #{regtime,jdbcType=TIMESTAMP})
+      #{state,jdbcType=CHAR}, #{regtime,jdbcType=TIMESTAMP}, #{userTypeId,jdbcType=INTEGER}, 
+      #{userOtherId,jdbcType=VARCHAR}, #{qq,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.UserInf">
     insert into user_inf
@@ -141,6 +147,15 @@
       <if test="regtime != null">
         regtime,
       </if>
+      <if test="userTypeId != null">
+        user_type_id,
+      </if>
+      <if test="userOtherId != null">
+        user_other_id,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -169,6 +184,15 @@
       </if>
       <if test="regtime != null">
         #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userTypeId != null">
+        #{userTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="userOtherId != null">
+        #{userOtherId,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -208,6 +232,15 @@
       <if test="record.regtime != null">
         regtime = #{record.regtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.userTypeId != null">
+        user_type_id = #{record.userTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userOtherId != null">
+        user_other_id = #{record.userOtherId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null">
+        qq = #{record.qq,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -223,7 +256,10 @@
       name = #{record.name,jdbcType=VARCHAR},
       idnumber = #{record.idnumber,jdbcType=CHAR},
       state = #{record.state,jdbcType=CHAR},
-      regtime = #{record.regtime,jdbcType=TIMESTAMP}
+      regtime = #{record.regtime,jdbcType=TIMESTAMP},
+      user_type_id = #{record.userTypeId,jdbcType=INTEGER},
+      user_other_id = #{record.userOtherId,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,6 +291,15 @@
       <if test="regtime != null">
         regtime = #{regtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userTypeId != null">
+        user_type_id = #{userTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="userOtherId != null">
+        user_other_id = #{userOtherId,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -267,7 +312,10 @@
       name = #{name,jdbcType=VARCHAR},
       idnumber = #{idnumber,jdbcType=CHAR},
       state = #{state,jdbcType=CHAR},
-      regtime = #{regtime,jdbcType=TIMESTAMP}
+      regtime = #{regtime,jdbcType=TIMESTAMP},
+      user_type_id = #{userTypeId,jdbcType=INTEGER},
+      user_other_id = #{userOtherId,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
