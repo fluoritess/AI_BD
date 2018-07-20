@@ -7,22 +7,13 @@ Web云平台
 Spring+SpringMVC+Mybtis+SpringBoot
 
 
-#### 安装教程
+#### 1.0.1版本更新 2018.7.20
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. 加入spring事物处理
+2. 加入druid数据源，可以登录/AI_BD/druid/login.html登录平台
+用户名为：admin；密码：admin
 
-#### 使用说明
+### 1.0.0版本更新
+1. 改造项目，整合SpringBoot
 
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
 
