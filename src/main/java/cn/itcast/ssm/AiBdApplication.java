@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
-@ServletComponentScan("cn.itcast.ssm.filter")//拦截器扫描
+@ServletComponentScan//拦截器扫描
 @MapperScan("cn.itcast.ssm.mapper")//项目中对应的mapper类的路径
 public class AiBdApplication {
 
