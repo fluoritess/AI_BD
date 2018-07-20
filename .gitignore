@@ -24,3 +24,10 @@
 /nbdist/
 /.nb-gradle/
 /logs/
+.mvn/
+mvnw.cmd
+mvnw
+/src/main/resources/log4j.properties
+/src/main/resources/application-dev.properties
+/src/main/resources/application-pro.properties
+/src/main/resources/application-test.properties
