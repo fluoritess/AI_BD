@@ -3,6 +3,7 @@
 <mapper namespace="cn.itcast.ssm.mapper.PageInfMapper">
   <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.PageInf">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="application_id" jdbcType="INTEGER" property="applicationId" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="pagename" jdbcType="VARCHAR" property="pagename" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parent_id, pagename, url, perms, type, icon, order_num, detail
+    id, application_id, parent_id, pagename, url, perms, type, icon, order_num, detail
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.PageInfExample" resultMap="BaseResultMap">
     select
@@ -104,18 +105,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.PageInf">
-    insert into page_inf (id, parent_id, pagename, 
-      url, perms, type, icon, 
-      order_num, detail)
-    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{pagename,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
-      #{orderNum,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR})
+    insert into page_inf (id, application_id, parent_id, 
+      pagename, url, perms, 
+      type, icon, order_num, 
+      detail)
+    values (#{id,jdbcType=INTEGER}, #{applicationId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{pagename,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
+      #{detail,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.PageInf">
     insert into page_inf
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="applicationId != null">
+        application_id,
       </if>
       <if test="parentId != null">
         parent_id,
@@ -145,6 +151,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applicationId != null">
+        #{applicationId,jdbcType=INTEGER},
       </if>
       <if test="parentId != null">
         #{parentId,jdbcType=INTEGER},
@@ -184,6 +193,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.applicationId != null">
+        application_id = #{record.applicationId,jdbcType=INTEGER},
+      </if>
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=INTEGER},
       </if>
@@ -216,6 +228,7 @@
   <update id="updateByExample" parameterType="map">
     update page_inf
     set id = #{record.id,jdbcType=INTEGER},
+      application_id = #{record.applicationId,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=INTEGER},
       pagename = #{record.pagename,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
@@ -231,6 +244,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.itcast.ssm.po.PageInf">
     update page_inf
     <set>
+      <if test="applicationId != null">
+        application_id = #{applicationId,jdbcType=INTEGER},
+      </if>
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
@@ -260,7 +276,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.PageInf">
     update page_inf
-    set parent_id = #{parentId,jdbcType=INTEGER},
+    set application_id = #{applicationId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
       pagename = #{pagename,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       perms = #{perms,jdbcType=VARCHAR},

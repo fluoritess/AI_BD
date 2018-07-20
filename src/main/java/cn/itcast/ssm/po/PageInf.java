@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class PageInf implements Serializable {
     private Integer id;
 
+    private Integer applicationId;
+
     private Integer parentId;
 
     private String pagename;
@@ -29,6 +31,14 @@ public class PageInf implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Integer applicationId) {
+        this.applicationId = applicationId;
     }
 
     public Integer getParentId() {
@@ -102,6 +112,7 @@ public class PageInf implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", applicationId=").append(applicationId);
         sb.append(", parentId=").append(parentId);
         sb.append(", pagename=").append(pagename);
         sb.append(", url=").append(url);

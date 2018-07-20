@@ -164,6 +164,66 @@ public class PageInfExample {
             return (Criteria) this;
         }
 
+        public Criteria andApplicationIdIsNull() {
+            addCriterion("application_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdIsNotNull() {
+            addCriterion("application_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdEqualTo(Integer value) {
+            addCriterion("application_id =", value, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdNotEqualTo(Integer value) {
+            addCriterion("application_id <>", value, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdGreaterThan(Integer value) {
+            addCriterion("application_id >", value, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("application_id >=", value, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdLessThan(Integer value) {
+            addCriterion("application_id <", value, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdLessThanOrEqualTo(Integer value) {
+            addCriterion("application_id <=", value, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdIn(List<Integer> values) {
+            addCriterion("application_id in", values, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdNotIn(List<Integer> values) {
+            addCriterion("application_id not in", values, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdBetween(Integer value1, Integer value2) {
+            addCriterion("application_id between", value1, value2, "applicationId");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplicationIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("application_id not between", value1, value2, "applicationId");
+            return (Criteria) this;
+        }
+
         public Criteria andParentIdIsNull() {
             addCriterion("parent_id is null");
             return (Criteria) this;
