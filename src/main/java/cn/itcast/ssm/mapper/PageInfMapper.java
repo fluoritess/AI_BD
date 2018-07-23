@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.PageInf;
 import cn.itcast.ssm.po.PageInfExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PageInfMapper {
     long countByExample(PageInfExample example);
 

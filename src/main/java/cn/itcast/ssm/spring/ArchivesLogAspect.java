@@ -88,8 +88,10 @@ public class ArchivesLogAspect {
         String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTimeMillis);
         //格式化结束时间
         String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTimeMillis);
-        if(request.getSession().getAttribute("user")!=null){
-            user=(UserInf) request.getSession().getAttribute("user");
+        if(request.getSession()!=null){
+            if(request.getSession().getAttribute("user")!=null){
+                user=(UserInf) request.getSession().getAttribute("user");
+            }
         }
         if(user!=null){
 //            System.out.println(" 操作人: "+user.getName()+" 操作方法: "+operationName+" 操作开始时间: "+startTime +" 操作结束时间: "+endTime);

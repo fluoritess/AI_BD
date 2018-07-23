@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.RoleDistribute;
 import cn.itcast.ssm.po.RoleDistributeExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface RoleDistributeMapper {
     long countByExample(RoleDistributeExample example);
 

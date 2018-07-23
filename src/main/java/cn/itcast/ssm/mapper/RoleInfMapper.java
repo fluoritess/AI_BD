@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.RoleInf;
 import cn.itcast.ssm.po.RoleInfExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface RoleInfMapper {
     long countByExample(RoleInfExample example);
 

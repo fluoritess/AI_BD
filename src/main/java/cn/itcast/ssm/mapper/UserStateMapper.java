@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.UserState;
 import cn.itcast.ssm.po.UserStateExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserStateMapper {
     long countByExample(UserStateExample example);
 

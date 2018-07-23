@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.po.UserInfExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserInfMapper {
     long countByExample(UserInfExample example);
 

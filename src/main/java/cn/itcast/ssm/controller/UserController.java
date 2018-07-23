@@ -5,21 +5,24 @@ import cn.itcast.ssm.po.PageInf;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
-import cn.itcast.ssm.util.EncryptUtil;
-import cn.itcast.ssm.util.Paging;
-import cn.itcast.ssm.util.RegexUtil;
+import cn.itcast.ssm.util.*;
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.Producer;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -36,6 +39,32 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private Producer producer;
+
+    /**
+     * 生成验证码
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @ArchivesLog(operationName = "生成验证码",operationType = "用户基本操作")
+    @GetMapping("/captcha.jpg")
+    public void captcha(HttpServletResponse response)throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-store, no-cache");
+        response.setContentType("image/jpeg");
+        //生成文字验证码
+        String text = producer.createText();
+        System.out.println(text);
+        //生成图片验证码
+        BufferedImage image = producer.createImage(text);
+        //保存到shiro session（注意：如果没有securityManager配置，则暂时无法工作，测试时先注释掉）
+        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        ServletOutputStream out = response.getOutputStream();
+        ImageIO.write(image, "jpg", out);
+        out.flush();
+    }
+
     /**
      * 发送验证码2
      * @param session session2
@@ -45,7 +74,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "发送验证码",operationType = "用户基本操作")
     @ResponseBody
-    @RequestMapping(value = "/html/sendCode.action",method = RequestMethod.POST)
+    @RequestMapping(value = "/sendCode.action",method = RequestMethod.POST)
     public Map<String ,Object> sendCode(HttpSession session, @RequestBody Map<String,Object> map2){
         Map<String ,Object> map=new HashMap<>();
         if(map2.get("tel")!=null&&!map2.get("tel").equals("")&&RegexUtil.checkPhone(String.valueOf(map2.get("tel")))){
@@ -80,7 +109,7 @@ public class UserController {
      * @return 界面
      */
     @ArchivesLog(operationName = "用户注册",operationType = "写入信息")
-    @RequestMapping(value = "/html/register.action",method = RequestMethod.POST)
+    @RequestMapping(value = "/register.action",method = RequestMethod.POST)
     public String register(UserInf user, String code, HttpSession session, HttpServletResponse response)throws UnsupportedEncodingException{
         if(session.getAttribute("code")!=null){
             if(code.equals(session.getAttribute("code"))){
@@ -126,7 +155,7 @@ public class UserController {
      * @throws Exception 类型转换错误
      */
     @ArchivesLog(operationName = "用户修改信息",operationType = "更新信息")
-    @RequestMapping(value = "/html/UserDate.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/UserDate.action", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> UserDate(@RequestBody Map<String, Object> map, HttpSession session) throws Exception {
         String whatupdate = (String) map.get("title");
@@ -244,7 +273,7 @@ public class UserController {
      * @throws Exception
      */
     @ArchivesLog(operationName = "用户获取自己信息",operationType = "查询信息")
-    @RequestMapping(value = "/html/getUserDate.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserDate.action", method = RequestMethod.POST)
     @ResponseBody
     public  Map<String, Object> getUserDate( HttpSession session) throws Exception{
         UserInf user=(UserInf)session.getAttribute("user");
@@ -274,16 +303,10 @@ public class UserController {
 
     /**
      * 登录
-     * @param model
-     * @param session
-     * @param id
-     * @param pass
-     * @param type
-     * @param response
      * @return
      * @throws Exception
      */
-    @ArchivesLog(operationName = "用户登录",operationType = "查询信息")
+   /* @ArchivesLog(operationName = "用户登录",operationType = "查询信息")
     @RequestMapping("/login.action" )
     public String login(Model model, HttpSession session, String id, String pass, Integer type,HttpServletResponse response) throws Exception {
         UserInf user = userService.login(id,EncryptUtil.MD5ReEncrpt(pass));
@@ -291,6 +314,7 @@ public class UserController {
             session.setAttribute("user", user);
             session.setAttribute("id", id);
             return "redirect:main.action";
+//            return "redirect:/index.html";
         }else{
             Cookie cookie = new Cookie("msg",URLEncoder.encode("账号或密码错误!","UTF-8"));
             cookie.setMaxAge(3600);
@@ -298,28 +322,39 @@ public class UserController {
             return "redirect:/index.html";
         }
 
-    }
+    }*/
+    @ResponseBody
+    @ArchivesLog(operationName = "用户登录",operationType = "查询信息")
+    @RequestMapping("/login.action" )
+    public R login(@RequestBody Map<String,String > map,HttpSession session){
+        System.out.println("进入登录...");
+        String username=map.get("id");
+        String password=map.get("pass");
+        String code=map.get("code");
 
-    /**
-     * 主页面跳转
-     * @return
-     */
-    @ArchivesLog(operationName = "跳转至主页面",operationType = "用户基本操作")
-    @RequestMapping(value ="main.action")
-    public String ToMain() {
-        return "redirect:/html/main.html";
-    }
-
-    /**
-     * 注销
-     * @param session
-     * @return
-     */
-    @ArchivesLog(operationName = "用户注销",operationType = "用户基本操作")
-    @RequestMapping("/html/loginOut.action")
-    public String loginOut(HttpSession session){
-        session.invalidate();
-        return "redirect:/index.html";
+        String kaptcha=ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if(!kaptcha.equalsIgnoreCase(code)){
+            return R.error("验证码不正确");
+        }
+        try {
+            Subject subject=ShiroUtils.getSubject();
+            UsernamePasswordToken token=new UsernamePasswordToken(username,EncryptUtil.MD5ReEncrpt(password));
+            subject.login(token);
+        } catch (UnknownAccountException e) {
+            return R.error(e.getMessage());
+        }catch (IncorrectCredentialsException e) {
+            return R.error(e.getMessage());
+        }catch (LockedAccountException e) {
+            return R.error(e.getMessage());
+        }catch (AuthenticationException e) {
+            return R.error("账户验证失败");
+        }
+        session.setAttribute("user",ShiroUtils.getUserEntity());
+        session.setAttribute("id",ShiroUtils.getUserEntity().getId());
+        Map<String,Object> msg=new HashMap<>();
+        msg.put("code","0");
+        msg.put("id",ShiroUtils.getUserEntity().getId());
+        return R.ok(msg);
     }
 
     /**
@@ -329,7 +364,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户添加功能/角色/战区信息",operationType = "写入信息")
     @ResponseBody
-    @RequestMapping("/html/distributor.action")
+    @RequestMapping("/distributor.action")
     public Map<String,Object> distributor(@RequestBody Map<String,Object> map){
 //        System.out.println("进入添加分发器");
         Map<String,Object> states=(Map<String,Object>)map.get("states");
@@ -367,7 +402,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户删除功能/角色/战区信息",operationType = "删除信息")
     @ResponseBody
-    @RequestMapping("/html/deleteData.action")
+    @RequestMapping("/deleteData.action")
     public Map<String,Object> deleteData(@RequestBody Map<String,Object> map){
 //        System.out.println("进入删除分发器");
         Map<String,Object> states=(Map<String,Object>)map.get("states");
@@ -407,9 +442,9 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户查询功能/角色/战区信息",operationType = "查询信息")
     @ResponseBody
-    @RequestMapping("/html/selectPaging.action")
+    @RequestMapping("/selectPaging.action")
     public Paging selectPaging(@RequestBody Map<String,Object> reMap){
-//        System.out.println("进入分页查询分发器");
+        System.out.println("进入分页查询分发器");
         Map<String,Object> page=(Map<String,Object>)reMap.get("page");
         Map<String,Object> state=(Map<String,Object>)reMap.get("state");
         Integer active=Integer.valueOf(String.valueOf(page.get("active")));
@@ -452,7 +487,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户查询所有角色信息",operationType = "查询信息")
     @ResponseBody
-    @RequestMapping("/html/allRole.action")
+    @RequestMapping("/allRole.action")
     public List<Map<String,Object>> allRole(){
         List<Map<String,Object>> list=userService.selectAllRole();
         return list;
@@ -465,7 +500,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户检验信息完整",operationType = "查询信息")
     @ResponseBody
-    @RequestMapping("/html/inspectData.action")
+    @RequestMapping("/inspectData.action")
     public Map<String,Object> inspectData(@RequestBody Map<String,Object> map){
         Map<String,Object> states=(Map<String,Object>)map.get("states");
         Map<String,Object> datas=(Map<String, Object>) map.get("data");
@@ -515,7 +550,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "审核用户",operationType = "更新信息")
     @ResponseBody
-    @RequestMapping("/html/examineUser.action")
+    @RequestMapping("/examineUser.action")
     public Map<String,Object> examineUser(@RequestBody Map<String,Object> map){
         Map<String,Object> returnData=new HashMap<>();
         String msg="";
@@ -542,7 +577,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "冻结用户",operationType = "更新信息")
     @ResponseBody
-    @RequestMapping("/html/frozenUser.action")
+    @RequestMapping("/frozenUser.action")
     public Map<String,Object> frozenUser(@RequestBody Map<String,Object> map){
         Map<String,Object> returnData=new HashMap<>();
         String msg="";
@@ -569,7 +604,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "修改功能页面信息",operationType = "更新信息")
     @ResponseBody
-    @RequestMapping("/html/updatePageInf.action")
+    @RequestMapping("/updatePageInf.action")
     public Map<String,Object> updatePageInf(@RequestBody Map<String,Object> map){
         PageInf pageInf=new PageInf();
         Map<String,Object> returnData=new HashMap<>();
@@ -595,7 +630,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "查询所有功能页面信息",operationType = "查询信息")
     @ResponseBody
-    @RequestMapping("/html/selecDistributionFunction.action")
+    @RequestMapping("/selecDistributionFunction.action")
     public Map<String,Object> getAllfunction(@RequestBody Map<String,Object> map,HttpSession session){
     	Map<String,Object> returnData = new HashMap<>();
     	returnData.put("allpage", userService.selectAllfunction());
@@ -623,7 +658,7 @@ public class UserController {
      */
     @ArchivesLog(operationType = "添加信息",operationName = "添加角色功能")
     @ResponseBody
-    @RequestMapping("/html/updataDistributionFunction.action")
+    @RequestMapping("/updataDistributionFunction.action")
     public Map<String,Object> addfunction(@RequestBody Map<String,Object> map,HttpSession session){
     	Map<String,Object> returnData = new HashMap<>();
     	Integer jueseID =    (Integer) map.get("data");
@@ -646,7 +681,7 @@ public class UserController {
      */
     @ArchivesLog(operationType = "删除信息",operationName = "删除角色功能")
     @ResponseBody
-    @RequestMapping("/html/delectDistributionFunction.action")
+    @RequestMapping("/delectDistributionFunction.action")
     public Map<String,Object> delectfunction(@RequestBody Map<String,Object> map,HttpSession session){
     	Map<String,Object> returnData = new HashMap<>();
     	int jueseID =    (int) map.get("data");
@@ -658,6 +693,6 @@ public class UserController {
         }
 		return returnData;
     }
-    
+
     
 }

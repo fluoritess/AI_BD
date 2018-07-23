@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.ApplicationSystemInformation;
 import cn.itcast.ssm.po.ApplicationSystemInformationExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ApplicationSystemInformationMapper {
     long countByExample(ApplicationSystemInformationExample example);
 

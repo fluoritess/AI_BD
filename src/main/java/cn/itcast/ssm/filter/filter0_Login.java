@@ -1,9 +1,6 @@
 package cn.itcast.ssm.filter;
 
-import org.springframework.core.annotation.Order;
-
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,8 +14,8 @@ import java.util.List;
  * @Description:
  * @date 2018/5/17 21:16
  */
-@Order(1)
-@WebFilter(filterName = "/filter0_Login",urlPatterns = "/html/*")
+//@Order(1)
+//@WebFilter(filterName = "/filter0_Login",urlPatterns = "/html/*")
 public class filter0_Login implements Filter {
 
     private static List<String> pattenURL=new ArrayList<>();

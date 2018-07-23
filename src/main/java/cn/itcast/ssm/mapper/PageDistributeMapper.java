@@ -3,9 +3,11 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.PageDistribute;
 import cn.itcast.ssm.po.PageDistributeExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PageDistributeMapper {
     long countByExample(PageDistributeExample example);
 

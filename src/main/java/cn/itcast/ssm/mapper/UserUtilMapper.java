@@ -3,6 +3,7 @@ package cn.itcast.ssm.mapper;
 
 import cn.itcast.ssm.po.UserInf;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Map;
  * @Description:
  * @date 2018/5/20 16:03
  */
+@Repository
 public interface UserUtilMapper {
 
     int selectCount(@Param(value = "name") String name,
