@@ -85,7 +85,7 @@ public class ShiroConfig {
 //        filterUrl.put("/html/error.html*","anon");
 
         //设置拦截目录
-//        filterUrl.put("/#/**","authc,perms");
+//        filterUrl.put("/#/**","authc,perms");.
         filterUrl.put("/**/*.action","authc");
         filterUrl.put("/druid/**","authc");
         //记住我
