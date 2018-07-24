@@ -213,7 +213,7 @@ public class UserController {
                 if(RegexUtil.checkUserName(name)){
                     String idnumber =(String) map.get("idnumber");
                     if(RegexUtil.checkIdNumber(idnumber)){
-                        userService.adddata((Integer) null,email,name,idnumber,telph);
+                        userService.adddata(email,name,idnumber,telph);
                         Map<String, Object> map2 = new HashMap<>();
                         map2.put("indexData", "true");
                         return map2;
@@ -246,18 +246,15 @@ public class UserController {
             if(RegexUtil.checkUserName(name)){
                 String idnumber =request.getParameter("idnumber");
                 if(RegexUtil.checkIdNumber(idnumber)){
-                    String departTemp=request.getParameter("depart");
-                    int depart=Integer.valueOf(departTemp.substring(departTemp.lastIndexOf(":")+1)).intValue();
                     String roleTemp = request.getParameter("role");
                     int role = Integer.valueOf(roleTemp.substring(roleTemp.lastIndexOf(":")+1)).intValue();
-                    System.out.println(depart);
                     System.out.println(role);
                     UserInf userInf=(UserInf)session.getAttribute("user");
                     userInf.setIdnumber(idnumber);
                     userInf.setEmail(email);
                     userInf.setName(name);
                     int id = userInf.getId();
-                    userService.adddata( depart,email,name,idnumber,telph);
+                    userService.adddata( email,name,idnumber,telph);
                     userService.addroleDist(id, role);
                 }
             }

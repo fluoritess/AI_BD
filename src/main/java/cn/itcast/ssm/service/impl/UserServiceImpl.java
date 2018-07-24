@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService{
     }
     
 	@Override
-	public void adddata(int depart,String email, String name, String idnumber, String telph) {
+	public void adddata(String email, String name, String idnumber, String telph) {
 		// TODO 自动生成的方法存根
 		UserInfExample userInfExample = new UserInfExample();
         UserInfExample.Criteria criteria = userInfExample.createCriteria();
@@ -114,7 +114,6 @@ public class UserServiceImpl implements UserService{
         userInf.setName(name);
         userInf.setState("2");
         userInf.setIdnumber(idnumber);
-       
         criteria.andTelEqualTo(telph);
         userInfMapper.updateByExampleSelective(userInf, userInfExample);
 		
