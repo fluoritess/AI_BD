@@ -36,7 +36,7 @@ public interface UserService {
 
     void uadatedate(String name,String nic,String email,String tel);
     
-    void adddata(int depart,String email,String name,String idnumber,String telph);
+    void adddata(String email,String name,String idnumber,String telph);
 
     String addFunction(Map<String,Object> data);
     
