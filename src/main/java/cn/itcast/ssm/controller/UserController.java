@@ -43,7 +43,7 @@ public class UserController {
     private Producer producer;
 
     /**
-     * 生成验证码
+     * 生成图形验证码
      * @param response
      * @throws ServletException
      * @throws IOException
