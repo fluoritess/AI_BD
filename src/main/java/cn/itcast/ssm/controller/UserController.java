@@ -239,7 +239,7 @@ public class UserController {
     	response.setHeader("content-type", "text/html;charset=UTF-8"); 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-        String telph = (String) session.getAttribute("id");
+        String telph = session.getAttribute("id").toString();
         String email =request.getParameter("email");
         if(RegexUtil.checkEmail(email)){
             String name =request.getParameter("name");
