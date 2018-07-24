@@ -4,14 +4,11 @@ import cn.itcast.ssm.mapper.*;
 import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.util.Paging;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 
 
 /**
@@ -280,5 +277,16 @@ public class UserServiceImpl implements UserService{
 		 
 	}
 
-
+    @Override
+    public Set<String> getUserPermissions(int userId) {
+        List<String> permsList=utilMapper.selectUserPermission(userId);
+        Set<String> permsSet = new HashSet<String>();
+        for(String perms : permsList){
+            if(StringUtils.isBlank(perms)){
+                continue;
+            }
+            permsSet.addAll(Arrays.asList(perms.trim().split(",")));
+        }
+        return permsSet;
+    }
 }

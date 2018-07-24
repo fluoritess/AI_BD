@@ -56,6 +56,9 @@ idnumber=#{userInf.idnumber,jdbcType=CHAR}
 
 </select>
 
+    <select id="selectUserPermission" resultType="string">
+        SELECT perms FROM UserPermission WHERE userid=#{userId}
+    </select>
 
 
 

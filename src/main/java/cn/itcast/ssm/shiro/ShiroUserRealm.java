@@ -4,10 +4,13 @@ import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.impl.UserServiceImpl;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 /**
  * @author tyh
@@ -27,8 +30,17 @@ public class ShiroUserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        System.out.println("授权...");
 
-        return null;
+        UserInf user = (UserInf) principals.getPrimaryPrincipal();
+        int userId = user.getId();
+
+        //用户权限列表
+        Set<String> permsSet = userService.getUserPermissions(userId);
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(permsSet);
+        return info;
     }
 
     /**
