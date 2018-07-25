@@ -344,6 +344,7 @@ public class UserController {
      * @param map
      * @return
      */
+//    @RequiresPermissions(value = {"sys:user:add"})
     @ArchivesLog(operationName = "用户添加功能/角色/战区信息",operationType = "写入信息")
     @ResponseBody
     @RequestMapping("/distributor.action")
@@ -422,6 +423,7 @@ public class UserController {
      * @param reMap
      * @return
      */
+//    @RequiresPermissions(value = {"sys:user:select"})
     @ArchivesLog(operationName = "用户查询功能/角色/战区信息",operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/selectPaging.action")

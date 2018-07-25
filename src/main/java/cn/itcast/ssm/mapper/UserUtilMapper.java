@@ -33,4 +33,6 @@ public interface UserUtilMapper {
                                                @Param(value = "listValue") String listValue);
 
     List<Map<String,Object>> selectUDRView(@Param("userInf") UserInf userInf);
+
+    List<String> selectUserPermission(@Param("userId") int userId);
 }

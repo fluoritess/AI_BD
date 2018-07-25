@@ -12,9 +12,9 @@ import javax.servlet.annotation.WebInitParam;
  * @Description:
  * @date 18-7-19 下午5:04
  */
-@WebFilter(filterName="druidWebStatFilter",urlPatterns="/html/*",
+@WebFilter(filterName="druidWebStatFilter",urlPatterns="/*",
         initParams={
-                @WebInitParam(name="exclusions",value="*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,*.json,*.action")// 忽略资源
+                @WebInitParam(name="exclusions",value="*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,*.json")// 忽略资源
         })
 public class DruidStatFilter extends WebStatFilter {
 }

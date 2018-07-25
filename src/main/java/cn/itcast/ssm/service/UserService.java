@@ -8,6 +8,7 @@ import cn.itcast.ssm.util.Paging;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -68,4 +69,5 @@ public interface UserService {
     
     int delectDistributionFunction(int jueseID ,int functionID);
 
+    Set<String> getUserPermissions(int userId);
 }
