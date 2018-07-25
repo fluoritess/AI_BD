@@ -448,11 +448,11 @@ public class UserController {
             //用户管理查询
             case "yonghuguanli":
                 if(String.valueOf(state.get("ChildId")).equals("selectwill")){
-                    paging=userService.selectPaging("user_department_role_view",(active-1)*pagelist,pagelist,"发起审核");
+                    paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
                 }else if(String.valueOf(state.get("ChildId")).equals("selectok")){
-                    paging=userService.selectPaging("user_department_role_view",(active-1)*pagelist,pagelist,"正常");
+                    paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"1");
                 }else {
-                    paging=userService.selectPaging("user_department_role_view",(active-1)*pagelist,pagelist,"发起审核");
+                    paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
                 }
                 break;
             //战区管理查询
