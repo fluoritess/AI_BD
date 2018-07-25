@@ -6,9 +6,6 @@
     <groupId>cn.itcast.ssm</groupId>
     <artifactId>ai_bd</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>zxz</module>
-    </modules>
     <packaging>pom</packaging>
 
     <name>AI_BD</name>
