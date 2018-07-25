@@ -19,14 +19,14 @@ import java.util.Map;
 public interface UserUtilMapper {
 
     int selectCount(@Param(value = "name") String name,
-                    @Param(value = "statename") String statename);
+                    @Param(value = "roleState") String roleState);
 
     List<HashMap<String,Object>> selectNotes(@Param(value = "name") String name);
 
     List<Map<String,Object>> selectPaging(@Param(value = "name") String name,
                                           @Param(value = "offset") int offset,
                                           @Param(value = "pageSize") int pageSize,
-                                          @Param(value = "statename") String statename);
+                                          @Param(value = "roleState") String roleState);
 
     List<Map<String,Object>> selectInspectData(@Param(value = "tableName") String tableName,
                                                @Param(value = "listName") String listName,

@@ -1,8 +1,7 @@
 package cn.itcast.ssm.util;
 
+import org.apache.log4j.Logger;
 import org.apache.shiro.authz.AuthorizationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class RRExceptionHandler {
-	private Logger logger = LoggerFactory.getLogger(getClass());
-
+//	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger=Logger.getLogger(getClass());
 	/**
 	 * 自定义异常
 	 */

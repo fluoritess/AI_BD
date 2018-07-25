@@ -130,14 +130,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Paging selectPaging(String name, int offset, int pageSize,String statename) {
+    public Paging selectPaging(String name, int offset, int pageSize,String roleState) {
         Paging page=new Paging();
         //查询出注释
         page.addDataTitle(utilMapper.selectNotes(name));
         //查询出总条数
-        page.setListTotal(utilMapper.selectCount(name,statename));
+        page.setListTotal(utilMapper.selectCount(name,roleState));
         //查询数据
-        page.setLists(utilMapper.selectPaging(name,offset,pageSize,statename));
+        page.setLists(utilMapper.selectPaging(name,offset,pageSize,roleState));
         return page;
     }
 

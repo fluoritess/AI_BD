@@ -43,7 +43,7 @@ public interface UserService {
     
     String addRole(Map <String,Object> data);
 
-    Paging selectPaging(String name, int offset, int pageSize,String statename);
+    Paging selectPaging(String name, int offset, int pageSize,String roleState);
     
     String deleterole(Integer id);
     String deletegongneng(Integer id);
