@@ -33,10 +33,9 @@ public class ShiroUserRealm extends AuthorizingRealm {
         System.out.println("授权...");
 
         UserInf user = (UserInf) principals.getPrimaryPrincipal();
-        int userId = user.getId();
 
         //用户权限列表
-        Set<String> permsSet = userService.getUserPermissions(userId);
+        Set<String> permsSet = userService.getUserPermissions(user);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setStringPermissions(permsSet);

@@ -278,14 +278,16 @@ public class UserServiceImpl implements UserService{
 	}
 
     @Override
-    public Set<String> getUserPermissions(int userId) {
-        List<String> permsList=utilMapper.selectUserPermission(userId);
+    public Set<String> getUserPermissions(UserInf user) {
         Set<String> permsSet = new HashSet<String>();
-        for(String perms : permsList){
-            if(StringUtils.isBlank(perms)){
-                continue;
+        if(user.getState().equals("1")){
+            List<String> permsList=utilMapper.selectUserPermission(user.getId());
+            for(String perms : permsList){
+                if(StringUtils.isBlank(perms)){
+                    continue;
+                }
+                permsSet.addAll(Arrays.asList(perms.trim().split(",")));
             }
-            permsSet.addAll(Arrays.asList(perms.trim().split(",")));
         }
         return permsSet;
     }

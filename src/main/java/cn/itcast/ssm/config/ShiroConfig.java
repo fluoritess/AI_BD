@@ -1,6 +1,7 @@
 package cn.itcast.ssm.config;
 
 import cn.itcast.ssm.shiro.ShiroUserRealm;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -32,8 +33,7 @@ public class ShiroConfig {
         //自动扫描线程，清理超时会话
         sessionManager.setSessionValidationSchedulerEnabled(true);
         //不允许URL重写，可以开启
-        sessionManager.setSessionIdUrlRewritingEnabled(false);
-//        sessionManager.setSessionIdCookie(new SimpleCookie("shiro.sesssion"));
+        sessionManager.setSessionIdUrlRewritingEnabled(true);
         return sessionManager;
     }
 
@@ -42,6 +42,7 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
         securityManager.setSessionManager(sessionManager);
+        securityManager.setCacheManager(ehCacheManager());
         return securityManager;
     }
 
@@ -122,12 +123,15 @@ public class ShiroConfig {
         return advisor;
     }
 
-//    @Bean(name = "loginOutFilter")
-//    public ShiroLogout shiroLoginOut(){
-//        ShiroLogout shiroLoginOut=new ShiroLogout();
-//        shiroLoginOut.setRedirectUrl("/index.html");
-//        return shiroLoginOut;
-//    }
-
+    /**
+     * 加入缓存机制
+     * @return
+     */
+    @Bean(name = "ehCacheManager")
+    public EhCacheManager ehCacheManager(){
+        EhCacheManager ehCacheManager=new EhCacheManager();
+        ehCacheManager.setCacheManagerConfigFile("classpath:ehcache.xml");
+        return ehCacheManager;
+    }
 
 }
