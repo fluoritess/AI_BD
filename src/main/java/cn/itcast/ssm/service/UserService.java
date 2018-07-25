@@ -69,5 +69,5 @@ public interface UserService {
     
     int delectDistributionFunction(int jueseID ,int functionID);
 
-    Set<String> getUserPermissions(int userId);
+    Set<String> getUserPermissions(UserInf user);
 }

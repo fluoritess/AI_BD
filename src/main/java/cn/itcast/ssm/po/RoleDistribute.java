@@ -9,6 +9,8 @@ public class RoleDistribute implements Serializable {
 
     private Integer roleid;
 
+    private String state;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -35,6 +37,14 @@ public class RoleDistribute implements Serializable {
         this.roleid = roleid;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -44,6 +54,7 @@ public class RoleDistribute implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", userid=").append(userid);
         sb.append(", roleid=").append(roleid);
+        sb.append(", state=").append(state);
         sb.append("]");
         return sb.toString();
     }
