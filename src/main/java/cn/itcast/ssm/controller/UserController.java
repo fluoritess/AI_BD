@@ -236,11 +236,10 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户补全信息",operationType = "更新信息")
     @RequestMapping(value = "/addData.action", method = RequestMethod.POST)
-    public  void addData( HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
+    public  String addData( HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
     	response.setHeader("content-type", "text/html;charset=UTF-8"); 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-        String telph = session.getAttribute("id").toString();
         String email =request.getParameter("email");
         if(RegexUtil.checkEmail(email)){
             String name =request.getParameter("name");
@@ -251,6 +250,7 @@ public class UserController {
                     int role = Integer.valueOf(roleTemp.substring(roleTemp.lastIndexOf(":")+1)).intValue();
                     System.out.println(role);
                     UserInf userInf=(UserInf)session.getAttribute("user");
+                    String telph = userInf.getTel();
                     userInf.setIdnumber(idnumber);
                     userInf.setEmail(email);
                     userInf.setName(name);
@@ -260,8 +260,9 @@ public class UserController {
                 }
             }
         }
-//       	request.getRequestDispatcher("/html/main.html#/userData").forward(request, response);
-        response.sendRedirect(request.getContextPath() + "/html/main.html#/userData");
+//       	request.getRequestDispatcher("/userindex").forward(request, response);
+   //     response.sendRedirect(request.getContextPath() + "userindex");
+        return  "redirect:#/userindex";
     }
     
     /**
@@ -282,45 +283,29 @@ public class UserController {
         userData.put("tel", user.getTel());
         userData.put("email", user.getEmail());
         userData.put("idnumber", user.getIdnumber());
-        userData.put("regtime",user.getRegtime());
-        UserInf userInf = new UserInf();
-        userInf.setTel(user.getTel());
-        if(user.getIdnumber() != null && user.getIdnumber().length() != 0) {
-            Map<String, Object>  map = userService.selectroleAnddepart(userInf);
-            if (map != null&&map.get("rolename") !=null&& map.get("departname")!=null) {
-            	  userData.put("role", map.get("rolename"));
-                  userData.put("depart", map.get("departname"));
-    		}
-        	userData.put("indexData", true);
+        userData.put("regtime",user.getRegtime().getTime());
+        if(user.getState().equals("2")){
+            userData.put("role","未审核");
         }
-        else {
-        	userData.put("indexData",false);
-		}
+        if(user.getState().equals("3")){
+
+            userData.put("role",user.getState());
+        }
+        if(user.getState().equals("4")){
+            userData.put("role","已冻结");
+
+        }
+        if(user.getEmail()==null||user.getIdnumber()==null){
+
+            userData.put("indexData",false);
+
+        }else {
+
+            userData.put("indexData",true);
+        }
         return  userData;
     }
 
-    /**
-     * 登录
-     * @return
-     * @throws Exception
-     */
-   /* @ArchivesLog(operationName = "用户登录",operationType = "查询信息")
-    @RequestMapping("/login.action" )
-    public String login(Model model, HttpSession session, String id, String pass, Integer type,HttpServletResponse response) throws Exception {
-        UserInf user = userService.login(id,EncryptUtil.MD5ReEncrpt(pass));
-        if(user!=null) {
-            session.setAttribute("user", user);
-            session.setAttribute("id", id);
-            return "redirect:main.action";
-//            return "redirect:/index.html";
-        }else{
-            Cookie cookie = new Cookie("msg",URLEncoder.encode("账号或密码错误!","UTF-8"));
-            cookie.setMaxAge(3600);
-            response.addCookie(cookie);
-            return "redirect:/index.html";
-        }
-
-    }*/
     @ResponseBody
     @ArchivesLog(operationName = "用户登录",operationType = "查询信息")
     @RequestMapping("/login.action" )
