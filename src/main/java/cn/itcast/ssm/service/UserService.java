@@ -4,6 +4,7 @@ package cn.itcast.ssm.service;
 import cn.itcast.ssm.po.PageDistribute;
 import cn.itcast.ssm.po.PageInf;
 import cn.itcast.ssm.po.UserInf;
+import cn.itcast.ssm.util.PageUtils;
 import cn.itcast.ssm.util.Paging;
 
 import java.util.List;
@@ -70,4 +71,6 @@ public interface UserService {
     int delectDistributionFunction(int jueseID ,int functionID);
 
     Set<String> getUserPermissions(UserInf user);
+
+    List<PageUtils> getUserAllPage(int userId);
 }
