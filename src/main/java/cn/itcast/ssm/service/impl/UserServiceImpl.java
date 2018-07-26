@@ -109,7 +109,6 @@ public class UserServiceImpl implements UserService{
         UserInf userInf = new UserInf();
         userInf.setEmail(email);
         userInf.setName(name);
-        userInf.setState("2");
         userInf.setIdnumber(idnumber);
         criteria.andTelEqualTo(telph);
         userInfMapper.updateByExampleSelective(userInf, userInfExample);

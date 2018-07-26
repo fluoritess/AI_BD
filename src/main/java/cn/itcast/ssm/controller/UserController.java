@@ -176,7 +176,7 @@ public class UserController {
                         user.setUserid(nic);
                         Map<String, Object> map3 = new HashMap<>();
                         map3.put("data", "success");
-                        return map3;
+                        return R.ok(map3);
                     }
                 }
             }
@@ -188,7 +188,7 @@ public class UserController {
                 System.out.println("密码错误");
                 Map<String, Object> map3 = new HashMap<>();
                 map3.put("data", "error");
-                return map3;
+                return R.ok(map3);
             } else {
                 System.out.println("密码正确");
                 Map<String, Object> map4 = (Map<String, Object>) map.get("data");
@@ -198,11 +198,11 @@ public class UserController {
                     ((UserInf)session.getAttribute("user")).setPassword(EncryptUtil.MD5ReEncrpt(newpass));
                     Map<String, Object> map3 = new HashMap<>();
                     map3.put("data", "success");
-                    return map3;
+                    return R.ok(map3);
                 }else{
                     Map<String, Object> map3 = new HashMap<>();
                     map3.put("data", "error");
-                    return map3;
+                    return R.ok(map3);
                 }
             }
         }
@@ -217,14 +217,14 @@ public class UserController {
                         userService.adddata(email,name,idnumber,telph);
                         Map<String, Object> map2 = new HashMap<>();
                         map2.put("indexData", "true");
-                        return map2;
+                        return R.ok(map2);
                     }
                 }
             }
 		}
         Map<String, Object> map2 = new HashMap<>();
         map2.put("data", "error");
-        return map2;
+        return R.ok(map2);
     }
 
     /**
