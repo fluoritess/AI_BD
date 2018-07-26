@@ -450,7 +450,7 @@ public class UserController {
                 break;
         }
 
-        return R.ok("查询成功").put("paging",paging);
+        return R.ok("查询成功").put("data",paging);
     }
 
 
