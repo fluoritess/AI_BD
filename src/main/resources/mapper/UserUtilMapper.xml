@@ -35,6 +35,9 @@
         <if test="roleState !=null">
             WHERE role_state=#{roleState}
         </if>
+        <if test="name == 'page_inf'">
+            order by order_num asc
+        </if>
         limit #{offset}, #{pageSize}
     </select>
 
@@ -60,6 +63,8 @@ idnumber=#{userInf.idnumber,jdbcType=CHAR}
         SELECT perms FROM user_permission WHERE userid=#{userId} AND role_state='1'
     </select>
 
-
+    <select id="selectAllPageId" resultType="integer">
+        select page_id from user_permission where userid=#{userId} AND role_state='1'
+    </select>
 
 </mapper>

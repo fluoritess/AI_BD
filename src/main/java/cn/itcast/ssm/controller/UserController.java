@@ -679,5 +679,14 @@ public class UserController {
 		return returnData;
     }
 
+    @ArchivesLog(operationType = "查询信息",operationName = "查询当前用户可见页面")
+    @ResponseBody
+    @RequestMapping("/selectUserPage.action")
+    public R selectUserPage(HttpSession session){
+        UserInf userInf=(UserInf) session.getAttribute("user");
+        List<PageUtils> pageList=userService.getUserAllPage(userInf.getId());
+        Set<String> perms=userService.getUserPermissions(userInf);
+        return R.ok().put("userPageList",pageList).put("perms",perms);
+    }
     
 }
