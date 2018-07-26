@@ -3,6 +3,7 @@ package cn.itcast.ssm.service.impl;
 import cn.itcast.ssm.mapper.*;
 import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.UserService;
+import cn.itcast.ssm.util.PageUtils;
 import cn.itcast.ssm.util.Paging;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -291,5 +292,66 @@ public class UserServiceImpl implements UserService{
         return permsSet;
     }
 
+
+    @Override
+    public List<PageUtils> getUserAllPage(int userId) {
+        //系统管理员，拥有最高权限
+        /*if(userId == 1){
+           return getAllPage(null);
+        }*/
+
+        //查询用户的菜单
+        List<Integer> pageIdList=utilMapper.selectAllPageId(userId);
+        return getAllPage(pageIdList);
+    }
+
+    private List<PageUtils> getListParentId(int parentId,List<Integer> pageIdList){
+        PageInfExample pageInfExample=new PageInfExample();
+        PageInfExample.Criteria criteria=pageInfExample.createCriteria();
+        criteria.andParentIdEqualTo(parentId);
+        pageInfExample.setOrderByClause("order_num asc");
+        List<PageUtils> pageUtilsList=new ArrayList<>();
+        //根据副菜单id获取子菜单列表
+        List<PageInf> pageInfs=pageInfMapper.selectByExample(pageInfExample);
+        //将页面信息装进工具类
+        for(PageInf pageInf:pageInfs){
+            PageUtils pageUtils=new PageUtils();
+            pageUtils.setPageInf(pageInf);
+            pageUtilsList.add(pageUtils);
+        }
+        //超级用户权限
+        if(pageIdList==null){
+            return pageUtilsList;
+        }
+        //过滤出当前用户有权查看的子菜单列表
+        List<PageUtils> userPageList=new ArrayList<>();
+        for(PageUtils pageUtils:pageUtilsList){
+            if(pageIdList.contains(pageUtils.getPageInf().getId())){
+                userPageList.add(pageUtils);
+            }
+        }
+        return userPageList;
+    }
+
+    private void getPageTreeList(List<PageUtils> pageList,List<Integer> pageIdList){
+        for(PageUtils pageUtils:pageList){
+            if(pageUtils.getPageInf().getType()==0){//目录
+                //根据菜单id获取当前用户可见的子菜单列表
+                List<PageUtils> subPageList=getListParentId(pageUtils.getPageInf().getId(),pageIdList);
+                //对子菜单又进行递归查询其子菜单
+                getPageTreeList(subPageList,pageIdList);
+                //将子菜单装入父菜单
+                pageUtils.setList(subPageList);
+            }
+        }
+    }
+
+    private List<PageUtils> getAllPage(List<Integer> pageIdList){
+        //查询跟菜单
+        List<PageUtils> pageUtilsList=getListParentId(0,pageIdList);
+        //查询子菜单
+        getPageTreeList(pageUtilsList,pageIdList);
+        return pageUtilsList;
+    }
 
 }
