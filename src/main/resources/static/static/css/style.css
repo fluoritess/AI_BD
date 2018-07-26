@@ -16,14 +16,36 @@ table{border-collapse:collapse;border-spacing:0;} */
 .vertical-base{	vertical-align:baseline;}/* vertical align baseline */
 .vertical-top{	vertical-align:top;}/* vertical align top */
 /* img{max-width:100%;} */
-.input_invaild{
-    border: 1px solid  #FF3300!important;
-}
-.input_vaild{
-    outline: none!important;
-border: 1px solid  #00ff00!important;
-}
 input[type=checkbox]{
 	width:20px;
 	height:20px;
+}
+.layer.divtext{
+    height: 32px;
+    line-height: 32px;
+    font-size: 18px;
+}
+.divtext .icon{
+    display: block;
+    float: left;
+    margin-right:8px;
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.icon.icon-error{
+    background-image: url(../image/error.png);
+}
+.icon.icon-success{
+    background-image: url(../image/success.png);
+}
+.icon.icon-warning{
+    background-image: url(../image/warning.png);
+}
+.icon.icon-question{
+    background-image: url(../image/question.png);
+}
+.icon.icon-tips{
+    background-image: url(../image/tips.png);
 }
