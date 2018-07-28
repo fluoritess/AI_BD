@@ -77,7 +77,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/sendCode.action",method = RequestMethod.POST)
     public Map<String ,Object> sendCode(HttpSession session, @RequestBody Map<String,Object> map2){
-        Map<String ,Object> map=new HashMap<>();
+
         if(map2.get("tel")!=null&&!map2.get("tel").equals("")&&RegexUtil.checkPhone(String.valueOf(map2.get("tel")))){
             String tel=String.valueOf(map2.get("tel"));
             System.out.println("手机号为:"+map2.get("tel"));
@@ -89,16 +89,14 @@ public class UserController {
                 }
                 System.out.println(s);
                 session.setAttribute("code",s);
-                map.put("mark",true);
+                return R.ok("发送验证码成功");
             }else{
-                map.put("mark",false);
-                map.put("msg","本号码已存在,");
+                return  R.error("本号码以及存在");
             }
         }else{
-            map.put("mark",false);
-            map.put("msg","电话号码错误");
+
+            return  R.error("电话号码错误");
         }
-        return map;
     }
 
     /**
@@ -160,9 +158,10 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> UserDate(@RequestBody Map<String, Object> map, HttpSession session) throws Exception {
         String whatupdate = (String) map.get("title");
+        UserInf user=(UserInf) session.getAttribute("user");
+        String telph = user.getTel();
         if (whatupdate!=null&&whatupdate.equals("updateDate")) {
             Map<String, Object> map2 = (Map<String, Object>) map.get("data");
-            String telph = (String) session.getAttribute("id");
             String email = (String) map2.get("email");
             if(RegexUtil.checkEmail(email)){
                 String nic = (String) map2.get("nic");
@@ -170,61 +169,49 @@ public class UserController {
                     String name = (String) map2.get("name");
                     if(RegexUtil.checkUserName(name)){
                         userService.uadatedate(  name, nic,email ,telph);
-                        UserInf user=(UserInf) session.getAttribute("user");
                         user.setEmail(email);
                         user.setName(name);
                         user.setUserid(nic);
-                        Map<String, Object> map3 = new HashMap<>();
-                        map3.put("data", "success");
-                        return map3;
+                        return R.ok("更新成功");
                     }
                 }
             }
         } else if (whatupdate!=null&&whatupdate.equals("updatePwd")) {
             Map<String, Object> map2 = (Map<String, Object>) map.get("data");
             String oldPwd = (String) map2.get("oldPass");
-            String telph = (String) session.getAttribute("id");
+
+
             if (!((UserInf)session.getAttribute("user")).getPassword().equals(EncryptUtil.MD5ReEncrpt(oldPwd))) {
                 System.out.println("密码错误");
-                Map<String, Object> map3 = new HashMap<>();
-                map3.put("data", "error");
-                return map3;
+                return R.error("原始密码错误");
             } else {
                 System.out.println("密码正确");
                 Map<String, Object> map4 = (Map<String, Object>) map.get("data");
                 String newpass = (String) map4.get("newpass");
                 if(RegexUtil.checkPassword(newpass)){
+
                     userService.updatepw(EncryptUtil.MD5ReEncrpt(newpass),telph);
                     ((UserInf)session.getAttribute("user")).setPassword(EncryptUtil.MD5ReEncrpt(newpass));
-                    Map<String, Object> map3 = new HashMap<>();
-                    map3.put("data", "success");
-                    return map3;
+                    return R.ok("修改成功");
                 }else{
-                    Map<String, Object> map3 = new HashMap<>();
-                    map3.put("data", "error");
-                    return map3;
+
+                    return R.error("修改失败");
                 }
             }
         }
-        else if(whatupdate == null){
-        	 String telph = (String) session.getAttribute("id");
-        	 String email =(String) map.get("email");
-            if (RegexUtil.checkEmail(email)){
-                String name =(String) map.get("name");
-                if(RegexUtil.checkUserName(name)){
-                    String idnumber =(String) map.get("idnumber");
-                    if(RegexUtil.checkIdNumber(idnumber)){
-                        userService.adddata(email,name,idnumber,telph);
-                        Map<String, Object> map2 = new HashMap<>();
-                        map2.put("indexData", "true");
-                        return map2;
-                    }
-                }
-            }
+        else if(whatupdate != null&&whatupdate.equals("updateRole")){
+        	 int role =(Integer)map.get("role");
+            int id =(Integer) map.get("id");
+        	 userService.addroleDist(id,role);
+        	 Map<String, Object> map2 = new HashMap<>();
+        	 map2.put("indexData", "true");
+        	 return R.ok("提交角色成功");
+
+
+
 		}
-        Map<String, Object> map2 = new HashMap<>();
-        map2.put("data", "error");
-        return map2;
+
+        return R.error("错误值");
     }
 
     /**
@@ -284,17 +271,17 @@ public class UserController {
         userData.put("email", user.getEmail());
         userData.put("idnumber", user.getIdnumber());
         userData.put("regtime",user.getRegtime().getTime());
-        if(user.getState().equals("2")){
-            userData.put("role","未审核");
-        }
-        if(user.getState().equals("3")){
-
-            userData.put("role",user.getState());
-        }
-        if(user.getState().equals("4")){
-            userData.put("role","已冻结");
-
-        }
+//        if(user.getState().equals("2")){
+//            userData.put("role","未审核");
+//        }
+//        if(user.getState().equals("3")){
+//
+//            userData.put("role",user.getState());
+//        }
+//        if(user.getState().equals("4")){
+//            userData.put("role","已冻结");
+//
+//        }
         if(user.getEmail()==null||user.getIdnumber()==null){
 
             userData.put("indexData",false);
@@ -303,7 +290,7 @@ public class UserController {
 
             userData.put("indexData",true);
         }
-        return  userData;
+        return  R.ok(userData);
     }
 
     @ResponseBody
@@ -376,7 +363,7 @@ public class UserController {
         }
         //返回信息
         returnData.put("msg",msg);
-        return returnData;
+        return R.ok(returnData);
     }
 
     /**
@@ -416,7 +403,7 @@ public class UserController {
         }
         //返回信息
         returnData.put("msg",msg);
-        return returnData;
+        return R.ok(returnData);
     }
 
     /**
@@ -428,7 +415,7 @@ public class UserController {
     @ArchivesLog(operationName = "用户查询功能/角色/战区信息",operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/selectPaging.action")
-    public Paging selectPaging(@RequestBody Map<String,Object> reMap){
+    public Map<String, Object> selectPaging(@RequestBody Map<String,Object> reMap){
         System.out.println("进入分页查询分发器");
         Map<String,Object> page=(Map<String,Object>)reMap.get("page");
         Map<String,Object> state=(Map<String,Object>)reMap.get("state");
@@ -462,7 +449,8 @@ public class UserController {
             default:
                 break;
         }
-        return paging;
+
+        return R.ok("查询成功").put("data",paging);
     }
 
 
@@ -473,9 +461,9 @@ public class UserController {
     @ArchivesLog(operationName = "用户查询所有角色信息",operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/allRole.action")
-    public List<Map<String,Object>> allRole(){
+    public Map<String,Object> allRole(){
         List<Map<String,Object>> list=userService.selectAllRole();
-        return list;
+        return R.ok("查询成功").put("list",list);
     }
 
     /**
@@ -522,10 +510,10 @@ public class UserController {
                     break;
         }
         if(mark){
-            msg="已存在";
+            return R.error("已存在");
         }
         returnData.put("msg",msg);
-        return returnData;
+        return R.ok(returnData);
     }
 
     /**
@@ -544,15 +532,14 @@ public class UserController {
             user.setId(Integer.parseInt(String.valueOf(map.get("data"))));
             user.setState("3");
             if(userService.updateUserState(user)!=0){
-                msg="success";
+              return  R.ok("审核用户成功");
             }else{
-                msg="error";
+               return  R.error("审核用户错误");
             }
         }else{
-            msg="error";
+            return  R.error("审核用户错误");
         }
-        returnData.put("msg",msg);
-        return returnData;
+
     }
 
     /**
@@ -571,15 +558,14 @@ public class UserController {
             user.setId(Integer.parseInt(String.valueOf(map.get("data"))));
             user.setState("4");
             if(userService.updateUserState(user)!=0){
-                msg="success";
+                return  R.ok("冻结用户成功");
             }else{
-                msg="error";
+             return  R.error("冻结用户失败");
             }
         }else{
-            msg="error";
+            return  R.error("冻结用户失败");
         }
-        returnData.put("msg",msg);
-        return returnData;
+
     }
 
     /**
@@ -600,12 +586,11 @@ public class UserController {
         pageInf.setDetail(String.valueOf(data.get("detail")));
         pageInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
         if(userService.updatePageInf(pageInf)!=0){
-            msg="success";
+            return  R.ok("修改功能成功");
         }else{
-            msg="error";
+            return  R.error("修改功能失败");
         }
-        returnData.put("msg",msg);
-        return returnData;
+
     }
 
     /**
@@ -627,11 +612,11 @@ public class UserController {
             }
         	returnData.put("id",list2);
         	returnData.put("data", "error");
-    		return returnData;
+    		return R.ok(returnData);
     	}else{
     		
     		returnData.put("data", "success");
-    		return returnData;
+            return R.ok(returnData);
     	}
     	
     }
@@ -652,11 +637,11 @@ public class UserController {
         pageDistribute.setPageid(functionID);
         pageDistribute.setRoleid(jueseID);
         if(userService.updataDistributionFunction(pageDistribute)==0){
-            returnData.put("data", "error");
+            return  R.error("添加角色失败");
         }else {
-            returnData.put("data", "success");
+            return  R.ok("添加角色成功");
         }
-		return returnData;
+
     }
     
     /**
@@ -672,11 +657,11 @@ public class UserController {
     	int jueseID =    (int) map.get("data");
     	int functionID =   (int) map.get("id");
         if(userService.delectDistributionFunction(jueseID, functionID)==0){
-            returnData.put("data", "error");
+            return  R.error("删除角色失败");
         }else {
-            returnData.put("data", "success");
+            return  R.ok("删除角色成功");
         }
-		return returnData;
+
     }
 
     @ArchivesLog(operationType = "查询信息",operationName = "查询当前用户可见页面")

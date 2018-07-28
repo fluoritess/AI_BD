@@ -110,7 +110,6 @@ public class UserServiceImpl implements UserService{
         UserInf userInf = new UserInf();
         userInf.setEmail(email);
         userInf.setName(name);
-        userInf.setState("2");
         userInf.setIdnumber(idnumber);
         criteria.andTelEqualTo(telph);
         userInfMapper.updateByExampleSelective(userInf, userInfExample);
@@ -302,6 +301,7 @@ public class UserServiceImpl implements UserService{
         return permsSet;
     }
 
+
     @Override
     public List<PageUtils> getUserAllPage(int userId) {
         //系统管理员，拥有最高权限
@@ -362,4 +362,5 @@ public class UserServiceImpl implements UserService{
         getPageTreeList(pageUtilsList,pageIdList);
         return pageUtilsList;
     }
+
 }
