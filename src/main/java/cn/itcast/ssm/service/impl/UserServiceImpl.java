@@ -280,9 +280,18 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Set<String> getUserPermissions(UserInf user) {
+        List<String> permsList = new ArrayList<>();
         Set<String> permsSet = new HashSet<String>();
         if(user.getState().equals("1")){
-            List<String> permsList=utilMapper.selectUserPermission(user.getId());
+            if(user.getId()==1){
+                PageInfExample pageInfExample=new PageInfExample();
+                List<PageInf> pageInfList = pageInfMapper.selectByExample(pageInfExample);
+                for (PageInf pageInf:pageInfList){
+                    permsList.add(pageInf.getPerms());
+                }
+            }else{
+                permsList=utilMapper.selectUserPermission(user.getId());
+            }
             for(String perms : permsList){
                 if(StringUtils.isBlank(perms)){
                     continue;
@@ -296,9 +305,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<PageUtils> getUserAllPage(int userId) {
         //系统管理员，拥有最高权限
-        /*if(userId == 1){
+        if(userId == 1){
            return getAllPage(null);
-        }*/
+        }
 
         //查询用户的菜单
         List<Integer> pageIdList=utilMapper.selectAllPageId(userId);
