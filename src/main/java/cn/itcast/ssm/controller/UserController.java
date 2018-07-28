@@ -9,7 +9,6 @@ import cn.itcast.ssm.util.*;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -332,7 +331,7 @@ public class UserController {
      * @param map
      * @return
      */
-    @RequiresPermissions(value = {"sys:user:add"})
+//    @RequiresPermissions(value = {"sys:user:add"})
     @ArchivesLog(operationName = "用户添加功能/角色/战区信息",operationType = "写入信息")
     @ResponseBody
     @RequestMapping("/distributor.action")
@@ -411,7 +410,7 @@ public class UserController {
      * @param reMap
      * @return
      */
-    @RequiresPermissions(value = {"sys:user:select"})
+//    @RequiresPermissions(value = {"sys:user:select"})
     @ArchivesLog(operationName = "用户查询功能/角色/战区信息",operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/selectPaging.action")
