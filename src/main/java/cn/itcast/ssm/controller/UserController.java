@@ -352,21 +352,25 @@ public class UserController {
             case "jueseguanli":
             	msg=userService.addRole(data);
             	break;
-            //战区管理
-            case "zhanquguanli":
 
-                break;
             //没找到功能
             default:
-                msg="error";
+                msg="失败";
+                returnData.put("msg",msg);
                 break;
         }
         //返回信息
-        if(msg.equals("error")){
+        if(msg.equals("角色添加失败")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }  if(msg.equals("功能添加失败")){
             returnData.put("msg",msg);
             return R.error(returnData);
         }
-        if(msg.equals("success")){
+        if(msg.equals("角色添加成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        } if(msg.equals("功能添加成功")){
             returnData.put("msg",msg);
             return R.ok(returnData);
         }
@@ -401,21 +405,25 @@ public class UserController {
             case "yonghuguanli":
                 msg=userService.deleteuser(Integer.parseInt(String.valueOf(data.get("id"))));
                 break;
-            //删除战区
-            case "zhanquguanli":
-                break;
             default:
-                msg="error";
+                msg="失败";
+                returnData.put("msg",msg);
                 break;
         }
         //返回信息
-        if(msg.equals("error")){
+        if(msg.equals("角色删除失败")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }  if(msg.equals("功能删除失败")){
             returnData.put("msg",msg);
             return R.error(returnData);
         }
-        if(msg.equals("success")){
-        returnData.put("msg",msg);
-        return R.ok(returnData);
+        if(msg.equals("角色删除成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        } if(msg.equals("功能删除成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
         }
         return R.error(returnData);
     }
@@ -448,9 +456,13 @@ public class UserController {
                 break;
             //用户管理查询
             case "yonghuguanli":
-                if(String.valueOf(state.get("ChildId")).equals("selectwill")){
+                if(String.valueOf(state.get("ChildId")).equals("0")){
                     paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
-                }else if(String.valueOf(state.get("ChildId")).equals("selectok")){
+                    for(int i=0;i<paging.getLists().size();i++){
+
+                    }
+
+                }else if(String.valueOf(state.get("ChildId")).equals("1")){
                     paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"1");
                 }else {
                     paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");

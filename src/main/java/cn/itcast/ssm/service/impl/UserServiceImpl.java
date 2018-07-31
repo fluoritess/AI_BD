@@ -101,7 +101,14 @@ public class UserServiceImpl implements UserService{
         criteria.andTelEqualTo(tel);
         userInfMapper.updateByExampleSelective(userInf, userInfExample);
     }
-    
+
+    /**
+     * 第一次登陆修改信息
+     * @param email
+     * @param name
+     * @param idnumber
+     * @param telph
+     */
 	@Override
 	public void adddata(String email, String name, String idnumber, String telph) {
 		// TODO 自动生成的方法存根
@@ -123,9 +130,9 @@ public class UserServiceImpl implements UserService{
         page.setDetail(String.valueOf(data.get("detail")));
         page.setPagename(String.valueOf(data.get("name")));
         if(pageInfMapper.insertSelective(page)!=0){
-            return "success";
+            return "功能添加成功";
         }else{
-            return "error";
+            return "功能添加失败";
         }
     }
 
@@ -137,7 +144,14 @@ public class UserServiceImpl implements UserService{
         //查询出总条数
         page.setListTotal(utilMapper.selectCount(name,roleState));
         //查询数据
-        page.setLists(utilMapper.selectPaging(name,offset,pageSize,roleState));
+        List<Map<String,Object>> list= utilMapper.selectPaging(name,offset,pageSize,roleState);
+
+        for (Map<String,Object> map:list ){
+            if(map.get("regtime")!=null){
+            map.put("regtime",((Date)(map.get("regtime"))).getTime());
+        }
+        }
+        page.setLists(list);
         return page;
     }
 
@@ -148,9 +162,9 @@ public class UserServiceImpl implements UserService{
 		roleInf.setRolename(String.valueOf(data.get("name")));
 		roleInf.setRoledetail(String.valueOf(data.get("detail")));
 		  if(roleInfMapper.insertSelective(roleInf)!=0){
-	            return "success";
+	            return "角色添加成功";
 	        }else{
-	            return "error";
+	            return "角色添加失败";
 	        }
 	}
 
