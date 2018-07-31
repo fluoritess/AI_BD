@@ -388,22 +388,21 @@ public class UserController {
     public Map<String,Object> deleteData(@RequestBody Map<String,Object> map){
 //        System.out.println("进入删除分发器");
         Map<String,Object> states=(Map<String,Object>)map.get("states");
-        Map<String,Object> data=(Map<String, Object>) map.get("data");
         String id=String.valueOf(states.get("id"));
         Map<String,Object> returnData=new HashMap<>();
         String msg="";
         switch (id){
             //功能删除
             case "gongnengguanli":
-                msg=userService.deletegongneng(Integer.parseInt(String.valueOf(data.get("id"))));
+                msg=userService.deletegongneng(Integer.parseInt(String.valueOf(map.get("id"))));
                 break;
             //角色删除
             case "jueseguanli":
-                msg=userService.deleterole(Integer.parseInt(String.valueOf(data.get("id"))));
+                msg=userService.deleterole(Integer.parseInt(String.valueOf(map.get("id"))));
                 break;
             //没找到功能
             case "yonghuguanli":
-                msg=userService.deleteuser(Integer.parseInt(String.valueOf(data.get("id"))));
+                msg=userService.deleteuser(Integer.parseInt(String.valueOf(map.get("id"))));
                 break;
             default:
                 msg="失败";
