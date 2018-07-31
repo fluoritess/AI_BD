@@ -361,8 +361,15 @@ public class UserController {
                 break;
         }
         //返回信息
-        returnData.put("msg",msg);
-        return R.ok(returnData);
+        if(msg.equals("error")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }
+        if(msg.equals("success")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        }
+        return R.error(returnData);
     }
 
     /**
@@ -401,8 +408,15 @@ public class UserController {
                 break;
         }
         //返回信息
+        if(msg.equals("error")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }
+        if(msg.equals("success")){
         returnData.put("msg",msg);
         return R.ok(returnData);
+        }
+        return R.error(returnData);
     }
 
     /**
