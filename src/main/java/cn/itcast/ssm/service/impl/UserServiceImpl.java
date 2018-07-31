@@ -230,7 +230,10 @@ public class UserServiceImpl implements UserService{
         criteria.andIdEqualTo(userInf.getId());
         return userInfMapper.updateByExampleSelective(userInf,userInfExample);
     }
-
+    @Override
+    public int updateRoleInf(RoleInf roleInf) {
+        return roleInfMapper.updateByPrimaryKey(roleInf);
+    }
     @Override
     public int updatePageInf(PageInf pageInf) {
         return pageInfMapper.updateByPrimaryKey(pageInf);

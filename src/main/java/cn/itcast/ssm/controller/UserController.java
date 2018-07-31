@@ -2,6 +2,7 @@ package cn.itcast.ssm.controller;
 
 import cn.itcast.ssm.po.PageDistribute;
 import cn.itcast.ssm.po.PageInf;
+import cn.itcast.ssm.po.RoleInf;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -604,6 +605,26 @@ public class UserController {
             return  R.error("修改功能失败");
         }
 
+    }
+    /**
+     * 修改角色
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationName = "修改角色信息",operationType = "更新信息")
+    @ResponseBody
+    @RequestMapping("/updateRole.action")
+    public Map<String,Object> updateRole(@RequestBody Map<String,Object> map){
+        Map<String,Object> data=(Map<String,Object>)map.get("data");
+        RoleInf roleInf = new RoleInf();
+        roleInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
+        roleInf.setRoledetail((String.valueOf(data.get("roledetail"))));
+        roleInf.setRolename((String.valueOf(data.get("rolename"))));
+        if(userService.updateRoleInf(roleInf)!=0){
+            return  R.ok("修改角色成功");
+        }else{
+            return  R.error("修改角色失败");
+        }
     }
 
     /**

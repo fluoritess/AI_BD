@@ -3,6 +3,7 @@ package cn.itcast.ssm.service;
 
 import cn.itcast.ssm.po.PageDistribute;
 import cn.itcast.ssm.po.PageInf;
+import cn.itcast.ssm.po.RoleInf;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.util.PageUtils;
 import cn.itcast.ssm.util.Paging;
@@ -63,7 +64,7 @@ public interface UserService {
     List<PageInf> selectAllfunction();
     
     List<PageDistribute> selectHadfunction(Integer roleid);
-
+     int updateRoleInf(RoleInf roleInf);
     int updatePageInf(PageInf pageInf);
     
     int updataDistributionFunction(PageDistribute pageDistribute);
