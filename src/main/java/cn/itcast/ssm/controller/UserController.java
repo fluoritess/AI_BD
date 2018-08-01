@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -109,7 +107,7 @@ public class UserController {
      */
     @ArchivesLog(operationName = "用户注册",operationType = "写入信息")
     @RequestMapping(value = "/register.action",method = RequestMethod.POST)
-    public String register(UserInf user, String code, HttpSession session, HttpServletResponse response)throws UnsupportedEncodingException{
+    public Map<String,Object> register(UserInf user, String code, HttpSession session, HttpServletResponse response)throws UnsupportedEncodingException{
         if(session.getAttribute("code")!=null){
             if(code.equals(session.getAttribute("code"))){
                 if(user.getUserid()!=null&&user.getPassword()!=null&&user.getTel()!=null){
@@ -117,33 +115,21 @@ public class UserController {
                         user.setPassword(EncryptUtil.MD5ReEncrpt(user.getPassword()));
                         user.setRegtime(new Date());
                         if(userService.register(user)){
-                            Cookie cookie = new Cookie("msg",URLEncoder.encode("注册成功!","UTF-8"));
-                            cookie.setMaxAge(3600);
-                            cookie.setPath("/PHM/html/public");
-                            response.addCookie(cookie);
-                            return "redirect:public/success.html";
+                            return R.ok("注册成功！");
                         }
                     }else{
-                        Cookie cookie = new Cookie("msg",URLEncoder.encode("密码不符合规范!","UTF-8"));
-                        cookie.setMaxAge(3600);
-                        response.addCookie(cookie);
+                        return R.error("密码不符合规范!");
                     }
                 }else{
-                    Cookie cookie = new Cookie("msg",URLEncoder.encode("信息不完整!","UTF-8"));
-                    cookie.setMaxAge(3600);
-                    response.addCookie(cookie);
+                    return R.error("信息不完整!");
                 }
             }else{
-                Cookie cookie = new Cookie("msg",URLEncoder.encode("验证码错误!","UTF-8"));
-                cookie.setMaxAge(3600);
-                response.addCookie(cookie);
+                return R.error("验证码错误!");
             }
         }else{
-            Cookie cookie = new Cookie("msg",URLEncoder.encode("请验证手机!","UTF-8"));
-            cookie.setMaxAge(3600);
-            response.addCookie(cookie);
+            return R.error("请验证手机!");
         }
-        return "redirect:/html/newuser.html";
+        return R.error();
     }
 
     /**
@@ -774,7 +760,6 @@ public class UserController {
     public Map<String,Object> selectMenu(@RequestBody Map<String,Object> map){
         List<Map<String,Object>> list=userService.selectMenu();
         if(list.size()!=0){
-
             return  R.ok().put("data",list);
 
         }else {

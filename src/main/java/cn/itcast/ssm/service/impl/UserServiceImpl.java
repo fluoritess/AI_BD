@@ -411,6 +411,7 @@ public class UserServiceImpl implements UserService{
             map.put("id",pageInf.getId());
             map.put("pagename",pageInf.getPagename());
             map.put("oder_num",pageInf.getOrderNum());
+            map.put("parentId",pageInf.getParentId());
             list.add(map);
         }
         return  list;
