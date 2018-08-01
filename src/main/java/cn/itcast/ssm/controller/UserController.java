@@ -451,7 +451,7 @@ public class UserController {
 
 
     /**
-     * 用户查询功能分页
+     * 查询功能分页
      * @param reMap
      * @return
      */
@@ -462,13 +462,12 @@ public class UserController {
         Map<String,Object> page=(Map<String,Object>)reMap.get("page");
         Integer active=Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist=Integer.valueOf(String.valueOf(page.get("pagelist")));
-        Paging paging=new Paging();
-        paging=userService.selectPaging("page_inf",(active-1)*pagelist,pagelist,null);
+        Paging paging=userService.selectPaging("page_inf",(active-1)*pagelist,pagelist,null);
         return R.ok("查询功能分页成功").put("data",paging);
     }
 
     /**
-     * 用户查询角色分页
+     * 查询角色分页
      * @param reMap
      * @return
      */
@@ -485,11 +484,11 @@ public class UserController {
     }
 
     /**
-     * 用户查询角色分页
+     * 查询用户分页
      * @param reMap
      * @return
      */
-    @ArchivesLog(operationName = "用户查询角色分页",operationType = "查询信息")
+    @ArchivesLog(operationName = "用户查询用户分页",operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/selectUserPaging.action")
     public Map<String, Object> selectUserPaging(@RequestBody Map<String,Object> reMap){
