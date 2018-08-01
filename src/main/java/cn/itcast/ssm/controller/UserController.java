@@ -718,5 +718,46 @@ public class UserController {
         Set<String> perms=userService.getUserPermissions(userInf);
         return R.ok().put("userPageList",pageList).put("perms",perms);
     }
-    
+/**
+ * 查询已有应用系统
+ */
+    @ArchivesLog(operationType = "查询信息",operationName = "查询应用系统")
+    @ResponseBody
+    @RequestMapping("/selectApplicationId.action")
+    public Map<String,Object> selectApplicationId(@RequestBody Map<String,Object> map){
+        List<Map<String,Object>> list=userService.selectApplicationId();
+            if(list.size()!=0){
+
+                return  R.ok().put("data",list);
+
+            }else {
+                return  R.error("查询应用错误");
+
+            }
+
+
+    }
+
+    /**
+     * 查询菜单
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationType = "查询信息",operationName = "查询应用系统")
+    @ResponseBody
+    @RequestMapping("/selectMenu.action")
+    public Map<String,Object> selectMenu(@RequestBody Map<String,Object> map){
+        List<Map<String,Object>> list=userService.selectMenu();
+        if(list.size()!=0){
+
+            return  R.ok().put("data",list);
+
+        }else {
+            return  R.error("查询菜单错误");
+
+        }
+
+
+    }
+
 }

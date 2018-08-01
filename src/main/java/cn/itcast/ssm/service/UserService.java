@@ -74,4 +74,6 @@ public interface UserService {
     Set<String> getUserPermissions(UserInf user);
 
     List<PageUtils> getUserAllPage(int userId);
+     List<Map<String,Object>> selectApplicationId();
+    List<Map<String,Object>> selectMenu();
 }
