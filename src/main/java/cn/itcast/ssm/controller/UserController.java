@@ -2,6 +2,7 @@ package cn.itcast.ssm.controller;
 
 import cn.itcast.ssm.po.PageDistribute;
 import cn.itcast.ssm.po.PageInf;
+import cn.itcast.ssm.po.RoleInf;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -351,18 +352,29 @@ public class UserController {
             case "jueseguanli":
             	msg=userService.addRole(data);
             	break;
-            //战区管理
-            case "zhanquguanli":
 
-                break;
             //没找到功能
             default:
-                msg="error";
+                msg="失败";
+                returnData.put("msg",msg);
                 break;
         }
         //返回信息
-        returnData.put("msg",msg);
-        return R.ok(returnData);
+        if(msg.equals("角色添加失败")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }  if(msg.equals("功能添加失败")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }
+        if(msg.equals("角色添加成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        } if(msg.equals("功能添加成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        }
+        return R.error(returnData);
     }
 
     /**
@@ -376,33 +388,43 @@ public class UserController {
     public Map<String,Object> deleteData(@RequestBody Map<String,Object> map){
 //        System.out.println("进入删除分发器");
         Map<String,Object> states=(Map<String,Object>)map.get("states");
-        Map<String,Object> data=(Map<String, Object>) map.get("data");
         String id=String.valueOf(states.get("id"));
         Map<String,Object> returnData=new HashMap<>();
         String msg="";
         switch (id){
             //功能删除
             case "gongnengguanli":
-                msg=userService.deletegongneng(Integer.parseInt(String.valueOf(data.get("id"))));
+                msg=userService.deletegongneng(Integer.parseInt(String.valueOf(map.get("id"))));
                 break;
             //角色删除
             case "jueseguanli":
-                msg=userService.deleterole(Integer.parseInt(String.valueOf(data.get("id"))));
+                msg=userService.deleterole(Integer.parseInt(String.valueOf(map.get("id"))));
                 break;
             //没找到功能
             case "yonghuguanli":
-                msg=userService.deleteuser(Integer.parseInt(String.valueOf(data.get("id"))));
-                break;
-            //删除战区
-            case "zhanquguanli":
+                msg=userService.deleteuser(Integer.parseInt(String.valueOf(map.get("id"))));
                 break;
             default:
-                msg="error";
+                msg="失败";
+                returnData.put("msg",msg);
                 break;
         }
         //返回信息
-        returnData.put("msg",msg);
-        return R.ok(returnData);
+        if(msg.equals("角色删除失败")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }  if(msg.equals("功能删除失败")){
+            returnData.put("msg",msg);
+            return R.error(returnData);
+        }
+        if(msg.equals("角色删除成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        } if(msg.equals("功能删除成功")){
+            returnData.put("msg",msg);
+            return R.ok(returnData);
+        }
+        return R.error(returnData);
     }
 
     /**
@@ -433,9 +455,13 @@ public class UserController {
                 break;
             //用户管理查询
             case "yonghuguanli":
-                if(String.valueOf(state.get("ChildId")).equals("selectwill")){
+                if(String.valueOf(state.get("ChildId")).equals("0")){
                     paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
-                }else if(String.valueOf(state.get("ChildId")).equals("selectok")){
+                    for(int i=0;i<paging.getLists().size();i++){
+
+                    }
+
+                }else if(String.valueOf(state.get("ChildId")).equals("1")){
                     paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"1");
                 }else {
                     paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
@@ -590,6 +616,26 @@ public class UserController {
             return  R.error("修改功能失败");
         }
 
+    }
+    /**
+     * 修改角色
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationName = "修改角色信息",operationType = "更新信息")
+    @ResponseBody
+    @RequestMapping("/updateRole.action")
+    public Map<String,Object> updateRole(@RequestBody Map<String,Object> map){
+        Map<String,Object> data=(Map<String,Object>)map.get("data");
+        RoleInf roleInf = new RoleInf();
+        roleInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
+        roleInf.setRoledetail((String.valueOf(data.get("roledetail"))));
+        roleInf.setRolename((String.valueOf(data.get("rolename"))));
+        if(userService.updateRoleInf(roleInf)!=0){
+            return  R.ok("修改角色成功");
+        }else{
+            return  R.error("修改角色失败");
+        }
     }
 
     /**
