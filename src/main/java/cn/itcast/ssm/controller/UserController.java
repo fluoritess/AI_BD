@@ -103,6 +103,7 @@ public class UserController {
      * @param session
      * @return
      */
+    @ResponseBody
     @ArchivesLog(operationName = "用户注册",operationType = "写入信息")
     @RequestMapping(value = "/register.action",method = RequestMethod.POST)
     public Map<String,Object> register(@RequestBody Map<String,Object> data, HttpSession session){
