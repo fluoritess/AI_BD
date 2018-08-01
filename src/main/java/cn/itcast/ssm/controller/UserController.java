@@ -328,154 +328,184 @@ public class UserController {
     }
 
     /**
-     * 添加信息分发器
+     * 添加功能信息
      * @param map
      * @return
      */
-//    @RequiresPermissions(value = {"sys:user:add"})
-    @ArchivesLog(operationName = "用户添加功能/角色/战区信息",operationType = "写入信息")
+    @ArchivesLog(operationName = "用户添加功能信息",operationType = "写入信息")
     @ResponseBody
-    @RequestMapping("/distributor.action")
-    public Map<String,Object> distributor(@RequestBody Map<String,Object> map){
-//        System.out.println("进入添加分发器");
-        Map<String,Object> states=(Map<String,Object>)map.get("states");
+    @RequestMapping("/addFunction.action")
+    public Map<String,Object> addFunction(@RequestBody Map<String,Object> map){
         Map<String ,Object> data=(Map<String,Object>)map.get("data");
-        String id=String.valueOf(states.get("id"));
-        Map<String,Object> returnData=new HashMap<>();
         String msg="";
-        switch (id){
-            //功能添加
-            case "gongnengguanli":
-                msg=userService.addFunction(data);
-                break;
-            //角色添加
-            case "jueseguanli":
-            	msg=userService.addRole(data);
-            	break;
+        msg=userService.addFunction(data);
+        if(msg.equals("功能添加失败")){
 
-            //没找到功能
-            default:
-                msg="失败";
-                returnData.put("msg",msg);
-                break;
+            return R.error(msg);
         }
-        //返回信息
+        if(msg.equals("功能添加成功")){
+
+            return R.ok(msg);
+        }else {
+
+            return R.error("功能添加失败");
+        }
+
+    }
+
+    /**
+     * 添加角色信息
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationName = "用户添加角色信息",operationType = "写入信息")
+    @ResponseBody
+    @RequestMapping("/addRole.action")
+    public Map<String,Object> addRole(@RequestBody Map<String,Object> map)
+    {
+        Map<String ,Object> data=(Map<String,Object>)map.get("data");
+        String msg="";
+        msg=userService.addRole(data);
         if(msg.equals("角色添加失败")){
-            returnData.put("msg",msg);
-            return R.error(returnData);
-        }  if(msg.equals("功能添加失败")){
-            returnData.put("msg",msg);
-            return R.error(returnData);
+
+            return R.error(msg);
         }
         if(msg.equals("角色添加成功")){
-            returnData.put("msg",msg);
-            return R.ok(returnData);
-        } if(msg.equals("功能添加成功")){
-            returnData.put("msg",msg);
-            return R.ok(returnData);
+
+            return R.ok(msg);
+        }else {
+
+            return R.error("角色添加失败");
         }
-        return R.error(returnData);
+
     }
 
-    /**
-     * 删除信息分发器
+    /**删除功能
+     *
      * @param map
      * @return
      */
-    @ArchivesLog(operationName = "用户删除功能/角色/战区信息",operationType = "删除信息")
+    @ArchivesLog(operationName = "删除功能",operationType = "删除信息")
     @ResponseBody
-    @RequestMapping("/deleteData.action")
-    public Map<String,Object> deleteData(@RequestBody Map<String,Object> map){
-//        System.out.println("进入删除分发器");
-        Map<String,Object> states=(Map<String,Object>)map.get("states");
-        String id=String.valueOf(states.get("id"));
-        Map<String,Object> returnData=new HashMap<>();
+    @RequestMapping("/deleteFunctionData.action")
+    public Map<String,Object> deleteFunctionData(@RequestBody Map<String,Object> map){
         String msg="";
-        switch (id){
-            //功能删除
-            case "gongnengguanli":
-                msg=userService.deletegongneng(Integer.parseInt(String.valueOf(map.get("id"))));
-                break;
-            //角色删除
-            case "jueseguanli":
-                msg=userService.deleterole(Integer.parseInt(String.valueOf(map.get("id"))));
-                break;
-            //没找到功能
-            case "yonghuguanli":
-                msg=userService.deleteuser(Integer.parseInt(String.valueOf(map.get("id"))));
-                break;
-            default:
-                msg="失败";
-                returnData.put("msg",msg);
-                break;
-        }
-        //返回信息
-        if(msg.equals("角色删除失败")){
-            returnData.put("msg",msg);
-            return R.error(returnData);
-        }  if(msg.equals("功能删除失败")){
-            returnData.put("msg",msg);
-            return R.error(returnData);
-        }
-        if(msg.equals("角色删除成功")){
-            returnData.put("msg",msg);
-            return R.ok(returnData);
+        msg=userService.deletegongneng(Integer.parseInt(String.valueOf(map.get("id"))));
+        if(msg.equals("功能删除失败")){
+
+            return R.error(msg);
         } if(msg.equals("功能删除成功")){
-            returnData.put("msg",msg);
-            return R.ok(returnData);
+
+            return R.ok(msg);
+        }else{
+            return R.error("删除出错");
         }
-        return R.error(returnData);
+
     }
 
     /**
-     * 各个页面的分页显示
+     * 删除角色
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationName = "删除角色",operationType = "删除信息")
+    @ResponseBody
+    @RequestMapping("/deleteRoleData.action")
+    public Map<String,Object> deleteRoleData(@RequestBody Map<String,Object> map){
+        String msg="";
+        msg=userService.deleterole(Integer.parseInt(String.valueOf(map.get("id"))));
+        if(msg.equals("角色删除失败")){
+
+            return R.error(msg);
+        } if(msg.equals("角色删除成功")){
+
+            return R.ok(msg);
+        }else{
+            return R.error("删除出错");
+        }
+
+    }
+
+    /**
+     * 删除用户
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationName = "删除用户",operationType = "删除信息")
+    @ResponseBody
+    @RequestMapping("/deleteUserData.action")
+    public Map<String,Object> deleteUserData(@RequestBody Map<String,Object> map){
+        String msg="";
+        msg=userService.deleteuser(Integer.parseInt(String.valueOf(map.get("id"))));
+        if(msg.equals("用户删除失败")){
+
+            return R.error(msg);
+        } if(msg.equals("用户删除成功")){
+
+            return R.ok(msg);
+        }else{
+            return R.error("删除出错");
+        }
+
+    }
+
+
+    /**
+     * 查询功能分页
      * @param reMap
      * @return
      */
-//    @RequiresPermissions(value = {"sys:user:select"})
-    @ArchivesLog(operationName = "用户查询功能/角色/战区信息",operationType = "查询信息")
+    @ArchivesLog(operationName = "用户查询功能分页",operationType = "查询信息")
     @ResponseBody
-    @RequestMapping("/selectPaging.action")
-    public Map<String, Object> selectPaging(@RequestBody Map<String,Object> reMap){
-        System.out.println("进入分页查询分发器");
+    @RequestMapping("/selectFunctionPaging.action")
+    public Map<String, Object> selectFunctionPaging(@RequestBody Map<String,Object> reMap){
         Map<String,Object> page=(Map<String,Object>)reMap.get("page");
-        Map<String,Object> state=(Map<String,Object>)reMap.get("state");
         Integer active=Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist=Integer.valueOf(String.valueOf(page.get("pagelist")));
-        String id=String.valueOf(state.get("id"));
+        Paging paging=userService.selectPaging("page_inf",(active-1)*pagelist,pagelist,null);
+        return R.ok("查询功能分页成功").put("data",paging);
+    }
+
+    /**
+     * 查询角色分页
+     * @param reMap
+     * @return
+     */
+    @ArchivesLog(operationName = "用户查询角色分页",operationType = "查询信息")
+    @ResponseBody
+    @RequestMapping("/selectRolePaging.action")
+    public Map<String, Object> selectRolePaging(@RequestBody Map<String,Object> reMap){
+        Map<String,Object> page=(Map<String,Object>)reMap.get("page");
+        Integer active=Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist=Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging=new Paging();
-        switch (id){
-            //功能管理查询
-            case "gongnengguanli":
-                paging=userService.selectPaging("page_inf",(active-1)*pagelist,pagelist,null);
-                break;
-            //角色管理查询
-            case "jueseguanli":
-                paging = userService.selectPaging( "role_inf",(active-1)*pagelist,pagelist,null);
-                break;
-            //用户管理查询
-            case "yonghuguanli":
-                if(String.valueOf(state.get("ChildId")).equals("0")){
-                    paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
-                    for(int i=0;i<paging.getLists().size();i++){
+        paging = userService.selectPaging( "role_inf",(active-1)*pagelist,pagelist,null);
+        return R.ok("查询角色分页成功").put("data",paging);
+    }
 
-                    }
+    /**
+     * 查询用户分页
+     * @param reMap
+     * @return
+     */
+    @ArchivesLog(operationName = "用户查询用户分页",operationType = "查询信息")
+    @ResponseBody
+    @RequestMapping("/selectUserPaging.action")
+    public Map<String, Object> selectUserPaging(@RequestBody Map<String,Object> reMap){
+        Map<String,Object> page=(Map<String,Object>)reMap.get("page");
+        Integer active=Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist=Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Map<String,Object> state=(Map<String,Object>)reMap.get("state");
+        Paging paging=new Paging();
+        if(String.valueOf(state.get("ChildId")).equals("0")){
+            paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
 
-                }else if(String.valueOf(state.get("ChildId")).equals("1")){
-                    paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"1");
-                }else {
-                    paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
-                }
-                break;
-            //战区管理查询
-            case "zhanquguanli":
-                paging=userService.selectPaging("department_inf",(active-1)*pagelist,pagelist,null);
-                break;
-            default:
-                break;
+        }else if(String.valueOf(state.get("ChildId")).equals("1")){
+            paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"1");
+        }else {
+            paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
         }
-
-        return R.ok("查询成功").put("data",paging);
+        return R.ok("查询用户分页成功").put("data",paging);
     }
 
 
