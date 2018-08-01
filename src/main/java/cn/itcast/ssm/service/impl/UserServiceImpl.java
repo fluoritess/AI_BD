@@ -33,6 +33,8 @@ public class UserServiceImpl implements UserService{
     private RoleDistributeMapper roleDistributeMapper;
     @Autowired
     private PageDistributeMapper  pageDistributeMapper;
+    @Autowired
+    private  ApplicationSystemInformationMapper applicationSystemInformationMapper;
     @Override
     public boolean register(UserInf user) {
         if(userInfMapper.insertSelective(user)!=0){
@@ -161,6 +163,7 @@ public class UserServiceImpl implements UserService{
 		RoleInf roleInf = new RoleInf();
 		roleInf.setRolename(String.valueOf(data.get("name")));
 		roleInf.setRoledetail(String.valueOf(data.get("detail")));
+
 		  if(roleInfMapper.insertSelective(roleInf)!=0){
 	            return "角色添加成功";
 	        }else{
@@ -172,9 +175,9 @@ public class UserServiceImpl implements UserService{
 	public String deleterole(Integer id) {
 		// TODO 自动生成的方法存根
 		if(roleInfMapper.deleteByPrimaryKey(id)!=0){
-			return "success";
+			return "角色删除成功";
 		}else {
-			return "error";
+			return "角色删除失败";
 		}
 	}
 
@@ -182,9 +185,9 @@ public class UserServiceImpl implements UserService{
 	public String deletegongneng(Integer id) {
 		// TODO 自动生成的方法存根
 	if(pageInfMapper.deleteByPrimaryKey(id)!=0){
-			return "success";
+			return "功能删除成功";
 		}else {
-			return "error";
+			return "功能删除失败";
 		}
 	}
 
@@ -378,6 +381,38 @@ public class UserServiceImpl implements UserService{
         //查询子菜单
         getPageTreeList(pageUtilsList,pageIdList);
         return pageUtilsList;
+    }
+
+    public List<Map<String,Object>> selectApplicationId(){
+
+        List<Map<String, Object>> list=new ArrayList<>();
+        List<ApplicationSystemInformation> applicationSystemInformations=applicationSystemInformationMapper.selectByExample(null);
+
+        for(ApplicationSystemInformation applicationSystemInformation:applicationSystemInformations)
+        {
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("appid",applicationSystemInformation.getApplicationSystemId());
+            list.add(map);
+        }
+
+        return  list;
+    }
+
+    public List<Map<String,Object>> selectMenu(){
+
+        List<Map<String, Object>> list=new ArrayList<>();
+        PageInfExample pageInfExample=new PageInfExample();
+        PageInfExample.Criteria criteria=pageInfExample.createCriteria();
+        criteria.andTypeBetween(0,1);
+        List<PageInf>  pageInfs=pageInfMapper.selectByExample(pageInfExample);
+        for(PageInf pageInf:pageInfs){
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("id",pageInf.getId());
+            map.put("pagename",pageInf.getPagename());
+            map.put("oder_num",pageInf.getOrderNum());
+            list.add(map);
+        }
+        return  list;
     }
 
 }
