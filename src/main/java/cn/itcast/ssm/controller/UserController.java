@@ -723,7 +723,7 @@ public class UserController {
  */
     @ArchivesLog(operationType = "查询信息",operationName = "查询应用系统")
     @ResponseBody
-    @RequestMapping("/selectApplicationIdAndMenu.action")
+    @RequestMapping("/selectApplicationId.action")
     public Map<String,Object> selectApplicationId(@RequestBody Map<String,Object> map){
         List<Map<String,Object>> list=userService.selectApplicationId();
             if(list.size()!=0){
@@ -745,7 +745,7 @@ public class UserController {
      */
     @ArchivesLog(operationType = "查询信息",operationName = "查询应用系统")
     @ResponseBody
-    @RequestMapping("/selectApplicationIdAndMenu.action")
+    @RequestMapping("/selectMenu.action")
     public Map<String,Object> selectMenu(@RequestBody Map<String,Object> map){
         List<Map<String,Object>> list=userService.selectMenu();
         if(list.size()!=0){
