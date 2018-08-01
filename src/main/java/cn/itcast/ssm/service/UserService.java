@@ -1,10 +1,7 @@
 package cn.itcast.ssm.service;
 
 
-import cn.itcast.ssm.po.PageDistribute;
-import cn.itcast.ssm.po.PageInf;
-import cn.itcast.ssm.po.RoleInf;
-import cn.itcast.ssm.po.UserInf;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.util.PageUtils;
 import cn.itcast.ssm.util.Paging;
 
@@ -59,7 +56,7 @@ public interface UserService {
 
     boolean selectInspectData(String tableName,String listName,String listValue);
 
-    int updateUserState(UserInf userInf);
+    int updateUserState(RoleDistribute roleDistribute);
     
     List<PageInf> selectAllfunction();
     

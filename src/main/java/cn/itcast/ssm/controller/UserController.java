@@ -1,9 +1,6 @@
 package cn.itcast.ssm.controller;
 
-import cn.itcast.ssm.po.PageDistribute;
-import cn.itcast.ssm.po.PageInf;
-import cn.itcast.ssm.po.RoleInf;
-import cn.itcast.ssm.po.UserInf;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.*;
@@ -483,10 +480,9 @@ public class UserController {
         Integer pagelist=Integer.valueOf(String.valueOf(page.get("pagelist")));
         Map<String,Object> state=(Map<String,Object>)reMap.get("state");
         Paging paging=new Paging();
-        if(String.valueOf(state.get("ChildId")).equals("0")){
+        if(String.valueOf(state.get("state")).equals("0")){
             paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
-
-        }else if(String.valueOf(state.get("ChildId")).equals("1")){
+        }else if(String.valueOf(state.get("state")).equals("1")){
             paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"1");
         }else {
             paging=userService.selectPaging("user_manager",(active-1)*pagelist,pagelist,"0");
@@ -566,21 +562,15 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/examineUser.action")
     public Map<String,Object> examineUser(@RequestBody Map<String,Object> map){
-        Map<String,Object> returnData=new HashMap<>();
-        String msg="";
-        if(String.valueOf(((Map<String,Object>)map.get("states")).get("id")).equals("yonghuguanli")){
-            UserInf user=new UserInf();
-            user.setId(Integer.parseInt(String.valueOf(map.get("data"))));
-            user.setState("3");
-            if(userService.updateUserState(user)!=0){
-              return  R.ok("审核用户成功");
-            }else{
-               return  R.error("审核用户错误");
-            }
+        RoleDistribute roleDistribute=new RoleDistribute();
+        roleDistribute.setRoleid(Integer.parseInt(String.valueOf(((Map<String,Object>)map.get("data")).get("roleid"))));
+        roleDistribute.setUserid(Integer.parseInt(String.valueOf(((Map<String,Object>)map.get("data")).get("userid"))));
+        roleDistribute.setState("1");
+        if(userService.updateUserState(roleDistribute)!=0){
+          return  R.ok("审核用户成功");
         }else{
-            return  R.error("审核用户错误");
+           return  R.error("审核用户错误");
         }
-
     }
 
     /**
@@ -592,21 +582,15 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/frozenUser.action")
     public Map<String,Object> frozenUser(@RequestBody Map<String,Object> map){
-        Map<String,Object> returnData=new HashMap<>();
-        String msg="";
-        if(String.valueOf(((Map<String,Object>)map.get("states")).get("id")).equals("yonghuguanli")){
-            UserInf user=new UserInf();
-            user.setId(Integer.parseInt(String.valueOf(map.get("data"))));
-            user.setState("4");
-            if(userService.updateUserState(user)!=0){
-                return  R.ok("冻结用户成功");
-            }else{
-             return  R.error("冻结用户失败");
-            }
+        RoleDistribute roleDistribute=new RoleDistribute();
+        roleDistribute.setRoleid(Integer.parseInt(String.valueOf(((Map<String,Object>)map.get("data")).get("roleid"))));
+        roleDistribute.setUserid(Integer.parseInt(String.valueOf(((Map<String,Object>)map.get("data")).get("userid"))));
+        roleDistribute.setState("0");
+        if(userService.updateUserState(roleDistribute)!=0){
+            return  R.ok("退审用户成功");
         }else{
-            return  R.error("冻结用户失败");
+            return  R.error("退审用户失败");
         }
-
     }
 
     /**

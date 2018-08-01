@@ -241,11 +241,12 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public int updateUserState(UserInf userInf) {
-        UserInfExample userInfExample = new UserInfExample();
-        UserInfExample.Criteria criteria = userInfExample.createCriteria();
-        criteria.andIdEqualTo(userInf.getId());
-        return userInfMapper.updateByExampleSelective(userInf,userInfExample);
+    public int updateUserState(RoleDistribute roleDistribute) {
+        RoleDistributeExample roleDistributeExample=new RoleDistributeExample();
+        RoleDistributeExample.Criteria criteria=roleDistributeExample.createCriteria();
+        criteria.andRoleidEqualTo(roleDistribute.getRoleid());
+        criteria.andUseridEqualTo(roleDistribute.getUserid());
+        return roleDistributeMapper.updateByExampleSelective(roleDistribute,roleDistributeExample);
     }
     @Override
     public int updateRoleInf(RoleInf roleInf) {
