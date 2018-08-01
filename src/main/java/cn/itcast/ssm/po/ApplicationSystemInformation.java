@@ -7,7 +7,7 @@ public class ApplicationSystemInformation implements Serializable {
 
     private String remarks;
 
-    private String describe;
+    private String detail;
 
     private String systemName;
 
@@ -29,12 +29,12 @@ public class ApplicationSystemInformation implements Serializable {
         this.remarks = remarks == null ? null : remarks.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDetail(String detail) {
+        this.detail = detail == null ? null : detail.trim();
     }
 
     public String getSystemName() {
@@ -53,7 +53,7 @@ public class ApplicationSystemInformation implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", applicationSystemId=").append(applicationSystemId);
         sb.append(", remarks=").append(remarks);
-        sb.append(", describe=").append(describe);
+        sb.append(", detail=").append(detail);
         sb.append(", systemName=").append(systemName);
         sb.append("]");
         return sb.toString();

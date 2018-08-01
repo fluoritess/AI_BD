@@ -234,73 +234,73 @@ public class ApplicationSystemInformationExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescribeIsNull() {
-            addCriterion("describe is null");
+        public Criteria andDetailIsNull() {
+            addCriterion("detail is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeIsNotNull() {
-            addCriterion("describe is not null");
+        public Criteria andDetailIsNotNull() {
+            addCriterion("detail is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeEqualTo(String value) {
-            addCriterion("describe =", value, "describe");
+        public Criteria andDetailEqualTo(String value) {
+            addCriterion("detail =", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotEqualTo(String value) {
-            addCriterion("describe <>", value, "describe");
+        public Criteria andDetailNotEqualTo(String value) {
+            addCriterion("detail <>", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeGreaterThan(String value) {
-            addCriterion("describe >", value, "describe");
+        public Criteria andDetailGreaterThan(String value) {
+            addCriterion("detail >", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeGreaterThanOrEqualTo(String value) {
-            addCriterion("describe >=", value, "describe");
+        public Criteria andDetailGreaterThanOrEqualTo(String value) {
+            addCriterion("detail >=", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeLessThan(String value) {
-            addCriterion("describe <", value, "describe");
+        public Criteria andDetailLessThan(String value) {
+            addCriterion("detail <", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeLessThanOrEqualTo(String value) {
-            addCriterion("describe <=", value, "describe");
+        public Criteria andDetailLessThanOrEqualTo(String value) {
+            addCriterion("detail <=", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeLike(String value) {
-            addCriterion("describe like", value, "describe");
+        public Criteria andDetailLike(String value) {
+            addCriterion("detail like", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotLike(String value) {
-            addCriterion("describe not like", value, "describe");
+        public Criteria andDetailNotLike(String value) {
+            addCriterion("detail not like", value, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeIn(List<String> values) {
-            addCriterion("describe in", values, "describe");
+        public Criteria andDetailIn(List<String> values) {
+            addCriterion("detail in", values, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotIn(List<String> values) {
-            addCriterion("describe not in", values, "describe");
+        public Criteria andDetailNotIn(List<String> values) {
+            addCriterion("detail not in", values, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeBetween(String value1, String value2) {
-            addCriterion("describe between", value1, value2, "describe");
+        public Criteria andDetailBetween(String value1, String value2) {
+            addCriterion("detail between", value1, value2, "detail");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotBetween(String value1, String value2) {
-            addCriterion("describe not between", value1, value2, "describe");
+        public Criteria andDetailNotBetween(String value1, String value2) {
+            addCriterion("detail not between", value1, value2, "detail");
             return (Criteria) this;
         }
 

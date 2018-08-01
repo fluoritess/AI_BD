@@ -754,18 +754,13 @@ public class UserController {
     @ArchivesLog(operationType = "查询信息",operationName = "查询应用系统")
     @ResponseBody
     @RequestMapping("/selectApplicationId.action")
-    public Map<String,Object> selectApplicationId(@RequestBody Map<String,Object> map){
+    public Map<String,Object> selectApplicationId(){
         List<Map<String,Object>> list=userService.selectApplicationId();
             if(list.size()!=0){
-
                 return  R.ok().put("data",list);
-
             }else {
                 return  R.error("查询应用错误");
-
             }
-
-
     }
 
     /**

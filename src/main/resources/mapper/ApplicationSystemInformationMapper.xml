@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.ApplicationSystemInformation">
     <id column="application_system_id" jdbcType="INTEGER" property="applicationSystemId" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="system_name" jdbcType="VARCHAR" property="systemName" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    application_system_id, remarks, describe, system_name
+    application_system_id, remarks, detail, system_name
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.ApplicationSystemInformationExample" resultMap="BaseResultMap">
     select
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
-    insert into application_system_information (application_system_id, remarks, describe, 
+    insert into application_system_information (application_system_id, remarks, detail, 
       system_name)
-    values (#{applicationSystemId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
+    values (#{applicationSystemId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
       #{systemName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
@@ -113,8 +113,8 @@
       <if test="remarks != null">
         remarks,
       </if>
-      <if test="describe != null">
-        describe,
+      <if test="detail != null">
+        detail,
       </if>
       <if test="systemName != null">
         system_name,
@@ -127,8 +127,8 @@
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null">
-        #{describe,jdbcType=VARCHAR},
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
       </if>
       <if test="systemName != null">
         #{systemName,jdbcType=VARCHAR},
@@ -150,8 +150,8 @@
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
-      <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARCHAR},
+      <if test="record.detail != null">
+        detail = #{record.detail,jdbcType=VARCHAR},
       </if>
       <if test="record.systemName != null">
         system_name = #{record.systemName,jdbcType=VARCHAR},
@@ -165,7 +165,7 @@
     update application_system_information
     set application_system_id = #{record.applicationSystemId,jdbcType=INTEGER},
       remarks = #{record.remarks,jdbcType=VARCHAR},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
       system_name = #{record.systemName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,8 +177,8 @@
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
       </if>
       <if test="systemName != null">
         system_name = #{systemName,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
     update application_system_information
     set remarks = #{remarks,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
       system_name = #{systemName,jdbcType=VARCHAR}
     where application_system_id = #{applicationSystemId,jdbcType=INTEGER}
   </update>

@@ -386,12 +386,13 @@ public class UserServiceImpl implements UserService{
     public List<Map<String,Object>> selectApplicationId(){
 
         List<Map<String, Object>> list=new ArrayList<>();
-        List<ApplicationSystemInformation> applicationSystemInformations=applicationSystemInformationMapper.selectByExample(null);
+        List<ApplicationSystemInformation> applicationSystemInformations=applicationSystemInformationMapper.selectByExample(new ApplicationSystemInformationExample());
 
         for(ApplicationSystemInformation applicationSystemInformation:applicationSystemInformations)
         {
             Map<String,Object> map = new HashMap<String,Object>();
-            map.put("appid",applicationSystemInformation.getApplicationSystemId());
+            map.put("application_system_id",applicationSystemInformation.getApplicationSystemId());
+            map.put("system_name",applicationSystemInformation.getSystemName());
             list.add(map);
         }
 
