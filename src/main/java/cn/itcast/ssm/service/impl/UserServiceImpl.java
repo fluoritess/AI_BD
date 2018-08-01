@@ -344,7 +344,7 @@ public class UserServiceImpl implements UserService{
 
     private void getPageTreeList(List<PageUtils> pageList,List<Integer> pageIdList){
         for(PageUtils pageUtils:pageList){
-            if(pageUtils.getPageInf().getType()==0){//目录
+            if(pageUtils.getPageInf().getType()==0){//目录,只能遍历到二级目录
                 //根据菜单id获取当前用户可见的子菜单列表
                 List<PageUtils> subPageList=getListParentId(pageUtils.getPageInf().getId(),pageIdList);
                 //对子菜单又进行递归查询其子菜单
