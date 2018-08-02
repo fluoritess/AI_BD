@@ -362,7 +362,7 @@ public class ManagerController {
     @ArchivesLog(operationName = "查询所有功能页面信息",operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/selecDistributionFunction.action")
-    public Map<String,Object> getAllfunction(@RequestBody Map<String,Object> map,HttpSession session){
+    public Map<String,Object> getAllfunction(@RequestBody Map<String,Object> map){
         Map<String,Object> returnData = new HashMap<>();
         returnData.put("allpage", userService.selectAllfunction());
         List<PageDistribute> list=userService.selectHadfunction(Integer.parseInt(String.valueOf(map.get("data"))));
