@@ -371,12 +371,12 @@ public class ManagerController {
             for (PageDistribute pageDistribute:list) {
                 list2.add(pageDistribute.getPageid());
             }
-            returnData.put("id",list2);
-            returnData.put("data", "error");
+            returnData.put("hadFunction",list2);
+
             return R.ok(returnData);
         }else{
 
-            returnData.put("data", "success");
+            returnData.put("allFunction", "success");
             return R.ok(returnData);
         }
 

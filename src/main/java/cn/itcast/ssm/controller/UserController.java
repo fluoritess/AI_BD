@@ -85,7 +85,7 @@ public class UserController {
                 session.setAttribute("code",s);
                 return R.ok("发送验证码成功");
             }else{
-                return  R.error("本号码以及存在");
+                return  R.error("本号码已经存在");
             }
         }else{
 
