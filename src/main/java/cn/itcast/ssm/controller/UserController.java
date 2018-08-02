@@ -1,9 +1,12 @@
 package cn.itcast.ssm.controller;
 
-import cn.itcast.ssm.po.*;
+import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
-import cn.itcast.ssm.util.*;
+import cn.itcast.ssm.util.EncryptUtil;
+import cn.itcast.ssm.util.R;
+import cn.itcast.ssm.util.RegexUtil;
+import cn.itcast.ssm.util.ShiroUtils;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.apache.shiro.authc.*;
@@ -20,8 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author tyh
@@ -95,26 +99,33 @@ public class UserController {
 
     /**
      * 用户注册
-     * @param user 用户信息
-     * @param code 验证码
-     * @param session session
-     * @param response response
-     * @return 界面
+     * @param data
+     * @param session
+     * @return
      */
+    @ResponseBody
     @ArchivesLog(operationName = "用户注册",operationType = "写入信息")
     @RequestMapping(value = "/register.action",method = RequestMethod.POST)
-    public Map<String,Object> register(UserInf user, String code, HttpSession session, HttpServletResponse response)throws UnsupportedEncodingException{
+    public Map<String,Object> register(@RequestBody Map<String,Object> data, HttpSession session){
         if(session.getAttribute("code")!=null){
-            if(code.equals(session.getAttribute("code"))){
-                if(user.getUserid()!=null&&user.getPassword()!=null&&user.getTel()!=null){
-                    if(RegexUtil.checkPassword(user.getPassword())){
-                        user.setPassword(EncryptUtil.MD5ReEncrpt(user.getPassword()));
-                        user.setRegtime(new Date());
-                        if(userService.register(user)){
-                            return R.ok("注册成功！");
+            if(data.get("code").equals(session.getAttribute("code"))){
+                if(data.get("userid")!=null&&data.get("password")!=null&&data.get("pass")!=null&&data.get("tel")!=null){
+                    if(data.get("password").equals(data.get("pass"))){
+                        UserInf user=new UserInf();
+                        user.setUserid(String.valueOf(data.get("userid")));
+                        user.setPassword(String.valueOf(data.get("password")));
+                        user.setTel(String.valueOf(data.get("tel")));
+                        if(RegexUtil.checkPassword(user.getPassword())){
+                            user.setPassword(EncryptUtil.MD5ReEncrpt(user.getPassword()));
+                            user.setRegtime(new Date());
+                            if(userService.register(user)){
+                                return R.ok("注册成功！");
+                            }
+                        }else{
+                            return R.error("密码不符合规范!");
                         }
-                    }else{
-                        return R.error("密码不符合规范!");
+                    }else {
+                        return R.error("两次密码不相同!");
                     }
                 }else{
                     return R.error("信息不完整!");
