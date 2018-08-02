@@ -365,7 +365,7 @@ public class ManagerController {
     public Map<String,Object> getAllfunction(@RequestBody Map<String,Object> map){
         Map<String,Object> returnData = new HashMap<>();
         returnData.put("allpage", userService.selectAllfunction());
-        List<PageDistribute> list=userService.selectHadfunction(Integer.parseInt(String.valueOf(map.get("data"))));
+        List<PageDistribute> list=userService.selectHadfunction(Integer.parseInt(String.valueOf(map.get("id"))));
         if(list.size()!=0){
             List<Integer> list2 =new ArrayList<>();
             for (PageDistribute pageDistribute:list) {
