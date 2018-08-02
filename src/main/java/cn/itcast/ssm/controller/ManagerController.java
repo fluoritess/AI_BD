@@ -364,21 +364,19 @@ public class ManagerController {
     @RequestMapping("/selecDistributionFunction.action")
     public Map<String,Object> getAllfunction(@RequestBody Map<String,Object> map){
         Map<String,Object> returnData = new HashMap<>();
-        returnData.put("allpage", userService.selectAllfunction());
         List<PageDistribute> list=userService.selectHadfunction(Integer.parseInt(String.valueOf(map.get("id"))));
         if(list.size()!=0){
-            List<Integer> list2 =new ArrayList<>();
+            List<String> list2 =new ArrayList<>();
             for (PageDistribute pageDistribute:list) {
-                list2.add(pageDistribute.getPageid());
+                list2.add(String.valueOf(pageDistribute.getPageid()));
             }
             returnData.put("hadFunction",list2);
 
-            return R.ok(returnData);
-        }else{
-
-            returnData.put("allFunction", "success");
-            return R.ok(returnData);
         }
+
+            returnData.put("allFunction",  userService.selectAllfunction());
+            return R.ok(returnData);
+
 
     }
 

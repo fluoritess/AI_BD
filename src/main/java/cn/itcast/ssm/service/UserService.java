@@ -58,7 +58,7 @@ public interface UserService {
 
     int updateUserState(RoleDistribute roleDistribute);
     
-    List<PageInf> selectAllfunction();
+    List<Map<String, Object>> selectAllfunction();
     
     List<PageDistribute> selectHadfunction(Integer roleid);
      int updateRoleInf(RoleInf roleInf);

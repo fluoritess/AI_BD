@@ -257,11 +257,19 @@ public class UserServiceImpl implements UserService{
         return pageInfMapper.updateByPrimaryKey(pageInf);
     }
 	@Override
-	public List<PageInf> selectAllfunction() {
+	public List<Map<String, Object>> selectAllfunction() {
 		// TODO 自动生成的方法存根
+        List<Map<String, Object>> lists = new ArrayList<>() ;
 		List<PageInf> pageInfs=pageInfMapper.selectByExample(null);
-		
-		return pageInfs;
+		for (PageInf pageInf:pageInfs){
+            Map<String,Object> map=new HashMap<>();
+            map.put("pagename",pageInf.getPagename());
+            map.put("type",pageInf.getType());
+            map.put("detail",pageInf.getDetail());
+		  lists.add(map);
+
+        }
+		return lists;
 	}
 
 
