@@ -31,12 +31,26 @@
     </select>
 
     <select id="selectPaging" resultType="java.util.LinkedHashMap">
-        SELECT  * FROM ${name}
+        SELECT
+        <choose>
+            <when test="name == 'page_inf'">
+              id,application_id as applicationId,
+                (select p.pagename from page_inf p where p.id = page_inf.parent_id) as parentName,
+               pagename,url,perms,type,icon,order_num,detail
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM ${name}
         <if test="roleState !=null">
             WHERE role_state=#{roleState}
         </if>
         <if test="name == 'page_inf'">
             order by order_num asc
+        </if>
+        <if test="name == 'user_manager'" >
+            order by userid asc
         </if>
         limit #{offset}, #{pageSize}
     </select>

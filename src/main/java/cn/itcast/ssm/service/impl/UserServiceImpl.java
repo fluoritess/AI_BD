@@ -156,8 +156,22 @@ public class UserServiceImpl implements UserService{
 
         for (Map<String,Object> map:list ){
             if(map.get("regtime")!=null){
-            map.put("regtime",((Date)(map.get("regtime"))).getTime());
-        }
+                map.put("regtime",((Date)(map.get("regtime"))).getTime());
+            }
+            //补充一级目录为空的字段
+            if(name.equals("page_inf")&&map.get("parentName")==null){
+                int location=list.indexOf(map);
+                int mark=0;
+                LinkedHashMap<String,Object> newMap=new LinkedHashMap<>();
+                for(Map.Entry<String,Object> entry:map.entrySet()){
+                    if(mark==2){
+                        newMap.put("parentName","/");
+                    }
+                    newMap.put(entry.getKey(),entry.getValue());
+                    mark++;
+                }
+                list.set(location,newMap);
+            }
         }
         page.setLists(list);
         return page;
