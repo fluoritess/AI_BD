@@ -39,14 +39,11 @@ public class ManagerController {
         String msg="";
         msg=userService.addFunction(data);
         if(msg.equals("功能添加失败")){
-
             return R.error(msg);
         }
         if(msg.equals("功能添加成功")){
-
             return R.ok(msg);
         }else {
-
             return R.error("功能添加失败");
         }
 
@@ -241,6 +238,10 @@ public class ManagerController {
                     mark=userService.selectInspectData("page_inf","pagename",String.valueOf(datas.get("data")));
                 }else if(String.valueOf(datas.get("name")).equals("url")){
                     mark=userService.selectInspectData("page_inf","url",String.valueOf(datas.get("data")));
+                }else if(String.valueOf(datas.get("name")).equals("perms")){
+                    mark=userService.selectInspectData("page_inf","perms",String.valueOf(datas.get("data")));
+                }else if(String.valueOf(datas.get("name")).equals("order_num")){
+                    mark=userService.selectInspectData("page_inf","order_num",String.valueOf(datas.get("data")));
                 }
                 break;
             //检测角色
@@ -248,15 +249,6 @@ public class ManagerController {
                 //检测名字
                 if(String.valueOf(datas.get("name")).equals("name")){
                     mark=userService.selectInspectData("role_inf","rolename",String.valueOf(datas.get("data")));
-                }
-                break;
-            //检测战区
-            case "zhanquguanli":
-                //检测id/名字
-                if(String.valueOf(datas.get("name")).equals("departid")){
-                    mark=userService.selectInspectData("department_inf","departid",String.valueOf(datas.get("data")));
-                }else if(String.valueOf(datas.get("name")).equals("name")){
-                    mark=userService.selectInspectData("department_inf","departname",String.valueOf(datas.get("data")));
                 }
                 break;
             default:
@@ -319,13 +311,16 @@ public class ManagerController {
     @RequestMapping("/updatePageInf.action")
     public Map<String,Object> updatePageInf(@RequestBody Map<String,Object> map){
         PageInf pageInf=new PageInf();
-        Map<String,Object> returnData=new HashMap<>();
-        String msg="";
         Map<String,Object> data=(Map<String,Object>)map.get("data");
-        pageInf.setPagename(String.valueOf(data.get("pagename")));
+        pageInf.setApplicationId(Integer.parseInt(String.valueOf(data.get("application"))));
         pageInf.setUrl(String.valueOf(data.get("url")));
         pageInf.setDetail(String.valueOf(data.get("detail")));
-        pageInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
+        pageInf.setPagename(String.valueOf(data.get("name")));
+        pageInf.setIcon(String.valueOf(data.get("icon")));
+        pageInf.setOrderNum(Integer.parseInt(String.valueOf(data.get("order_num"))));
+        pageInf.setParentId(Integer.parseInt(String.valueOf(data.get("parentId"))));
+        pageInf.setPerms(String.valueOf(data.get("perms")));
+        pageInf.setType(Integer.parseInt(String.valueOf(data.get("type"))));
         if(userService.updatePageInf(pageInf)!=0){
             return  R.ok("修改功能成功");
         }else{

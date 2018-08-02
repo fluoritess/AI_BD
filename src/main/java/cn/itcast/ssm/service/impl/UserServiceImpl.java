@@ -128,9 +128,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public String addFunction(Map<String, Object> data) {
         PageInf page=new PageInf();
+        page.setApplicationId(Integer.parseInt(String.valueOf(data.get("application"))));
         page.setUrl(String.valueOf(data.get("url")));
         page.setDetail(String.valueOf(data.get("detail")));
         page.setPagename(String.valueOf(data.get("name")));
+        page.setIcon(String.valueOf(data.get("icon")));
+        page.setOrderNum(Integer.parseInt(String.valueOf(data.get("order_num"))));
+        page.setParentId(Integer.parseInt(String.valueOf(data.get("parentId"))));
+        page.setPerms(String.valueOf(data.get("perms")));
+        page.setType(Integer.parseInt(String.valueOf(data.get("type"))));
         if(pageInfMapper.insertSelective(page)!=0){
             return "功能添加成功";
         }else{
