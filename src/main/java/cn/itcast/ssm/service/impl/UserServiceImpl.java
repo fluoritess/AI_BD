@@ -282,7 +282,8 @@ public class UserServiceImpl implements UserService{
         List<Map<String, Object>> lists = new ArrayList<>() ;
 		List<PageInf> pageInfs=pageInfMapper.selectByExample(null);
 		for (PageInf pageInf:pageInfs){
-            Map<String,Object> map=new HashMap<>();
+            Map<String,Object> map=new LinkedHashMap<>();
+            map.put("id",pageInf.getId());
             map.put("pagename",pageInf.getPagename());
             map.put("type",pageInf.getType());
             map.put("detail",pageInf.getDetail());
