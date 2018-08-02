@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService{
                 int mark=0;
                 LinkedHashMap<String,Object> newMap=new LinkedHashMap<>();
                 for(Map.Entry<String,Object> entry:map.entrySet()){
-                    if(mark==2){
+                    if(mark==3){
                         newMap.put("parentName","/");
                     }
                     newMap.put(entry.getKey(),entry.getValue());
