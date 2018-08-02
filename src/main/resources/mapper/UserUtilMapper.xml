@@ -34,7 +34,7 @@
         SELECT
         <choose>
             <when test="name == 'page_inf'">
-              id,application_id as applicationId,parent_id as parentId,
+              id,application_id as application,parent_id as parentId,
                 (select p.pagename from page_inf p where p.id = page_inf.parent_id) as parentName,
                pagename,url,perms,type,icon,order_num,detail
             </when>
