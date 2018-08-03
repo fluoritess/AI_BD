@@ -81,4 +81,10 @@ idnumber=#{userInf.idnumber,jdbcType=CHAR}
         select page_id from user_permission where userid=#{userId} AND role_state='1'
     </select>
 
+    <insert id="insert_PP" parameterType="java.util.ArrayList">
+        INSERT into table_p_p (projectid,propertyid,value) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.projectid},#{item.propertyid},#{item.value})
+        </foreach>
+    </insert>
 </mapper>
