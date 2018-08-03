@@ -22,6 +22,10 @@
     </aop:config>
 
     <!--配置事物管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--使用druid数据源-->
+        <property name="dataSource" ref="druidDateSource"/>
+    </bean>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <!-- 传播行为 -->
