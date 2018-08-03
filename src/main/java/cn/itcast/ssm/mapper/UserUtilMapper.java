@@ -1,6 +1,7 @@
 package cn.itcast.ssm.mapper;
 
 
+import cn.itcast.ssm.po.PageDistribute;
 import cn.itcast.ssm.po.UserInf;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -37,4 +38,7 @@ public interface UserUtilMapper {
     List<String> selectUserPermission(@Param("userId") int userId);
 
     List<Integer> selectAllPageId(@Param("userId") int userId);
+
+    int insertFunction(@Param("list") List<PageDistribute> list);
+    int deleteFunction(@Param("list") List<PageDistribute> list);
 }

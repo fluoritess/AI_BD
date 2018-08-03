@@ -305,13 +305,7 @@ public class UserServiceImpl implements UserService{
 		return pageDistributes ;
 	}
 
-	@Override
-	public int updataDistributionFunction(PageDistribute pageDistribute) {
-		// TODO 自动生成的方法存根
-		
-		return pageDistributeMapper.insert(pageDistribute);
-		
-	}
+
 
 	@Override
 	public int delectDistributionFunction(int jueseID, int functionID) {
@@ -446,5 +440,28 @@ public class UserServiceImpl implements UserService{
         }
         return  list;
     }
+
+    public Boolean updataFunction( List<PageDistribute> addlist,List<PageDistribute> deletelist){
+	    if (addlist.size()!=0){
+if (utilMapper.insertFunction(addlist)==0){
+    return false;
+
+}
+
+        }
+        if(deletelist.size()!=0) {
+	        if ( utilMapper.deleteFunction(deletelist)==0){
+	            return false;
+            }
+
+        }
+        if(deletelist.size()==0&&addlist.size()==0){
+
+	        return  false;
+        }
+        return  true;
+    }
+
+
 
 }
