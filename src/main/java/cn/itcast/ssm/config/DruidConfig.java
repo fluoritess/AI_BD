@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DruidConfig {
 
-    @Bean
+    @Bean(value = "druidDateSource")
     @ConfigurationProperties(prefix = "spring.datasource")
     @Qualifier("druidDataSource")
     public DataSource druidDateSource(){
