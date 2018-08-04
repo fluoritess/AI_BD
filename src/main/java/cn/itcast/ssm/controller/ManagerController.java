@@ -321,6 +321,10 @@ public class ManagerController {
         pageInf.setParentId(Integer.parseInt(String.valueOf(data.get("parentId"))));
         pageInf.setPerms(String.valueOf(data.get("perms")));
         pageInf.setType(Integer.parseInt(String.valueOf(data.get("type"))));
+        pageInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
+        if(pageInf.getOrderNum()<200){
+            return R.error("系统初始配置无法修改！");
+        }
         if(userService.updatePageInf(pageInf)!=0){
             return  R.ok("修改功能成功");
         }else{
@@ -428,8 +432,10 @@ public class ManagerController {
     @RequestMapping("/selectUserPage.action")
     public R selectUserPage(HttpSession session){
         UserInf userInf=(UserInf) session.getAttribute("user");
-        List<PageUtils> pageList=userService.getUserAllPage(userInf.getId());
-        Set<String> perms=userService.getUserPermissions(userInf);
+        List<PageUtils> pageList=new ArrayList<>();
+        pageList=userService.getUserAllPage(userInf.getId());
+        Set<String> perms=new LinkedHashSet<>();
+        perms=userService.getUserPermissions(userInf);
         return R.ok().put("userPageList",pageList).put("perms",perms);
     }
     /**

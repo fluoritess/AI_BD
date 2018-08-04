@@ -51,46 +51,19 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         //设置安全管理
         shiroFilter.setSecurityManager(securityManager);
-//        shiroFilter.setLoginUrl("/index.html");//登录页面
-//        shiroFilter.setSuccessUrl("/html/main.html");//登录成功页面
-//        shiroFilter.setUnauthorizedUrl("/html/error.html");//未授权页面
         shiroFilter.setLoginUrl("/");
         shiroFilter.setSuccessUrl("/#/main");
         shiroFilter.setUnauthorizedUrl("/");
-//        Map<String,Filter> filterMap=new LinkedHashMap<>();
-//        filterMap.put("shiroLoginFilter",shiroLoginFilter());
-//        filterMap.put("perms",new ShiroPermsFilter());
-//        filterMap.put("roles",new ShiroRolesFilter());
-//        filterMap.put("logout",new ShiroLogout());
-//        shiroFilter.setFilters(filterMap);
         //设置拦截器放行路径
         Map<String,String> filterUrl=new LinkedHashMap<>();
-//        filterUrl.put("/static/bootstrap/**","anon");
-//        filterUrl.put("/static/css/**","anon");
-//        filterUrl.put("/static/image/**","anon");
-//        filterUrl.put("/static/js/**","anon");
-//        filterUrl.put("/static/json/**","anon");
-//        filterUrl.put("/index.html","anon");
-//        filterUrl.put("/","anon");
-//        filterUrl.put("/#/register","anon");
-//        filterUrl.put("/login.action","anon");
-//        filterUrl.put("/","anon");
         filterUrl.put("/register.action","anon");
         filterUrl.put("/sendCode.action","anon");
-//        filterUrl.put("/html/newuser.html","anon");
         filterUrl.put("/login.action","anon");
         filterUrl.put("/loginOut.action","logout");
-//        filterUrl.put("/html/register.action","anon");
-//        filterUrl.put("/html/sendCode.action","anon");
-//        filterUrl.put("/success.html*","anon");
-//        filterUrl.put("/html/error.html*","anon");
-
         //设置拦截目录
-//        filterUrl.put("/#/**","authc,perms");.
         filterUrl.put("/**/*.action","authc");
         filterUrl.put("/druid/**","authc");
-        //记住我
-//        filterUrl.put("/main/**", "user")
+
         shiroFilter.setFilterChainDefinitionMap(filterUrl);
         return shiroFilter;
     }
