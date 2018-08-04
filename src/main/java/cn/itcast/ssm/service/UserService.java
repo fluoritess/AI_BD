@@ -63,8 +63,7 @@ public interface UserService {
     List<PageDistribute> selectHadfunction(Integer roleid);
      int updateRoleInf(RoleInf roleInf);
     int updatePageInf(PageInf pageInf);
-    
-    int updataDistributionFunction(PageDistribute pageDistribute);
+
     
     int delectDistributionFunction(int jueseID ,int functionID);
 
@@ -76,4 +75,5 @@ public interface UserService {
     int updateSystemManange(ApplicationSystemInformation information);
     int addSystemManage(ApplicationSystemInformation information);
     int deleteSystemManage(Integer id);
+    public Boolean updataFunction( List<PageDistribute> addList,List<PageDistribute> deleteList);
 }

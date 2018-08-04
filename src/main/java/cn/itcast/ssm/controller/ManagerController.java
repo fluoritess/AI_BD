@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +21,7 @@ import java.util.*;
  * @Description:
  * @date 18-8-1 下午4:00
  */
+@SuppressWarnings("ALL")
 @Controller
 public class ManagerController {
     @Autowired
@@ -33,6 +33,7 @@ public class ManagerController {
      * @param map
      * @return
      */
+    @SuppressWarnings("AlibabaUndefineMagicConstant")
     @ArchivesLog(operationName = "用户添加功能信息", operationType = "写入信息")
     @ResponseBody
     @RequestMapping("/addFunction.action")
@@ -40,10 +41,11 @@ public class ManagerController {
         Map<String, Object> data = (Map<String, Object>) map.get("data");
         String msg = "";
         msg = userService.addFunction(data);
-        if (msg.equals("功能添加失败")) {
+        //noinspection AlibabaUndefineMagicConstant
+        if ("功能添加失败".equals(msg)) {
             return R.error(msg);
         }
-        if (msg.equals("功能添加成功")) {
+        if ("功能添加成功".equals(msg)) {
             return R.ok(msg);
         } else {
             return R.error("功能添加失败");
@@ -64,11 +66,11 @@ public class ManagerController {
         Map<String, Object> data = (Map<String, Object>) map.get("data");
         String msg = "";
         msg = userService.addRole(data);
-        if (msg.equals("角色添加失败")) {
+        if ("角色添加失败".equals(msg)) {
 
             return R.error(msg);
         }
-        if (msg.equals("角色添加成功")) {
+        if ("角色添加成功".equals(msg)) {
 
             return R.ok(msg);
         } else {
@@ -90,11 +92,11 @@ public class ManagerController {
     public Map<String, Object> deleteFunctionData(@RequestBody Map<String, Object> map) {
         String msg = "";
         msg = userService.deletegongneng(Integer.parseInt(String.valueOf(map.get("id"))));
-        if (msg.equals("功能删除失败")) {
+        if ("功能删除失败".equals(msg)) {
 
             return R.error(msg);
         }
-        if (msg.equals("功能删除成功")) {
+        if ("功能删除成功".equals(msg)) {
 
             return R.ok(msg);
         } else {
@@ -115,11 +117,11 @@ public class ManagerController {
     public Map<String, Object> deleteRoleData(@RequestBody Map<String, Object> map) {
         String msg = "";
         msg = userService.deleterole(Integer.parseInt(String.valueOf(map.get("id"))));
-        if (msg.equals("角色删除失败")) {
+        if ("角色删除失败".equals(msg)) {
 
             return R.error(msg);
         }
-        if (msg.equals("角色删除成功")) {
+        if ("角色删除成功".equals(msg)) {
 
             return R.ok(msg);
         } else {
@@ -140,11 +142,11 @@ public class ManagerController {
     public Map<String, Object> deleteUserData(@RequestBody Map<String, Object> map) {
         String msg = "";
         msg = userService.deleteuser(Integer.parseInt(String.valueOf(map.get("id"))));
-        if (msg.equals("用户删除失败")) {
+        if ("用户删除失败".equals(msg)) {
 
             return R.error(msg);
         }
-        if (msg.equals("用户删除成功")) {
+        if ("用户删除成功".equals(msg)) {
 
             return R.ok(msg);
         } else {
@@ -197,16 +199,16 @@ public class ManagerController {
      */
     @ArchivesLog(operationName = "用户查询用户分页", operationType = "查询信息")
     @ResponseBody
-    @RequestMapping(value = "/selectUserPaging.action", method = RequestMethod.POST)
+    @RequestMapping("/selectUserPaging.action")
     public Map<String, Object> selectUserPaging(@RequestBody Map<String, Object> reMap) {
         Map<String, Object> page = (Map<String, Object>) reMap.get("page");
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Map<String, Object> state = (Map<String, Object>) reMap.get("state");
         Paging paging = new Paging();
-        if (String.valueOf(state.get("state")).equals("0")) {
+        if ("0".equals(String.valueOf(state.get("state")))) {
             paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "0");
-        } else if (String.valueOf(state.get("state")).equals("1")) {
+        } else if ("1".equals(String.valueOf(state.get("state")))) {
             paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "1");
         } else {
             paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "0");
@@ -214,23 +216,6 @@ public class ManagerController {
         return R.ok("查询用户分页成功").put("data", paging);
     }
 
-    /**
-     * 查询应用系统管理分页
-     *
-     * @param reMap
-     * @return
-     */
-    @ArchivesLog(operationName = "应用系统管理分页", operationType = "查询信息")
-    @ResponseBody
-    @RequestMapping("/selectManageSystemPaging.action")
-    public Map<String, Object> selectManageSystemPaging(@RequestBody Map<String, Object> reMap) {
-        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
-        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
-        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
-        Paging paging = new Paging();
-        paging = userService.selectPaging("application_system_information", (active - 1) * pagelist, pagelist, null);
-        return R.ok("查询应用系统管理分页成功").put("data", paging);
-    }
 
     /**
      * 查询所有的角色
@@ -257,27 +242,27 @@ public class ManagerController {
     public Map<String, Object> inspectData(@RequestBody Map<String, Object> map) {
         Map<String, Object> states = (Map<String, Object>) map.get("states");
         Map<String, Object> datas = (Map<String, Object>) map.get("data");
-        Map<String, Object> returnData = new HashMap<>();
+        Map<String, Object> returnData = new HashMap<>(100);
         String msg = "";
         boolean mark = true;
         switch (String.valueOf(states.get("id"))) {
             //检测功能
             case "gongnengguanli":
                 //检测名字/url
-                if (String.valueOf(datas.get("name")).equals("name")) {
+                if ("name".equals(String.valueOf(datas.get("name")))) {
                     mark = userService.selectInspectData("page_inf", "pagename", String.valueOf(datas.get("data")));
-                } else if (String.valueOf(datas.get("name")).equals("url")) {
+                } else if ("url".equals(String.valueOf(datas.get("name")))) {
                     mark = userService.selectInspectData("page_inf", "url", String.valueOf(datas.get("data")));
-                } else if (String.valueOf(datas.get("name")).equals("perms")) {
+                } else if ("perms".equals(String.valueOf(datas.get("name")))) {
                     mark = userService.selectInspectData("page_inf", "perms", String.valueOf(datas.get("data")));
-                } else if (String.valueOf(datas.get("name")).equals("order_num")) {
+                } else if ("order_num".equals(String.valueOf(datas.get("name")))) {
                     mark = userService.selectInspectData("page_inf", "order_num", String.valueOf(datas.get("data")));
                 }
                 break;
             //检测角色
             case "jueseguanli":
                 //检测名字
-                if (String.valueOf(datas.get("name")).equals("name")) {
+                if ("name".equals(String.valueOf(datas.get("name")))) {
                     mark = userService.selectInspectData("role_inf", "rolename", String.valueOf(datas.get("data")));
                 }
                 break;
@@ -354,6 +339,10 @@ public class ManagerController {
         pageInf.setParentId(Integer.parseInt(String.valueOf(data.get("parentId"))));
         pageInf.setPerms(String.valueOf(data.get("perms")));
         pageInf.setType(Integer.parseInt(String.valueOf(data.get("type"))));
+        pageInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
+        if (pageInf.getOrderNum() < 200) {
+            return R.error("系统初始配置无法修改！");
+        }
         if (userService.updatePageInf(pageInf) != 0) {
             return R.ok("修改功能成功");
         } else {
@@ -394,13 +383,17 @@ public class ManagerController {
     @ResponseBody
     @RequestMapping("/selecDistributionFunction.action")
     public Map<String, Object> getAllfunction(@RequestBody Map<String, Object> map) {
-        Map<String, Object> returnData = new HashMap<>();
+        Map<String, Object> returnData = new HashMap<>(100);
+        List<String> list2 = new ArrayList<>();
         List<PageDistribute> list = userService.selectHadfunction(Integer.parseInt(String.valueOf(map.get("id"))));
         if (list.size() != 0) {
-            List<String> list2 = new ArrayList<>();
+
             for (PageDistribute pageDistribute : list) {
                 list2.add(String.valueOf(pageDistribute.getPageid()));
             }
+            returnData.put("hadFunction", list2);
+
+        } else {
             returnData.put("hadFunction", list2);
 
         }
@@ -412,26 +405,48 @@ public class ManagerController {
     }
 
     /**
-     * 增加角色功能
+     * 增加/删除角色功能
      *
      * @param map
      * @return
      */
-    @ArchivesLog(operationType = "添加信息", operationName = "添加角色功能")
+    @ArchivesLog(operationType = "添加信息", operationName = "添加/删除角色功能")
     @ResponseBody
     @RequestMapping("/updataDistributionFunction.action")
     public Map<String, Object> addfunction(@RequestBody Map<String, Object> map, HttpSession session) {
-        Integer jueseID = (Integer) map.get("data");
-        Integer functionID = (Integer) map.get("id");
-        PageDistribute pageDistribute = new PageDistribute();
-        pageDistribute.setPageid(functionID);
-        pageDistribute.setRoleid(jueseID);
-        if (userService.updataDistributionFunction(pageDistribute) == 0) {
-            return R.error("添加角色失败");
-        } else {
-            return R.ok("添加角色成功");
+        Map<String, Object> returnData = new HashMap<>(100);
+        Integer jueseID = (Integer) map.get("roleid");
+        ArrayList addList = (ArrayList) map.get("addData");
+        ArrayList deleteList = (ArrayList) map.get("deleteData");
+        List<PageDistribute> addlist = new ArrayList<>();
+        List<PageDistribute> deletelist = new ArrayList<>();
+
+        for (int i = 0; i < addList.size(); i++) {
+            PageDistribute pageDistribute = new PageDistribute();
+            pageDistribute.setRoleid(jueseID);
+            pageDistribute.setPageid(Integer.parseInt(String.valueOf(addList.get(i))));
+            addlist.add(pageDistribute);
         }
 
+
+        for (int j = 0; j < deleteList.size(); j++) {
+            PageDistribute pageDistribute = new PageDistribute();
+            pageDistribute.setRoleid(jueseID);
+            pageDistribute.setPageid(Integer.parseInt(String.valueOf(deleteList.get(j))));
+            deletelist.add(pageDistribute);
+        }
+        Boolean msg = userService.updataFunction(addlist, deletelist);
+
+        if (msg == true) {
+
+            return R.ok().put("msg", "数据更新成功");
+        }
+        if (msg == false) {
+            return R.error().put("msg", "数据更新不成功（没有数据更新）");
+        }
+
+
+        return R.error().put("msg", "数据更新失败");
     }
 
     /**
@@ -444,7 +459,7 @@ public class ManagerController {
     @ResponseBody
     @RequestMapping("/delectDistributionFunction.action")
     public Map<String, Object> delectfunction(@RequestBody Map<String, Object> map, HttpSession session) {
-        Map<String, Object> returnData = new HashMap<>();
+        Map<String, Object> returnData = new HashMap<>(100);
         int jueseID = (int) map.get("data");
         int functionID = (int) map.get("id");
         if (userService.delectDistributionFunction(jueseID, functionID) == 0) {
@@ -466,8 +481,10 @@ public class ManagerController {
     @RequestMapping("/selectUserPage.action")
     public R selectUserPage(HttpSession session) {
         UserInf userInf = (UserInf) session.getAttribute("user");
-        List<PageUtils> pageList = userService.getUserAllPage(userInf.getId());
-        Set<String> perms = userService.getUserPermissions(userInf);
+        List<PageUtils> pageList = new ArrayList<>();
+        pageList = userService.getUserAllPage(userInf.getId());
+        Set<String> perms = new LinkedHashSet<>();
+        perms = userService.getUserPermissions(userInf);
         return R.ok().put("userPageList", pageList).put("perms", perms);
     }
 
@@ -506,8 +523,25 @@ public class ManagerController {
     }
 
     /**
-     * 修改应用管理系统
+     * 查询应用系统管理分页
      *
+     * @param reMap
+     * @return
+     */
+    @ArchivesLog(operationName = "应用系统管理分页", operationType = "查询信息")
+    @ResponseBody
+    @RequestMapping("/selectManageSystemPaging.action")
+    public Map<String, Object> selectManageSystemPaging(@RequestBody Map<String, Object> reMap) {
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = userService.selectPaging("application_system_information", (active - 1) * pagelist, pagelist, null);
+        return R.ok("查询应用系统管理分页成功").put("data", paging);
+    }
+
+    /**
+     * 修改应用管理系统
      * @param map
      * @return
      */
@@ -562,7 +596,7 @@ public class ManagerController {
     @ResponseBody
     @RequestMapping("/deleteSystemManage.action")
     public Map<String, Object> deleteSystemManage(@RequestBody Map<String, Object> map) {
-        Map<String,Object> data = (Map<String, Object>) map.get("data");
+        Map<String, Object> data = (Map<String, Object>) map.get("data");
         Integer id = Integer.parseInt(String.valueOf(data.get("id")));
         if (userService.deleteSystemManage(id) == 0) {
             return R.error("删除应用系统管理失败");
@@ -572,3 +606,4 @@ public class ManagerController {
 
     }
 }
+

@@ -4,11 +4,12 @@
 Web云平台
 
 #### 软件架构
-Spring+SpringMVC+Mybtis+SpringBoot
+Spring+SpringMVC+Mybtis+SpringBoot+Shrio+Druid
 
+#### 1.0.2版本更新 2018.8.4
+1.集成Shiro权限管理，可动态添加页面和角色
 
 #### 1.0.1版本更新 2018.7.20
-
 1. 加入spring事物处理
 2. 加入druid数据源，可以登录/AI_BD/druid/login.html登录平台
 用户名为：admin；密码：admin

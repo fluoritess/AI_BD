@@ -81,4 +81,19 @@ idnumber=#{userInf.idnumber,jdbcType=CHAR}
         select page_id from user_permission where userid=#{userId} AND role_state='1'
     </select>
 
+    <insert id="insertFunction" parameterType="java.util.List">
+        INSERT into page_distribute (roleid,pageid) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.roleid},#{item.pageid})
+        </foreach>
+    </insert>
+
+    <delete id="deleteFunction" parameterType="java.util.List">
+  delete from page_distribute where
+        <foreach collection="list" item="item" index="index" separator="or">
+            (roleid = #{item.roleid} and pageid = #{item.pageid})
+        </foreach>
+
+
+    </delete>
 </mapper>
