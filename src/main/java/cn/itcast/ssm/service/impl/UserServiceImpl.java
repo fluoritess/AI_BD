@@ -441,6 +441,22 @@ public class UserServiceImpl implements UserService{
         return  list;
     }
 
+    @Override
+    public int updateSystemManange(ApplicationSystemInformation information) {
+
+        return applicationSystemInformationMapper.updateByPrimaryKey(information);
+    }
+
+    @Override
+    public int addSystemManage(ApplicationSystemInformation information) {
+        return applicationSystemInformationMapper.insert(information);
+    }
+
+    @Override
+    public int deleteSystemManage(Integer id) {
+        return applicationSystemInformationMapper.deleteByPrimaryKey(id);
+    }
+
     public Boolean updataFunction( List<PageDistribute> addlist,List<PageDistribute> deletelist){
 	    if (addlist.size()!=0){
 if (utilMapper.insertFunction(addlist)==0){
@@ -461,7 +477,5 @@ if (utilMapper.insertFunction(addlist)==0){
         }
         return  true;
     }
-
-
 
 }

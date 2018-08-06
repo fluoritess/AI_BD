@@ -72,5 +72,8 @@ public interface UserService {
     List<PageUtils> getUserAllPage(int userId);
      List<Map<String,Object>> selectApplicationId();
     List<Map<String,Object>> selectMenu();
+    int updateSystemManange(ApplicationSystemInformation information);
+    int addSystemManage(ApplicationSystemInformation information);
+    int deleteSystemManage(Integer id);
     public Boolean updataFunction( List<PageDistribute> addList,List<PageDistribute> deleteList);
 }
