@@ -459,20 +459,16 @@ public class UserServiceImpl implements UserService{
 
     public Boolean updataFunction( List<PageDistribute> addlist,List<PageDistribute> deletelist){
 	    if (addlist.size()!=0){
-if (utilMapper.insertFunction(addlist)==0){
-    return false;
-
-}
-
+            if (utilMapper.insertFunction(addlist)==0){
+                return false;
+            }
         }
         if(deletelist.size()!=0) {
 	        if ( utilMapper.deleteFunction(deletelist)==0){
 	            return false;
             }
-
         }
         if(deletelist.size()==0&&addlist.size()==0){
-
 	        return  false;
         }
         return  true;
