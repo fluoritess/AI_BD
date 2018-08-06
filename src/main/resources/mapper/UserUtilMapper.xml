@@ -11,7 +11,6 @@
     <result column="idnumber" jdbcType="CHAR" property="idnumber" />
     <result column="state" jdbcType="CHAR" property="state" />
     <result column="regtime" jdbcType="TIMESTAMP" property="regtime" />
-    <result column="departId" jdbcType="INTEGER" property="departid" />
   </resultMap>
     <!--分页查询语句-->
     <sql id="selectDataPaging">
