@@ -6,6 +6,7 @@ import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.util.PageUtils;
 import cn.itcast.ssm.util.Paging;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService{
             return users.get(0);
         }
         return null;
-        
+
     }
 
 
@@ -111,10 +112,10 @@ public class UserServiceImpl implements UserService{
      * @param idnumber
      * @param telph
      */
-	@Override
-	public void adddata(String email, String name, String idnumber, String telph) {
-		// TODO 自动生成的方法存根
-		UserInfExample userInfExample = new UserInfExample();
+    @Override
+    public void adddata(String email, String name, String idnumber, String telph) {
+        // TODO 自动生成的方法存根
+        UserInfExample userInfExample = new UserInfExample();
         UserInfExample.Criteria criteria = userInfExample.createCriteria();
         UserInf userInf = new UserInf();
         userInf.setEmail(email);
@@ -122,8 +123,8 @@ public class UserServiceImpl implements UserService{
         userInf.setIdnumber(idnumber);
         criteria.andTelEqualTo(telph);
         userInfMapper.updateByExampleSelective(userInf, userInfExample);
-		
-	}
+
+    }
 
     @Override
     public String addFunction(Map<String, Object> data) {
@@ -178,48 +179,48 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-	public String addRole(Map<String, Object> data) {
-		// TODO 自动生成的方法存根
-		RoleInf roleInf = new RoleInf();
-		roleInf.setRolename(String.valueOf(data.get("name")));
-		roleInf.setRoledetail(String.valueOf(data.get("detail")));
+    public String addRole(Map<String, Object> data) {
+        // TODO 自动生成的方法存根
+        RoleInf roleInf = new RoleInf();
+        roleInf.setRolename(String.valueOf(data.get("name")));
+        roleInf.setRoledetail(String.valueOf(data.get("detail")));
 
-		  if(roleInfMapper.insertSelective(roleInf)!=0){
-	            return "角色添加成功";
-	        }else{
-	            return "角色添加失败";
-	        }
-	}
+        if(roleInfMapper.insertSelective(roleInf)!=0){
+            return "角色添加成功";
+        }else{
+            return "角色添加失败";
+        }
+    }
 
-	@Override
-	public String deleterole(Integer id) {
-		// TODO 自动生成的方法存根
-		if(roleInfMapper.deleteByPrimaryKey(id)!=0){
-			return "角色删除成功";
-		}else {
-			return "角色删除失败";
-		}
-	}
+    @Override
+    public String deleterole(Integer id) {
+        // TODO 自动生成的方法存根
+        if(roleInfMapper.deleteByPrimaryKey(id)!=0){
+            return "角色删除成功";
+        }else {
+            return "角色删除失败";
+        }
+    }
 
-	@Override
-	public String deletegongneng(Integer id) {
-		// TODO 自动生成的方法存根
-	if(pageInfMapper.deleteByPrimaryKey(id)!=0){
-			return "功能删除成功";
-		}else {
-			return "功能删除失败";
-		}
-	}
+    @Override
+    public String deletegongneng(Integer id) {
+        // TODO 自动生成的方法存根
+        if(pageInfMapper.deleteByPrimaryKey(id)!=0){
+            return "功能删除成功";
+        }else {
+            return "功能删除失败";
+        }
+    }
 
-	@Override
-	public String deleteuser(Integer id) {
-		// TODO 自动生成的方法存根
-    if(userInfMapper.deleteByPrimaryKey(id)!=0){
-			return "success";
-		}else {
-			return "error";
-		}
-	}
+    @Override
+    public String deleteuser(Integer id) {
+        // TODO 自动生成的方法存根
+        if(userInfMapper.deleteByPrimaryKey(id)!=0){
+            return "success";
+        }else {
+            return "error";
+        }
+    }
 
 
     @Override
@@ -227,7 +228,7 @@ public class UserServiceImpl implements UserService{
         List<Map<String, Object>> list=new ArrayList<>();
         List<RoleInf> roleInfs=roleInfMapper.selectByExample(null);
         for (RoleInf role:roleInfs) {
-            Map<String,Object> map=new HashMap<>();
+            Map<String,Object> map=new LinkedHashMap<>();
             map.put("id",role.getId());
             map.put("name",role.getRolename());
             list.add(map);
@@ -236,22 +237,17 @@ public class UserServiceImpl implements UserService{
     }
 
 
-	@Override
-	public void addroleDist(int userid, int roleid) {
-		// TODO 自动生成的方法存根
-		
-		RoleDistribute roleDistribute = new RoleDistribute();
-		roleDistribute.setRoleid(roleid);
-		roleDistribute.setUserid(userid);
-		roleDistributeMapper.insertSelective(roleDistribute);
-	}
+    @Override
+    public void addroleDist(int userid, int roleid) {
+        // TODO 自动生成的方法存根
 
-	@Override
-	public Map<String, Object> selectroleAnddepart(UserInf userInf) {
-		// TODO 自动生成的方法存根
-		 List<Map<String,Object>> list = utilMapper.selectUDRView(userInf);
-		return list.get(0);
-	}
+        RoleDistribute roleDistribute = new RoleDistribute();
+        roleDistribute.setRoleid(roleid);
+        roleDistribute.setUserid(userid);
+        roleDistributeMapper.insertSelective(roleDistribute);
+    }
+
+
 
     @Override
     public boolean selectInspectData(String tableName,String listName,String listValue) {
@@ -276,50 +272,50 @@ public class UserServiceImpl implements UserService{
     public int updatePageInf(PageInf pageInf) {
         return pageInfMapper.updateByPrimaryKey(pageInf);
     }
-	@Override
-	public List<Map<String, Object>> selectAllfunction() {
-		// TODO 自动生成的方法存根
+    @Override
+    public List<Map<String, Object>> selectAllfunction() {
+        // TODO 自动生成的方法存根
         List<Map<String, Object>> lists = new ArrayList<>() ;
-		List<PageInf> pageInfs=pageInfMapper.selectByExample(null);
-		for (PageInf pageInf:pageInfs){
+        List<PageInf> pageInfs=pageInfMapper.selectByExample(null);
+        for (PageInf pageInf:pageInfs){
             Map<String,Object> map=new LinkedHashMap<>();
             map.put("id",pageInf.getId());
             map.put("pagename",pageInf.getPagename());
             map.put("type",pageInf.getType());
             map.put("detail",pageInf.getDetail());
-		  lists.add(map);
+            lists.add(map);
 
         }
-		return lists;
-	}
+        return lists;
+    }
 
 
-	@Override
-	public List<PageDistribute> selectHadfunction(Integer roleid) {
-		// TODO 自动生成的方法存根
-		PageDistributeExample pageDistributeExample = new PageDistributeExample();
-		PageDistributeExample.Criteria criteria = pageDistributeExample.createCriteria();
-		
-		criteria.andRoleidEqualTo(roleid);
-		List<PageDistribute> pageDistributes =pageDistributeMapper.selectByExample(pageDistributeExample);
-		return pageDistributes ;
-	}
+    @Override
+    public List<PageDistribute> selectHadfunction(Integer roleid) {
+        // TODO 自动生成的方法存根
+        PageDistributeExample pageDistributeExample = new PageDistributeExample();
+        PageDistributeExample.Criteria criteria = pageDistributeExample.createCriteria();
+
+        criteria.andRoleidEqualTo(roleid);
+        List<PageDistribute> pageDistributes =pageDistributeMapper.selectByExample(pageDistributeExample);
+        return pageDistributes ;
+    }
 
 
 
-	@Override
-	public int delectDistributionFunction(int jueseID, int functionID) {
-		// TODO 自动生成的方法存根
-		
-		PageDistributeExample pageDistributeExample = new PageDistributeExample();
-		PageDistributeExample.Criteria criteria = pageDistributeExample.createCriteria();
-		
-		criteria.andRoleidEqualTo(jueseID);
-		criteria.andPageidEqualTo(functionID);
-		return pageDistributeMapper.deleteByExample(pageDistributeExample);
-		
-		 
-	}
+    @Override
+    public int delectDistributionFunction(int jueseID, int functionID) {
+        // TODO 自动生成的方法存根
+
+        PageDistributeExample pageDistributeExample = new PageDistributeExample();
+        PageDistributeExample.Criteria criteria = pageDistributeExample.createCriteria();
+
+        criteria.andRoleidEqualTo(jueseID);
+        criteria.andPageidEqualTo(functionID);
+        return pageDistributeMapper.deleteByExample(pageDistributeExample);
+
+
+    }
 
     @Override
     public Set<String> getUserPermissions(UserInf user) {
@@ -350,7 +346,7 @@ public class UserServiceImpl implements UserService{
     public List<PageUtils> getUserAllPage(int userId) {
         //系统管理员，拥有最高权限
         if(userId == 1){
-           return getAllPage(null);
+            return getAllPage(null);
         }
 
         //查询用户的菜单
@@ -406,7 +402,7 @@ public class UserServiceImpl implements UserService{
         getPageTreeList(pageUtilsList,pageIdList);
         return pageUtilsList;
     }
-
+    @Override
     public List<Map<String,Object>> selectApplicationId(){
 
         List<Map<String, Object>> list=new ArrayList<>();
@@ -423,6 +419,7 @@ public class UserServiceImpl implements UserService{
         return  list;
     }
 
+    @Override
     public List<Map<String,Object>> selectMenu(){
 
         List<Map<String, Object>> list=new ArrayList<>();
@@ -456,22 +453,36 @@ public class UserServiceImpl implements UserService{
     public int deleteSystemManage(Integer id) {
         return applicationSystemInformationMapper.deleteByPrimaryKey(id);
     }
-
+    @Override
     public Boolean updataFunction( List<PageDistribute> addlist,List<PageDistribute> deletelist){
-	    if (addlist.size()!=0){
+        if (addlist.size()!=0){
             if (utilMapper.insertFunction(addlist)==0){
                 return false;
             }
         }
         if(deletelist.size()!=0) {
-	        if ( utilMapper.deleteFunction(deletelist)==0){
-	            return false;
+            if ( utilMapper.deleteFunction(deletelist)==0){
+                return false;
             }
         }
         if(deletelist.size()==0&&addlist.size()==0){
-	        return  false;
+            return  false;
         }
         return  true;
+    }
+
+    @Override
+    public List<RoleDistribute> selectUserRole(Integer userId){
+
+        RoleDistributeExample roleDistributeExample =new RoleDistributeExample();
+        RoleDistributeExample.Criteria criteria= roleDistributeExample.createCriteria();
+        criteria.andUseridEqualTo(userId);
+        return  roleDistributeMapper.selectByExample(roleDistributeExample);
+    }
+    @Override
+    public   List<Map<String,Object>> selectUserRole2(Integer userId){
+        return  utilMapper.selectUserRole(userId);
+
     }
 
 }

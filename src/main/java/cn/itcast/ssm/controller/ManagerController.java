@@ -225,9 +225,17 @@ public class ManagerController {
     @ArchivesLog(operationName = "用户查询所有角色信息", operationType = "查询信息")
     @ResponseBody
     @RequestMapping("/allRole.action")
-    public Map<String, Object> allRole() {
+    public Map<String, Object> allRole( HttpSession session) {
+        UserInf user=(UserInf)session.getAttribute("user");
         List<Map<String, Object>> list = userService.selectAllRole();
-        return R.ok("查询成功").put("list", list);
+        List<RoleDistribute> list2=userService.selectUserRole(user.getId());
+        List list1 = new ArrayList();
+        for (RoleDistribute roleDistribute:list2){
+
+            list1.add( String.valueOf(roleDistribute.getRoleid()));
+        }
+
+        return R.ok("查询成功").put("allRole", list).put("hadRole",list1);
     }
 
     /**
@@ -487,7 +495,6 @@ public class ManagerController {
         perms = userService.getUserPermissions(userInf);
         return R.ok().put("userPageList", pageList).put("perms", perms);
     }
-
     /**
      * 查询已有应用系统
      */

@@ -33,7 +33,6 @@ public interface UserUtilMapper {
                                                @Param(value = "listName") String listName,
                                                @Param(value = "listValue") String listValue);
 
-    List<Map<String,Object>> selectUDRView(@Param("userInf") UserInf userInf);
 
     List<String> selectUserPermission(@Param("userId") int userId);
 
@@ -41,4 +40,5 @@ public interface UserUtilMapper {
 
     int insertFunction(@Param("list") List<PageDistribute> list);
     int deleteFunction(@Param("list") List<PageDistribute> list);
+    List<Map<String,Object>> selectUserRole(@Param("userId") Integer userId);
 }
