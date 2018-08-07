@@ -1,5 +1,6 @@
 package cn.itcast.ssm.config;
 
+import cn.itcast.ssm.shiro.ShiroLoginFilter;
 import cn.itcast.ssm.shiro.ShiroUserRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -13,6 +14,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -54,6 +56,10 @@ public class ShiroConfig {
         shiroFilter.setLoginUrl("/");
         shiroFilter.setSuccessUrl("/#/main");
         shiroFilter.setUnauthorizedUrl("/");
+        //自定义拦截器
+        Map<String,Filter> filterMap=new LinkedHashMap<>();
+        filterMap.put("loginFilter",new ShiroLoginFilter());
+        shiroFilter.setFilters(filterMap);
         //设置拦截器放行路径
         Map<String,String> filterUrl=new LinkedHashMap<>();
         filterUrl.put("/register.action","anon");
@@ -61,8 +67,8 @@ public class ShiroConfig {
         filterUrl.put("/login.action","anon");
         filterUrl.put("/loginOut.action","logout");
         //设置拦截目录
-        filterUrl.put("/**/*.action","authc");
-        filterUrl.put("/druid/**","authc");
+        filterUrl.put("/**/*.action","loginFilter,authc");
+        filterUrl.put("/druid/**","loginFilter,authc");
 
         shiroFilter.setFilterChainDefinitionMap(filterUrl);
         return shiroFilter;

@@ -266,6 +266,7 @@ public class ManagerController {
                     mark = userService.selectInspectData("role_inf", "rolename", String.valueOf(datas.get("data")));
                 }
                 break;
+            //检测应用系统
             case "applicationguanli":
                 if("name".equals(String.valueOf(datas.get("name")))){
                     mark = userService.selectInspectData("application_system_information","system_name",String.valueOf(datas.get("data")));
