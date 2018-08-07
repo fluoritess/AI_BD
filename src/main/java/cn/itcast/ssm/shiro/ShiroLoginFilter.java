@@ -41,7 +41,6 @@ public class ShiroLoginFilter extends AdviceFilter {
                 return false;
             }
         }
-        System.out.println(4);
         return true;
     }
 }
