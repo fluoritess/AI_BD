@@ -52,7 +52,7 @@ public interface UserService {
     
     void addroleDist(int userid,int roleid);
 
-   Map<String,Object> selectroleAnddepart(UserInf userInf);
+
 
     boolean selectInspectData(String tableName,String listName,String listValue);
 
@@ -75,5 +75,7 @@ public interface UserService {
     int updateSystemManange(ApplicationSystemInformation information);
     int addSystemManage(ApplicationSystemInformation information);
     int deleteSystemManage(Integer id);
-    public Boolean updataFunction( List<PageDistribute> addList,List<PageDistribute> deleteList);
+    Boolean updataFunction( List<PageDistribute> addList,List<PageDistribute> deleteList);
+    List<RoleDistribute> selectUserRole(Integer userId);
+    List<Map<String,Object>> selectUserRole2(Integer userId);
 }

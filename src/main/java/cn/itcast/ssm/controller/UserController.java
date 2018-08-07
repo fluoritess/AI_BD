@@ -1,5 +1,6 @@
 package cn.itcast.ssm.controller;
 
+import cn.itcast.ssm.po.RoleDistribute;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -25,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -275,6 +277,9 @@ public class UserController {
 //            userData.put("role","已冻结");
 //
 //        }
+
+        List<Map<String,Object>> list=userService.selectUserRole2(user.getId());
+        userData.put("hadRole",list);
         if(user.getEmail()==null||user.getIdnumber()==null){
 
             userData.put("indexData",false);

@@ -59,18 +59,7 @@
     </select>
 
 
-<select id="selectUDRView"  parameterType="cn.itcast.ssm.po.UserInf" resultType="map">
-select departname, rolename from user_department_role_view where
 
-<if test="userInf.tel != null">
-tel=#{userInf.tel,jdbcType=CHAR}
-</if>
-<if test="userInf.idnumber != null">
-idnumber=#{userInf.idnumber,jdbcType=CHAR}
-</if>
-
-
-</select>
 
     <select id="selectUserPermission" resultType="string">
         SELECT perms FROM user_permission WHERE userid=#{userId} AND role_state='1'
@@ -95,4 +84,12 @@ idnumber=#{userInf.idnumber,jdbcType=CHAR}
 
 
     </delete>
+
+    <select id="selectUserRole"  parameterType="java.lang.Integer" resultType="java.util.LinkedHashMap">
+        SELECT rolename,role_state FROM user_manager WHERE userid=#{userId,jdbcType=INTEGER}
+    </select>
+
+
+
+
 </mapper>
