@@ -377,8 +377,8 @@ public class ManagerController {
         Map<String, Object> data = (Map<String, Object>) map.get("data");
         RoleInf roleInf = new RoleInf();
         roleInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
-        roleInf.setRoledetail((String.valueOf(data.get("roledetail"))));
-        roleInf.setRolename((String.valueOf(data.get("rolename"))));
+        roleInf.setRoledetail((String.valueOf(data.get("detail"))));
+        roleInf.setRolename((String.valueOf(data.get("name"))));
         if (userService.updateRoleInf(roleInf) != 0) {
             return R.ok("修改角色成功");
         } else {
