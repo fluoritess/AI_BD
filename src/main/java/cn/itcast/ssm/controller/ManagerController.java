@@ -234,8 +234,10 @@ public class ManagerController {
 
             list1.add( String.valueOf(roleDistribute.getRoleid()));
         }
-
-        return R.ok("查询成功").put("allRole", list).put("hadRole",list1);
+        Map<String,Object> map = new HashMap<>(100);
+        map.put("allRole",list);
+        map.put("hadRole",list1);
+        return R.ok("查询成功").put("data",map);
     }
 
     /**
@@ -250,7 +252,7 @@ public class ManagerController {
     public Map<String, Object> inspectData(@RequestBody Map<String, Object> map) {
         Map<String, Object> states = (Map<String, Object>) map.get("states");
         Map<String, Object> datas = (Map<String, Object>) map.get("data");
-        Map<String, Object> returnData = new HashMap<>(100);
+
         String msg = "";
         boolean mark = true;
         switch (String.valueOf(states.get("id"))) {
@@ -285,8 +287,8 @@ public class ManagerController {
         if (mark) {
             return R.error("已存在");
         }
-        returnData.put("msg", msg);
-        return R.ok(returnData);
+
+        return R.ok(msg);
     }
 
     /**
@@ -396,7 +398,7 @@ public class ManagerController {
     @ResponseBody
     @RequestMapping("/selecDistributionFunction.action")
     public Map<String, Object> getAllfunction(@RequestBody Map<String, Object> map) {
-        Map<String, Object> returnData = new HashMap<>(100);
+        Map<String, Object> returnData = new HashMap<>(4);
         List<String> list2 = new ArrayList<>();
         List<PageDistribute> list = userService.selectHadfunction(Integer.parseInt(String.valueOf(map.get("id"))));
         if (list.size() != 0) {
@@ -412,7 +414,7 @@ public class ManagerController {
         }
 
         returnData.put("allFunction", userService.selectAllfunction());
-        return R.ok(returnData);
+        return R.ok().put("data",returnData);
 
 
     }
@@ -427,13 +429,12 @@ public class ManagerController {
     @ResponseBody
     @RequestMapping("/updataDistributionFunction.action")
     public Map<String, Object> addfunction(@RequestBody Map<String, Object> map, HttpSession session) {
-        Map<String, Object> returnData = new HashMap<>(100);
+        Map<String, Object> returnData = new HashMap<>(6);
         Integer jueseID = (Integer) map.get("roleid");
         ArrayList addList = (ArrayList) map.get("addData");
         ArrayList deleteList = (ArrayList) map.get("deleteData");
         List<PageDistribute> addlist = new ArrayList<>();
         List<PageDistribute> deletelist = new ArrayList<>();
-
         for (int i = 0; i < addList.size(); i++) {
             PageDistribute pageDistribute = new PageDistribute();
             pageDistribute.setRoleid(jueseID);
@@ -452,14 +453,14 @@ public class ManagerController {
 
         if (msg == true) {
 
-            return R.ok().put("msg", "数据更新成功");
+            return R.ok("数据更新成功");
         }
         if (msg == false) {
-            return R.error().put("msg", "数据更新不成功（没有数据更新）");
+            return R.error("数据更新不成功（没有数据更新）");
         }
 
 
-        return R.error().put("msg", "数据更新失败");
+        return R.error( "数据更新失败");
     }
 
     /**
@@ -472,7 +473,7 @@ public class ManagerController {
     @ResponseBody
     @RequestMapping("/delectDistributionFunction.action")
     public Map<String, Object> delectfunction(@RequestBody Map<String, Object> map, HttpSession session) {
-        Map<String, Object> returnData = new HashMap<>(100);
+        Map<String, Object> returnData = new HashMap<>(4);
         int jueseID = (int) map.get("data");
         int functionID = (int) map.get("id");
         if (userService.delectDistributionFunction(jueseID, functionID) == 0) {
@@ -498,7 +499,10 @@ public class ManagerController {
         pageList = userService.getUserAllPage(userInf.getId());
         Set<String> perms = new LinkedHashSet<>();
         perms = userService.getUserPermissions(userInf);
-        return R.ok().put("userPageList", pageList).put("perms", perms);
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("userPageList",pageList);
+        map.put("perms",perms);
+        return R.ok().put("data", map);
     }
     /**
      * 查询已有应用系统
