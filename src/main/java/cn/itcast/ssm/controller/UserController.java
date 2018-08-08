@@ -198,8 +198,6 @@ public class UserController {
         	 int role =(Integer)map.get("role");
             int id =(Integer) map.get("id");
         	 userService.addroleDist(id,role);
-        	 Map<String, Object> map2 = new HashMap<>();
-        	 map2.put("indexData", "true");
         	 return R.ok("提交角色成功");
 
 
@@ -242,8 +240,6 @@ public class UserController {
                 }
             }
         }
-//       	request.getRequestDispatcher("/userindex").forward(request, response);
-   //     response.sendRedirect(request.getContextPath() + "userindex");
         return  "redirect:#/userindex";
     }
     
@@ -266,18 +262,6 @@ public class UserController {
         userData.put("email", user.getEmail());
         userData.put("idnumber", user.getIdnumber());
         userData.put("regtime",user.getRegtime().getTime());
-//        if(user.getState().equals("2")){
-//            userData.put("role","未审核");
-//        }
-//        if(user.getState().equals("3")){
-//
-//            userData.put("role",user.getState());
-//        }
-//        if(user.getState().equals("4")){
-//            userData.put("role","已冻结");
-//
-//        }
-
         List<Map<String,Object>> list=userService.selectUserRole2(user.getId());
         userData.put("hadRole",list);
         if(user.getEmail()==null||user.getIdnumber()==null){
@@ -288,7 +272,7 @@ public class UserController {
 
             userData.put("indexData",true);
         }
-        return  R.ok(userData);
+        return  R.ok().put("data",userData);
     }
 
     @ResponseBody
@@ -322,6 +306,6 @@ public class UserController {
         Map<String,Object> msg=new HashMap<>();
         msg.put("code","0");
         msg.put("id",ShiroUtils.getUserEntity().getId());
-        return R.ok(msg);
+        return R.ok().put("data",msg);
     }
 }
