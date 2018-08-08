@@ -30,7 +30,6 @@ public class ShiroLoginFilter extends AdviceFilter {
                 Map<String,Object> map = new HashMap<>();
                 map.put("code", "-999");
                 map.put("msg", "未登录");
-                httpServletResponse.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
                 httpServletResponse.setCharacterEncoding("UTF-8");
                 httpServletResponse.setContentType("application/json");
                 httpServletResponse.getWriter().write(JSONObject.toJSONString(map));
