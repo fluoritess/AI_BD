@@ -3,9 +3,9 @@
 <mapper namespace="cn.itcast.ssm.mapper.EquipmentUseSceneMapper">
   <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.EquipmentUseScene">
     <id column="type_id" jdbcType="INTEGER" property="typeId" />
-    <result column="explain" jdbcType="VARCHAR" property="explain" />
-    <result column="other" jdbcType="VARCHAR" property="other" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="interpret" jdbcType="VARCHAR" property="interpret" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    type_id, explain, other, name
+    type_id, name, interpret, other
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.EquipmentUseSceneExample" resultMap="BaseResultMap">
     select
@@ -99,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.EquipmentUseScene">
-    insert into equipment_use_scene (type_id, explain, other, 
-      name)
-    values (#{typeId,jdbcType=INTEGER}, #{explain,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR})
+    insert into equipment_use_scene (type_id, name, interpret, 
+      other)
+    values (#{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{interpret,jdbcType=VARCHAR}, 
+      #{other,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.EquipmentUseScene">
     insert into equipment_use_scene
@@ -110,28 +110,28 @@
       <if test="typeId != null">
         type_id,
       </if>
-      <if test="explain != null">
-        explain,
+      <if test="name != null">
+        name,
+      </if>
+      <if test="interpret != null">
+        interpret,
       </if>
       <if test="other != null">
         other,
-      </if>
-      <if test="name != null">
-        name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="typeId != null">
         #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="explain != null">
-        #{explain,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="interpret != null">
+        #{interpret,jdbcType=VARCHAR},
       </if>
       <if test="other != null">
         #{other,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -147,14 +147,14 @@
       <if test="record.typeId != null">
         type_id = #{record.typeId,jdbcType=INTEGER},
       </if>
-      <if test="record.explain != null">
-        explain = #{record.explain,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interpret != null">
+        interpret = #{record.interpret,jdbcType=VARCHAR},
       </if>
       <if test="record.other != null">
         other = #{record.other,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -164,9 +164,9 @@
   <update id="updateByExample" parameterType="map">
     update equipment_use_scene
     set type_id = #{record.typeId,jdbcType=INTEGER},
-      explain = #{record.explain,jdbcType=VARCHAR},
-      other = #{record.other,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      interpret = #{record.interpret,jdbcType=VARCHAR},
+      other = #{record.other,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -174,23 +174,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.itcast.ssm.po.EquipmentUseScene">
     update equipment_use_scene
     <set>
-      <if test="explain != null">
-        explain = #{explain,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="interpret != null">
+        interpret = #{interpret,jdbcType=VARCHAR},
       </if>
       <if test="other != null">
         other = #{other,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where type_id = #{typeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.EquipmentUseScene">
     update equipment_use_scene
-    set explain = #{explain,jdbcType=VARCHAR},
-      other = #{other,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      interpret = #{interpret,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR}
     where type_id = #{typeId,jdbcType=INTEGER}
   </update>
 </mapper>

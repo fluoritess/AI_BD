@@ -164,73 +164,73 @@ public class SceneAddressInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andAdressIsNull() {
-            addCriterion("adress is null");
+        public Criteria andAddressIsNull() {
+            addCriterion("address is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdressIsNotNull() {
-            addCriterion("adress is not null");
+        public Criteria andAddressIsNotNull() {
+            addCriterion("address is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdressEqualTo(String value) {
-            addCriterion("adress =", value, "adress");
+        public Criteria andAddressEqualTo(String value) {
+            addCriterion("address =", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressNotEqualTo(String value) {
-            addCriterion("adress <>", value, "adress");
+        public Criteria andAddressNotEqualTo(String value) {
+            addCriterion("address <>", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressGreaterThan(String value) {
-            addCriterion("adress >", value, "adress");
+        public Criteria andAddressGreaterThan(String value) {
+            addCriterion("address >", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressGreaterThanOrEqualTo(String value) {
-            addCriterion("adress >=", value, "adress");
+        public Criteria andAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("address >=", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressLessThan(String value) {
-            addCriterion("adress <", value, "adress");
+        public Criteria andAddressLessThan(String value) {
+            addCriterion("address <", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressLessThanOrEqualTo(String value) {
-            addCriterion("adress <=", value, "adress");
+        public Criteria andAddressLessThanOrEqualTo(String value) {
+            addCriterion("address <=", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressLike(String value) {
-            addCriterion("adress like", value, "adress");
+        public Criteria andAddressLike(String value) {
+            addCriterion("address like", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressNotLike(String value) {
-            addCriterion("adress not like", value, "adress");
+        public Criteria andAddressNotLike(String value) {
+            addCriterion("address not like", value, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressIn(List<String> values) {
-            addCriterion("adress in", values, "adress");
+        public Criteria andAddressIn(List<String> values) {
+            addCriterion("address in", values, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressNotIn(List<String> values) {
-            addCriterion("adress not in", values, "adress");
+        public Criteria andAddressNotIn(List<String> values) {
+            addCriterion("address not in", values, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressBetween(String value1, String value2) {
-            addCriterion("adress between", value1, value2, "adress");
+        public Criteria andAddressBetween(String value1, String value2) {
+            addCriterion("address between", value1, value2, "address");
             return (Criteria) this;
         }
 
-        public Criteria andAdressNotBetween(String value1, String value2) {
-            addCriterion("adress not between", value1, value2, "adress");
+        public Criteria andAddressNotBetween(String value1, String value2) {
+            addCriterion("address not between", value1, value2, "address");
             return (Criteria) this;
         }
 
@@ -364,73 +364,73 @@ public class SceneAddressInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andExplainIsNull() {
-            addCriterion("explain is null");
+        public Criteria andInterpretIsNull() {
+            addCriterion("interpret is null");
             return (Criteria) this;
         }
 
-        public Criteria andExplainIsNotNull() {
-            addCriterion("explain is not null");
+        public Criteria andInterpretIsNotNull() {
+            addCriterion("interpret is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExplainEqualTo(String value) {
-            addCriterion("explain =", value, "explain");
+        public Criteria andInterpretEqualTo(String value) {
+            addCriterion("interpret =", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotEqualTo(String value) {
-            addCriterion("explain <>", value, "explain");
+        public Criteria andInterpretNotEqualTo(String value) {
+            addCriterion("interpret <>", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainGreaterThan(String value) {
-            addCriterion("explain >", value, "explain");
+        public Criteria andInterpretGreaterThan(String value) {
+            addCriterion("interpret >", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainGreaterThanOrEqualTo(String value) {
-            addCriterion("explain >=", value, "explain");
+        public Criteria andInterpretGreaterThanOrEqualTo(String value) {
+            addCriterion("interpret >=", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainLessThan(String value) {
-            addCriterion("explain <", value, "explain");
+        public Criteria andInterpretLessThan(String value) {
+            addCriterion("interpret <", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainLessThanOrEqualTo(String value) {
-            addCriterion("explain <=", value, "explain");
+        public Criteria andInterpretLessThanOrEqualTo(String value) {
+            addCriterion("interpret <=", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainLike(String value) {
-            addCriterion("explain like", value, "explain");
+        public Criteria andInterpretLike(String value) {
+            addCriterion("interpret like", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotLike(String value) {
-            addCriterion("explain not like", value, "explain");
+        public Criteria andInterpretNotLike(String value) {
+            addCriterion("interpret not like", value, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainIn(List<String> values) {
-            addCriterion("explain in", values, "explain");
+        public Criteria andInterpretIn(List<String> values) {
+            addCriterion("interpret in", values, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotIn(List<String> values) {
-            addCriterion("explain not in", values, "explain");
+        public Criteria andInterpretNotIn(List<String> values) {
+            addCriterion("interpret not in", values, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainBetween(String value1, String value2) {
-            addCriterion("explain between", value1, value2, "explain");
+        public Criteria andInterpretBetween(String value1, String value2) {
+            addCriterion("interpret between", value1, value2, "interpret");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotBetween(String value1, String value2) {
-            addCriterion("explain not between", value1, value2, "explain");
+        public Criteria andInterpretNotBetween(String value1, String value2) {
+            addCriterion("interpret not between", value1, value2, "interpret");
             return (Criteria) this;
         }
 

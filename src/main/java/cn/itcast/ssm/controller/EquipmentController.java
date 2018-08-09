@@ -1,6 +1,8 @@
 package cn.itcast.ssm.controller;
 
 import cn.itcast.ssm.po.EquipmentTypeInfo;
+import cn.itcast.ssm.po.EquipmentUseScene;
+import cn.itcast.ssm.po.SceneAddressInfo;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,5 +85,59 @@ public class EquipmentController {
         return R.ok("查询设备类型分页成功").put("data", paging);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/selectScene.action")
+    public Map<String,Object> selectScene(){
+        List<EquipmentUseScene> list=new ArrayList<>();
+        list=equipmentService.selectScene();
+        return R.ok().put("list",list);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "添加场景地址信息")
+    @RequestMapping(value = "/addSceneAddress.action")
+    public Map<String,Object> addSceneAddress(Map<String,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        SceneAddressInfo sceneAddressInfo=new SceneAddressInfo();
+        sceneAddressInfo.setUnitName(String.valueOf(data.get("unit_name")));
+        sceneAddressInfo.setAddress(String.valueOf(data.get("address")));
+        sceneAddressInfo.setInterpret(String.valueOf(data.get("interpret")));
+        sceneAddressInfo.setTypeId(Integer.parseInt(String.valueOf(data.get("type_id"))));
+        if(equipmentService.addSceneAddress(sceneAddressInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "修改信息", operationName = "修改场景地址信息")
+    @RequestMapping(value = "/modifySceneAddress.action")
+    public Map<String,Object> modifySceneAddress(Map<String,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        SceneAddressInfo sceneAddressInfo=new SceneAddressInfo();
+        sceneAddressInfo.setAddressId(Integer.parseInt(String.valueOf(data.get("address_id"))));
+        sceneAddressInfo.setUnitName(String.valueOf(data.get("unit_name")));
+        sceneAddressInfo.setAddress(String.valueOf(data.get("address")));
+        sceneAddressInfo.setInterpret(String.valueOf(data.get("interpret")));
+        sceneAddressInfo.setTypeId(Integer.parseInt(String.valueOf(data.get("type_id"))));
+        if(equipmentService.modifySceneAddress(sceneAddressInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "删除信息", operationName = "删除场景地址信息")
+    @RequestMapping(value = "/deleteSceneAddress.action")
+    public Map<String,Object> deleteSceneAddress(@RequestBody Map<String,Object> dataMap){
+        Integer id=Integer.parseInt(String.valueOf(dataMap.get("id")));
+        if(equipmentService.deleteSceneAddress(id)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
 
 }

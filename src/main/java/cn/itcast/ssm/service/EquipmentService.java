@@ -1,7 +1,11 @@
 package cn.itcast.ssm.service;
 
 import cn.itcast.ssm.po.EquipmentTypeInfo;
+import cn.itcast.ssm.po.EquipmentUseScene;
+import cn.itcast.ssm.po.SceneAddressInfo;
 import cn.itcast.ssm.util.Paging;
+
+import java.util.List;
 
 /**
  * @author tyh
@@ -41,4 +45,30 @@ public interface EquipmentService {
      */
     Paging selectPaging(String name, int offset, int pageSize);
 
+    /**
+     * 查询所有的设备使用场景
+     * @return
+     */
+    List<EquipmentUseScene> selectScene();
+
+    /**
+     * 添加场景地址信息
+     * @param sceneAddressInfo
+     * @return
+     */
+    boolean addSceneAddress(SceneAddressInfo sceneAddressInfo);
+
+    /**
+     * 修改场景地址信息
+     * @param sceneAddressInfo
+     * @return
+     */
+    boolean modifySceneAddress(SceneAddressInfo sceneAddressInfo);
+
+    /**
+     * 删除场景地址信息
+     * @param sceneAddressId
+     * @return
+     */
+    boolean deleteSceneAddress(Integer sceneAddressId);
 }
