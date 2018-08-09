@@ -1,8 +1,10 @@
 package cn.itcast.ssm.controller;
 
+import cn.itcast.ssm.po.ControlTypeInfo;
 import cn.itcast.ssm.po.EquipmentTypeInfo;
 import cn.itcast.ssm.po.EquipmentUseScene;
 import cn.itcast.ssm.po.SceneAddressInfo;
+
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -86,6 +88,50 @@ public class EquipmentController {
     }
 
     @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询控制类型信息")
+    @RequestMapping(value = "/selectControlType.action")
+    public Map<String,Object> selectControlType(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("control_type_info", (active - 1) * pagelist, pagelist);
+        return R.ok("查询控制类型类型分页成功").put("data", paging);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "添加设备控制类型信息")
+    @RequestMapping(value = "/addControlType.action")
+    public Map<String ,Object> addControlType(@RequestBody Map<String,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        ControlTypeInfo controlTypeInfo = new ControlTypeInfo();
+        controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
+        controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
+        controlTypeInfo.setOther("null");
+        if (equipmentService.addControlType(controlTypeInfo)) {
+            return  R.ok("添加成功");
+
+        }else {
+            return  R.error("添加失败");
+
+        }
+
+
+    }
+    @ResponseBody
+    @ArchivesLog(operationType = "删除信息", operationName = "删除设备控制类型信息")
+    @RequestMapping(value = "/deleteControlType.action")
+    public Map<String ,Object> deleteControlType(@RequestBody Map<String,Object> dataMap) {
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        Integer id = Integer.parseInt(String.valueOf(dataMap.get("id")));
+        if (equipmentService.deleteControlType(id)) {
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/selectScene.action")
     public Map<String,Object> selectScene(){
         List<EquipmentUseScene> list=new ArrayList<>();
@@ -111,6 +157,22 @@ public class EquipmentController {
     }
 
     @ResponseBody
+    @ArchivesLog(operationType = "修改信息", operationName = "修改控制类型信息")
+    @RequestMapping(value = "/updateControlType.action")
+    public Map<String,Object> updateControlType(@RequestBody Map<String,Object> dataMap){
+                Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+                ControlTypeInfo controlTypeInfo = new ControlTypeInfo();
+                controlTypeInfo.setControlTypeId(Integer.parseInt(String.valueOf(data.get("control_type_id"))));
+                controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
+                controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
+                if (equipmentService.updateControlType(controlTypeInfo)) {
+                    return R.ok();
+                }else {
+
+                    return R.error();
+                }
+            }
+     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改场景地址信息")
     @RequestMapping(value = "/modifySceneAddress.action")
     public Map<String,Object> modifySceneAddress(Map<String,Object> dataMap){
@@ -127,6 +189,38 @@ public class EquipmentController {
             return R.error();
         }
     }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询场景类别信息")
+    @RequestMapping(value = "/selectUseScene.action")
+    public Map<String,Object> selectUseScene(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("equipment_use_scene", (active - 1) * pagelist, pagelist);
+        return R.ok("查询场景类别分页成功").put("data", paging);
+    }
+
+//    @ResponseBody
+//    @ArchivesLog(operationType = "添加信息", operationName = "添加设备控制类型信息")
+//    @RequestMapping(value = "/addUserscene.action")
+//    public Map<String ,Object> addUserscene(@RequestBody Map<String,Object> dataMap){
+//        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+//        EquipmentUseScene equipmentUseScene = new EquipmentUseScene();
+//        controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
+//        controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
+//        controlTypeInfo.setOther("null");
+//        if (equipmentService.addControlType(controlTypeInfo)) {
+//            return  R.ok("添加成功");
+//
+//        }else {
+//            return  R.error("添加失败");
+//
+//        }
+//
+//
+//    }
 
     @ResponseBody
     @ArchivesLog(operationType = "删除信息", operationName = "删除场景地址信息")

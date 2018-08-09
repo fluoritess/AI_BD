@@ -14,7 +14,7 @@ import java.util.*;
 
 
 /**
- * @author tyh
+ * @author tyh&ly
  * @Package cn.itcast.ssm.service.impl
  * @Description:
  * @date 2018/5/9 15:14
@@ -485,4 +485,21 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    @Override
+    public Boolean updataRole(List<RoleDistribute> addlist, List<RoleDistribute> deletelist) {
+        if (addlist.size()!=0){
+            if (utilMapper.insertRole(addlist)==0){
+                return false;
+            }
+        }
+        if(deletelist.size()!=0) {
+            if ( utilMapper.deleteRole(deletelist)==0){
+                return false;
+            }
+        }
+        if(deletelist.size()==0&&addlist.size()==0){
+            return  false;
+        }
+        return  true;
+    }
 }

@@ -1,5 +1,6 @@
 package cn.itcast.ssm.service;
 
+import cn.itcast.ssm.po.ControlTypeInfo;
 import cn.itcast.ssm.po.EquipmentTypeInfo;
 import cn.itcast.ssm.po.EquipmentUseScene;
 import cn.itcast.ssm.po.SceneAddressInfo;
@@ -45,6 +46,11 @@ public interface EquipmentService {
      */
     Paging selectPaging(String name, int offset, int pageSize);
 
+      boolean addControlType(ControlTypeInfo controlTypeInfo);
+
+    boolean deleteControlType(Integer controlTypeId);
+
+    boolean updateControlType(ControlTypeInfo controlTypeInfo);
     /**
      * 查询所有的设备使用场景
      * @return

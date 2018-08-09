@@ -428,7 +428,7 @@ public class ManagerController {
     @ArchivesLog(operationType = "添加信息", operationName = "添加/删除角色功能")
     @ResponseBody
     @RequestMapping("/updataDistributionFunction.action")
-    public Map<String, Object> addfunction(@RequestBody Map<String, Object> map, HttpSession session) {
+    public Map<String, Object> addfunction(@RequestBody Map<String, Object> map) {
         Map<String, Object> returnData = new HashMap<>(6);
         Integer jueseID = (Integer) map.get("roleid");
         ArrayList addList = (ArrayList) map.get("addData");
@@ -441,8 +441,6 @@ public class ManagerController {
             pageDistribute.setPageid(Integer.parseInt(String.valueOf(addList.get(i))));
             addlist.add(pageDistribute);
         }
-
-
         for (int j = 0; j < deleteList.size(); j++) {
             PageDistribute pageDistribute = new PageDistribute();
             pageDistribute.setRoleid(jueseID);
@@ -621,5 +619,47 @@ public class ManagerController {
         }
 
     }
+
+    /**
+     * 用户选择角色
+     *
+     * @param map
+     * @return
+     */
+    @ArchivesLog(operationType = "添加信息", operationName = "添加/删除角色")
+    @ResponseBody
+    @RequestMapping("/updateUserRole.action")
+    public Map<String, Object> updataUserRole(@RequestBody Map<String, Object> map,HttpSession session) {
+        Map<String, Object> returnData = new HashMap<>(6);
+        UserInf userInf=(UserInf)session.getAttribute("user");
+        Integer userID = userInf.getId();
+        ArrayList addList = (ArrayList) map.get("addData");
+        ArrayList deleteList = (ArrayList) map.get("deleteData");
+        List<RoleDistribute> addlist = new ArrayList<>();
+        List<RoleDistribute> deletelist = new ArrayList<>();
+        for (int i = 0; i < addList.size(); i++) {
+                RoleDistribute roleDistribute = new RoleDistribute();
+            roleDistribute.setUserid(userID);
+            roleDistribute.setRoleid(Integer.parseInt(String.valueOf(addList.get(i))));
+            addlist.add(roleDistribute);
+        }
+        for (int j = 0; j < deleteList.size(); j++) {
+            RoleDistribute roleDistribute = new RoleDistribute();
+            roleDistribute.setUserid(userID);
+            roleDistribute.setRoleid(Integer.parseInt(String.valueOf(deleteList.get(j))));
+            deletelist.add(roleDistribute);
+        }
+        Boolean msg = userService.updataRole(addlist, deletelist);
+
+        if (msg == true) {
+
+            return R.ok("数据更新成功");
+        }
+        if (msg == false) {
+            return R.error("数据更新不成功（没有数据更新）");
+        }
+        return R.error( "数据更新失败");
+    }
+
 }
 

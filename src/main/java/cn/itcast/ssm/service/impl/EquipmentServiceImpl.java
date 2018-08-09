@@ -1,5 +1,8 @@
 package cn.itcast.ssm.service.impl;
 
+import cn.itcast.ssm.mapper.ControlTypeInfoMapper;
+import cn.itcast.ssm.po.ControlTypeInfo;
+import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.mapper.EquipmentTypeInfoMapper;
 import cn.itcast.ssm.mapper.EquipmentUseSceneMapper;
 import cn.itcast.ssm.mapper.SceneAddressInfoMapper;
@@ -7,7 +10,6 @@ import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.po.EquipmentTypeInfo;
 import cn.itcast.ssm.po.EquipmentUseScene;
 import cn.itcast.ssm.po.SceneAddressInfo;
-import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +18,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author tyh
+ * @author tyh&ly
  * @Package cn.itcast.ssm.service.impl
  * @Description:
  * @date 18-8-9 上午10:37
  */
 @Service
 public class EquipmentServiceImpl implements EquipmentService {
+    @Autowired
+    ControlTypeInfoMapper controlTypeInfoMapper;
 
     @Autowired
     EquipmentTypeInfoMapper equipmentTypeInfoMapper;
@@ -77,6 +81,15 @@ public class EquipmentServiceImpl implements EquipmentService {
         //返回数据
         return page;
     }
+    @Override
+    public  boolean addControlType(ControlTypeInfo controlTypeInfo) {
+
+        if (controlTypeInfoMapper.insert(controlTypeInfo) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @Override
     public List<EquipmentUseScene> selectScene() {
@@ -92,6 +105,23 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
     }
 
+    @Override
+    public  boolean deleteControlType(Integer controlTypeId){
+
+        if(controlTypeInfoMapper.deleteByPrimaryKey(controlTypeId)!=0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    @Override
+    public boolean updateControlType(ControlTypeInfo controlTypeInfo){
+                if (controlTypeInfoMapper.updateByPrimaryKeySelective(controlTypeInfo) != 0) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
     @Override
     public boolean modifySceneAddress(SceneAddressInfo sceneAddressInfo) {
         if(sceneAddressInfoMapper.updateByPrimaryKeySelective(sceneAddressInfo)!=0){
