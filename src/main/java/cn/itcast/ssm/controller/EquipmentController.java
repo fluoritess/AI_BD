@@ -1,9 +1,6 @@
 package cn.itcast.ssm.controller;
 
-import cn.itcast.ssm.po.ControlTypeInfo;
-import cn.itcast.ssm.po.EquipmentTypeInfo;
-import cn.itcast.ssm.po.EquipmentUseScene;
-import cn.itcast.ssm.po.SceneAddressInfo;
+import cn.itcast.ssm.po.*;
 
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -32,6 +29,11 @@ public class EquipmentController {
     @Autowired
     EquipmentService equipmentService;
 
+    /**
+     * 添加设备类型信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加设备类型信息")
     @RequestMapping(value = "/addEquipmentType.action")
@@ -47,6 +49,11 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 修改设备类型信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改设备类型信息")
     @RequestMapping(value = "/modifyEquipmentType.action")
@@ -63,6 +70,11 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 删除设备类型信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "删除信息", operationName = "删除设备类型信息")
     @RequestMapping(value = "/deleteEquipmentType.action")
@@ -75,6 +87,11 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 查询设备类型信息
+     * @param reMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询设备类型信息")
     @RequestMapping(value = "/selectEquipmentType.action")
@@ -87,6 +104,11 @@ public class EquipmentController {
         return R.ok("查询设备类型分页成功").put("data", paging);
     }
 
+    /**
+     * 查询控制类型信息
+     * @param reMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询控制类型信息")
     @RequestMapping(value = "/selectControlType.action")
@@ -99,6 +121,11 @@ public class EquipmentController {
         return R.ok("查询控制类型类型分页成功").put("data", paging);
     }
 
+    /**
+     * 添加设备控制类型信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加设备控制类型信息")
     @RequestMapping(value = "/addControlType.action")
@@ -110,7 +137,6 @@ public class EquipmentController {
         controlTypeInfo.setOther("null");
         if (equipmentService.addControlType(controlTypeInfo)) {
             return  R.ok("添加成功");
-
         }else {
             return  R.error("添加失败");
 
@@ -118,6 +144,12 @@ public class EquipmentController {
 
 
     }
+
+    /**
+     * 删除设备控制类型信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "删除信息", operationName = "删除设备控制类型信息")
     @RequestMapping(value = "/deleteControlType.action")
@@ -131,6 +163,10 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 查询所有的设备使用场景
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/selectScene.action")
     public Map<String,Object> selectScene(){
@@ -139,6 +175,11 @@ public class EquipmentController {
         return R.ok().put("list",list);
     }
 
+    /**
+     * 添加场景地址信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加场景地址信息")
     @RequestMapping(value = "/addSceneAddress.action")
@@ -156,23 +197,33 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 修改控制类型信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改控制类型信息")
     @RequestMapping(value = "/updateControlType.action")
     public Map<String,Object> updateControlType(@RequestBody Map<String,Object> dataMap){
-                Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
-                ControlTypeInfo controlTypeInfo = new ControlTypeInfo();
-                controlTypeInfo.setControlTypeId(Integer.parseInt(String.valueOf(data.get("control_type_id"))));
-                controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
-                controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
-                if (equipmentService.updateControlType(controlTypeInfo)) {
-                    return R.ok();
-                }else {
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        ControlTypeInfo controlTypeInfo = new ControlTypeInfo();
+        controlTypeInfo.setControlTypeId(Integer.parseInt(String.valueOf(data.get("control_type_id"))));
+        controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
+        controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
+        if (equipmentService.updateControlType(controlTypeInfo)) {
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
 
-                    return R.error();
-                }
-            }
-     @ResponseBody
+    /**
+     * 修改场景地址信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改场景地址信息")
     @RequestMapping(value = "/modifySceneAddress.action")
     public Map<String,Object> modifySceneAddress(Map<String,Object> dataMap){
@@ -190,6 +241,11 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 查询场景类别信息
+     * @param reMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询场景类别信息")
     @RequestMapping(value = "/selectUseScene.action")
@@ -222,6 +278,11 @@ public class EquipmentController {
 //
 //    }
 
+    /**
+     * 删除场景地址信息
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "删除信息", operationName = "删除场景地址信息")
     @RequestMapping(value = "/deleteSceneAddress.action")
@@ -234,6 +295,11 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 查询场景地址信息
+     * @param reMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询场景地址信息")
     @RequestMapping(value = "/selectSceneAddress.action")
@@ -244,6 +310,99 @@ public class EquipmentController {
         Paging paging = new Paging();
         paging = equipmentService.selectPaging("scene_address_info", (active - 1) * pagelist, pagelist);
         return R.ok("查询场景地址分页成功").put("data", paging);
+    }
+
+    /**
+     * 查询所有的场景地址
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectAllAddress.action")
+    public Map<String,Object> selectAllAddress(){
+        List<SceneAddressInfo> list=new ArrayList<>();
+        list=equipmentService.selectAllAddress();
+        return R.ok().put("list",list);
+    }
+
+    /**
+     * 添加部署节点信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "添加部署节点信息")
+    @RequestMapping(value = "/addDeployNode.action")
+    public Map<String,Object> addDeployNode(Map<String,Object> dataMap){
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
+        deployNodeInfo.setAddressId(Integer.parseInt(String.valueOf(data.get("address_id"))));
+        deployNodeInfo.setInsideLocation(String.valueOf(data.get("inside_location")));
+        deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
+        deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
+        deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(equipmentService.addDeployNode(deployNodeInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    /**
+     * 修改部署节点信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "修改信息", operationName = "修改部署节点信息")
+    @RequestMapping(value = "/modifyDeployNode.action")
+    public Map<String,Object> modifyDeployNode(Map<String,Object> dataMap){
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
+        deployNodeInfo.setDeployNodeId(Integer.parseInt(String.valueOf(data.get("deploy_node_id"))));
+        deployNodeInfo.setAddressId(Integer.parseInt(String.valueOf(data.get("address_id"))));
+        deployNodeInfo.setInsideLocation(String.valueOf(data.get("inside_location")));
+        deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
+        deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
+        deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(equipmentService.modifyDeployNode(deployNodeInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    /**
+     * 删除部署节点信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "删除信息", operationName = "删除部署节点信息")
+    @RequestMapping(value = "/deleteDeployNode.action")
+    public Map<String,Object> deleteDeployNode(@RequestBody Map<String,Object> dataMap){
+        Integer id=Integer.parseInt(String.valueOf(dataMap.get("id")));
+        if(equipmentService.deleteDeployNode(id)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    /**
+     * 查询部署节点信息
+     * @param reMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询部署节点信息")
+    @RequestMapping(value = "/selectDeployNode.action")
+    public Map<String,Object> selectDeployNode(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("deploy_node_info", (active - 1) * pagelist, pagelist);
+        return R.ok("查询部署节点分页成功").put("data", paging);
     }
 
 }

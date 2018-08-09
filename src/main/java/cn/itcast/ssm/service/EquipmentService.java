@@ -1,9 +1,6 @@
 package cn.itcast.ssm.service;
 
-import cn.itcast.ssm.po.ControlTypeInfo;
-import cn.itcast.ssm.po.EquipmentTypeInfo;
-import cn.itcast.ssm.po.EquipmentUseScene;
-import cn.itcast.ssm.po.SceneAddressInfo;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.util.Paging;
 
 import java.util.List;
@@ -46,7 +43,7 @@ public interface EquipmentService {
      */
     Paging selectPaging(String name, int offset, int pageSize);
 
-      boolean addControlType(ControlTypeInfo controlTypeInfo);
+    boolean addControlType(ControlTypeInfo controlTypeInfo);
 
     boolean deleteControlType(Integer controlTypeId);
 
@@ -77,4 +74,26 @@ public interface EquipmentService {
      * @return
      */
     boolean deleteSceneAddress(Integer sceneAddressId);
+
+    /**
+     * 查询所有的场景地址信息
+     * @return
+     */
+    List<SceneAddressInfo> selectAllAddress();
+
+    /**
+     * 添加部署节点信息
+     * @param deployNodeInfo
+     * @return
+     */
+    boolean addDeployNode(DeployNodeInfo deployNodeInfo);
+
+    /**
+     * 修改部署节点信息
+     * @param deployNodeInfo
+     * @return
+     */
+    boolean modifyDeployNode(DeployNodeInfo deployNodeInfo);
+
+    boolean deleteDeployNode(Integer deployNodeId);
 }

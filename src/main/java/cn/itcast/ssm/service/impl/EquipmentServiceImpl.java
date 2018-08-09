@@ -1,15 +1,8 @@
 package cn.itcast.ssm.service.impl;
 
-import cn.itcast.ssm.mapper.ControlTypeInfoMapper;
-import cn.itcast.ssm.po.ControlTypeInfo;
+import cn.itcast.ssm.mapper.*;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.EquipmentService;
-import cn.itcast.ssm.mapper.EquipmentTypeInfoMapper;
-import cn.itcast.ssm.mapper.EquipmentUseSceneMapper;
-import cn.itcast.ssm.mapper.SceneAddressInfoMapper;
-import cn.itcast.ssm.mapper.UserUtilMapper;
-import cn.itcast.ssm.po.EquipmentTypeInfo;
-import cn.itcast.ssm.po.EquipmentUseScene;
-import cn.itcast.ssm.po.SceneAddressInfo;
 import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +32,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Autowired
     SceneAddressInfoMapper sceneAddressInfoMapper;
+
+    @Autowired
+    DeployNodeInfoMapper deployNodeInfoMapper;
 
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
@@ -83,7 +79,6 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
     @Override
     public  boolean addControlType(ControlTypeInfo controlTypeInfo) {
-
         if (controlTypeInfoMapper.insert(controlTypeInfo) != 0) {
             return true;
         } else {
@@ -107,7 +102,6 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public  boolean deleteControlType(Integer controlTypeId){
-
         if(controlTypeInfoMapper.deleteByPrimaryKey(controlTypeId)!=0) {
             return true;
         }else{
@@ -116,12 +110,12 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
     @Override
     public boolean updateControlType(ControlTypeInfo controlTypeInfo){
-                if (controlTypeInfoMapper.updateByPrimaryKeySelective(controlTypeInfo) != 0) {
-                    return true;
-                }else{
-                    return false;
-                }
-            }
+        if (controlTypeInfoMapper.updateByPrimaryKeySelective(controlTypeInfo) != 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     @Override
     public boolean modifySceneAddress(SceneAddressInfo sceneAddressInfo) {
         if(sceneAddressInfoMapper.updateByPrimaryKeySelective(sceneAddressInfo)!=0){
@@ -134,6 +128,38 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public boolean deleteSceneAddress(Integer sceneAddressId) {
         if(sceneAddressInfoMapper.deleteByPrimaryKey(sceneAddressId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public List<SceneAddressInfo> selectAllAddress() {
+        return sceneAddressInfoMapper.selectByExample(null);
+    }
+
+    @Override
+    public boolean addDeployNode(DeployNodeInfo deployNodeInfo) {
+        if(deployNodeInfoMapper.insertSelective(deployNodeInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean modifyDeployNode(DeployNodeInfo deployNodeInfo) {
+        if(deployNodeInfoMapper.updateByPrimaryKeySelective(deployNodeInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteDeployNode(Integer deployNodeId) {
+        if(deployNodeInfoMapper.deleteByPrimaryKey(deployNodeId)!=0){
             return true;
         }else{
             return false;
