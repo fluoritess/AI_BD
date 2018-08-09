@@ -25,12 +25,11 @@ public class ShiroLoginFilter extends AdviceFilter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         UserInf sysUser = (UserInf) httpServletRequest.getSession().getAttribute("user");
         if (null == sysUser && !StringUtils.contains(httpServletRequest.getRequestURI(), "/login.action")) {
-            String requestedWith = httpServletRequest.getHeader("X-Requested-With");
+            String requestedWith = httpServletRequest.getHeader("X-Request-With");
             if (StringUtils.isNotEmpty(requestedWith) && StringUtils.equals(requestedWith, "XMLHttpRequest")) {//如果是ajax返回指定数据
                 Map<String,Object> map = new HashMap<>();
                 map.put("code", "-999");
                 map.put("msg", "未登录");
-                httpServletResponse.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
                 httpServletResponse.setCharacterEncoding("UTF-8");
                 httpServletResponse.setContentType("application/json");
                 httpServletResponse.getWriter().write(JSONObject.toJSONString(map));

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.itcast.ssm.mapper.ApplicationSystemInformationMapper">
-  <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.ApplicationSystemInformation">
-    <id column="application_system_id" jdbcType="INTEGER" property="applicationSystemId" />
-    <result column="system_name" jdbcType="VARCHAR" property="systemName" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
+<mapper namespace="cn.itcast.ssm.mapper.ControlTypeInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.ControlTypeInfo">
+    <id column="control_type_id" jdbcType="INTEGER" property="controlTypeId" />
+    <result column="control_type_name" jdbcType="VARCHAR" property="controlTypeName" />
+    <result column="function_explain" jdbcType="VARCHAR" property="functionExplain" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    application_system_id, system_name, remarks, detail
+    control_type_id, control_type_name, function_explain, other
   </sql>
-  <select id="selectByExample" parameterType="cn.itcast.ssm.po.ApplicationSystemInformationExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.itcast.ssm.po.ControlTypeInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from application_system_information
+    from control_type_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +85,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from application_system_information
-    where application_system_id = #{applicationSystemId,jdbcType=INTEGER}
+    from control_type_info
+    where control_type_id = #{controlTypeId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from application_system_information
-    where application_system_id = #{applicationSystemId,jdbcType=INTEGER}
+    delete from control_type_info
+    where control_type_id = #{controlTypeId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.itcast.ssm.po.ApplicationSystemInformationExample">
-    delete from application_system_information
+  <delete id="deleteByExample" parameterType="cn.itcast.ssm.po.ControlTypeInfoExample">
+    delete from control_type_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
-    insert into application_system_information (application_system_id, system_name, 
-      remarks, detail)
-    values (#{applicationSystemId,jdbcType=INTEGER}, #{systemName,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.itcast.ssm.po.ControlTypeInfo">
+    insert into control_type_info (control_type_id, control_type_name, function_explain, 
+      other)
+    values (#{controlTypeId,jdbcType=INTEGER}, #{controlTypeName,jdbcType=VARCHAR}, #{functionExplain,jdbcType=VARCHAR}, 
+      #{other,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
-    insert into application_system_information
+  <insert id="insertSelective" parameterType="cn.itcast.ssm.po.ControlTypeInfo">
+    insert into control_type_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="applicationSystemId != null">
-        application_system_id,
+      <if test="controlTypeId != null">
+        control_type_id,
       </if>
-      <if test="systemName != null">
-        system_name,
+      <if test="controlTypeName != null">
+        control_type_name,
       </if>
-      <if test="remarks != null">
-        remarks,
+      <if test="functionExplain != null">
+        function_explain,
       </if>
-      <if test="detail != null">
-        detail,
+      <if test="other != null">
+        other,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="applicationSystemId != null">
-        #{applicationSystemId,jdbcType=INTEGER},
+      <if test="controlTypeId != null">
+        #{controlTypeId,jdbcType=INTEGER},
       </if>
-      <if test="systemName != null">
-        #{systemName,jdbcType=VARCHAR},
+      <if test="controlTypeName != null">
+        #{controlTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
+      <if test="functionExplain != null">
+        #{functionExplain,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null">
-        #{detail,jdbcType=VARCHAR},
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.itcast.ssm.po.ApplicationSystemInformationExample" resultType="java.lang.Long">
-    select count(*) from application_system_information
+  <select id="countByExample" parameterType="cn.itcast.ssm.po.ControlTypeInfoExample" resultType="java.lang.Long">
+    select count(*) from control_type_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update application_system_information
+    update control_type_info
     <set>
-      <if test="record.applicationSystemId != null">
-        application_system_id = #{record.applicationSystemId,jdbcType=INTEGER},
+      <if test="record.controlTypeId != null">
+        control_type_id = #{record.controlTypeId,jdbcType=INTEGER},
       </if>
-      <if test="record.systemName != null">
-        system_name = #{record.systemName,jdbcType=VARCHAR},
+      <if test="record.controlTypeName != null">
+        control_type_name = #{record.controlTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.remarks != null">
-        remarks = #{record.remarks,jdbcType=VARCHAR},
+      <if test="record.functionExplain != null">
+        function_explain = #{record.functionExplain,jdbcType=VARCHAR},
       </if>
-      <if test="record.detail != null">
-        detail = #{record.detail,jdbcType=VARCHAR},
+      <if test="record.other != null">
+        other = #{record.other,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -162,35 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update application_system_information
-    set application_system_id = #{record.applicationSystemId,jdbcType=INTEGER},
-      system_name = #{record.systemName,jdbcType=VARCHAR},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
-      detail = #{record.detail,jdbcType=VARCHAR}
+    update control_type_info
+    set control_type_id = #{record.controlTypeId,jdbcType=INTEGER},
+      control_type_name = #{record.controlTypeName,jdbcType=VARCHAR},
+      function_explain = #{record.functionExplain,jdbcType=VARCHAR},
+      other = #{record.other,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
-    update application_system_information
+  <update id="updateByPrimaryKeySelective" parameterType="cn.itcast.ssm.po.ControlTypeInfo">
+    update control_type_info
     <set>
-      <if test="systemName != null">
-        system_name = #{systemName,jdbcType=VARCHAR},
+      <if test="controlTypeName != null">
+        control_type_name = #{controlTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
+      <if test="functionExplain != null">
+        function_explain = #{functionExplain,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=VARCHAR},
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
       </if>
     </set>
-    where application_system_id = #{applicationSystemId,jdbcType=INTEGER}
+    where control_type_id = #{controlTypeId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.ApplicationSystemInformation">
-    update application_system_information
-    set system_name = #{systemName,jdbcType=VARCHAR},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR}
-    where application_system_id = #{applicationSystemId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.ControlTypeInfo">
+    update control_type_info
+    set control_type_name = #{controlTypeName,jdbcType=VARCHAR},
+      function_explain = #{functionExplain,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR}
+    where control_type_id = #{controlTypeId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class ApplicationSystemInformation implements Serializable {
     private Integer applicationSystemId;
 
+    private String systemName;
+
     private String remarks;
 
     private String detail;
-
-    private String systemName;
 
     private static final long serialVersionUID = 1L;
 
@@ -19,6 +19,14 @@ public class ApplicationSystemInformation implements Serializable {
 
     public void setApplicationSystemId(Integer applicationSystemId) {
         this.applicationSystemId = applicationSystemId;
+    }
+
+    public String getSystemName() {
+        return systemName;
+    }
+
+    public void setSystemName(String systemName) {
+        this.systemName = systemName == null ? null : systemName.trim();
     }
 
     public String getRemarks() {
@@ -37,14 +45,6 @@ public class ApplicationSystemInformation implements Serializable {
         this.detail = detail == null ? null : detail.trim();
     }
 
-    public String getSystemName() {
-        return systemName;
-    }
-
-    public void setSystemName(String systemName) {
-        this.systemName = systemName == null ? null : systemName.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -52,9 +52,9 @@ public class ApplicationSystemInformation implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", applicationSystemId=").append(applicationSystemId);
+        sb.append(", systemName=").append(systemName);
         sb.append(", remarks=").append(remarks);
         sb.append(", detail=").append(detail);
-        sb.append(", systemName=").append(systemName);
         sb.append("]");
         return sb.toString();
     }

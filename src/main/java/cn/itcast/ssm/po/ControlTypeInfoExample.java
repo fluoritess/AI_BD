@@ -3,14 +3,14 @@ package cn.itcast.ssm.po;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationSystemInformationExample {
+public class ControlTypeInfoExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ApplicationSystemInformationExample() {
+    public ControlTypeInfoExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,273 +104,273 @@ public class ApplicationSystemInformationExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andApplicationSystemIdIsNull() {
-            addCriterion("application_system_id is null");
+        public Criteria andControlTypeIdIsNull() {
+            addCriterion("control_type_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdIsNotNull() {
-            addCriterion("application_system_id is not null");
+        public Criteria andControlTypeIdIsNotNull() {
+            addCriterion("control_type_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdEqualTo(Integer value) {
-            addCriterion("application_system_id =", value, "applicationSystemId");
+        public Criteria andControlTypeIdEqualTo(Integer value) {
+            addCriterion("control_type_id =", value, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdNotEqualTo(Integer value) {
-            addCriterion("application_system_id <>", value, "applicationSystemId");
+        public Criteria andControlTypeIdNotEqualTo(Integer value) {
+            addCriterion("control_type_id <>", value, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdGreaterThan(Integer value) {
-            addCriterion("application_system_id >", value, "applicationSystemId");
+        public Criteria andControlTypeIdGreaterThan(Integer value) {
+            addCriterion("control_type_id >", value, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("application_system_id >=", value, "applicationSystemId");
+        public Criteria andControlTypeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("control_type_id >=", value, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdLessThan(Integer value) {
-            addCriterion("application_system_id <", value, "applicationSystemId");
+        public Criteria andControlTypeIdLessThan(Integer value) {
+            addCriterion("control_type_id <", value, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdLessThanOrEqualTo(Integer value) {
-            addCriterion("application_system_id <=", value, "applicationSystemId");
+        public Criteria andControlTypeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("control_type_id <=", value, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdIn(List<Integer> values) {
-            addCriterion("application_system_id in", values, "applicationSystemId");
+        public Criteria andControlTypeIdIn(List<Integer> values) {
+            addCriterion("control_type_id in", values, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdNotIn(List<Integer> values) {
-            addCriterion("application_system_id not in", values, "applicationSystemId");
+        public Criteria andControlTypeIdNotIn(List<Integer> values) {
+            addCriterion("control_type_id not in", values, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdBetween(Integer value1, Integer value2) {
-            addCriterion("application_system_id between", value1, value2, "applicationSystemId");
+        public Criteria andControlTypeIdBetween(Integer value1, Integer value2) {
+            addCriterion("control_type_id between", value1, value2, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andApplicationSystemIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("application_system_id not between", value1, value2, "applicationSystemId");
+        public Criteria andControlTypeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("control_type_id not between", value1, value2, "controlTypeId");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameIsNull() {
-            addCriterion("system_name is null");
+        public Criteria andControlTypeNameIsNull() {
+            addCriterion("control_type_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameIsNotNull() {
-            addCriterion("system_name is not null");
+        public Criteria andControlTypeNameIsNotNull() {
+            addCriterion("control_type_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameEqualTo(String value) {
-            addCriterion("system_name =", value, "systemName");
+        public Criteria andControlTypeNameEqualTo(String value) {
+            addCriterion("control_type_name =", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameNotEqualTo(String value) {
-            addCriterion("system_name <>", value, "systemName");
+        public Criteria andControlTypeNameNotEqualTo(String value) {
+            addCriterion("control_type_name <>", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameGreaterThan(String value) {
-            addCriterion("system_name >", value, "systemName");
+        public Criteria andControlTypeNameGreaterThan(String value) {
+            addCriterion("control_type_name >", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameGreaterThanOrEqualTo(String value) {
-            addCriterion("system_name >=", value, "systemName");
+        public Criteria andControlTypeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("control_type_name >=", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameLessThan(String value) {
-            addCriterion("system_name <", value, "systemName");
+        public Criteria andControlTypeNameLessThan(String value) {
+            addCriterion("control_type_name <", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameLessThanOrEqualTo(String value) {
-            addCriterion("system_name <=", value, "systemName");
+        public Criteria andControlTypeNameLessThanOrEqualTo(String value) {
+            addCriterion("control_type_name <=", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameLike(String value) {
-            addCriterion("system_name like", value, "systemName");
+        public Criteria andControlTypeNameLike(String value) {
+            addCriterion("control_type_name like", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameNotLike(String value) {
-            addCriterion("system_name not like", value, "systemName");
+        public Criteria andControlTypeNameNotLike(String value) {
+            addCriterion("control_type_name not like", value, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameIn(List<String> values) {
-            addCriterion("system_name in", values, "systemName");
+        public Criteria andControlTypeNameIn(List<String> values) {
+            addCriterion("control_type_name in", values, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameNotIn(List<String> values) {
-            addCriterion("system_name not in", values, "systemName");
+        public Criteria andControlTypeNameNotIn(List<String> values) {
+            addCriterion("control_type_name not in", values, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameBetween(String value1, String value2) {
-            addCriterion("system_name between", value1, value2, "systemName");
+        public Criteria andControlTypeNameBetween(String value1, String value2) {
+            addCriterion("control_type_name between", value1, value2, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andSystemNameNotBetween(String value1, String value2) {
-            addCriterion("system_name not between", value1, value2, "systemName");
+        public Criteria andControlTypeNameNotBetween(String value1, String value2) {
+            addCriterion("control_type_name not between", value1, value2, "controlTypeName");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksIsNull() {
-            addCriterion("remarks is null");
+        public Criteria andFunctionExplainIsNull() {
+            addCriterion("function_explain is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksIsNotNull() {
-            addCriterion("remarks is not null");
+        public Criteria andFunctionExplainIsNotNull() {
+            addCriterion("function_explain is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksEqualTo(String value) {
-            addCriterion("remarks =", value, "remarks");
+        public Criteria andFunctionExplainEqualTo(String value) {
+            addCriterion("function_explain =", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksNotEqualTo(String value) {
-            addCriterion("remarks <>", value, "remarks");
+        public Criteria andFunctionExplainNotEqualTo(String value) {
+            addCriterion("function_explain <>", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksGreaterThan(String value) {
-            addCriterion("remarks >", value, "remarks");
+        public Criteria andFunctionExplainGreaterThan(String value) {
+            addCriterion("function_explain >", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksGreaterThanOrEqualTo(String value) {
-            addCriterion("remarks >=", value, "remarks");
+        public Criteria andFunctionExplainGreaterThanOrEqualTo(String value) {
+            addCriterion("function_explain >=", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksLessThan(String value) {
-            addCriterion("remarks <", value, "remarks");
+        public Criteria andFunctionExplainLessThan(String value) {
+            addCriterion("function_explain <", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksLessThanOrEqualTo(String value) {
-            addCriterion("remarks <=", value, "remarks");
+        public Criteria andFunctionExplainLessThanOrEqualTo(String value) {
+            addCriterion("function_explain <=", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksLike(String value) {
-            addCriterion("remarks like", value, "remarks");
+        public Criteria andFunctionExplainLike(String value) {
+            addCriterion("function_explain like", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksNotLike(String value) {
-            addCriterion("remarks not like", value, "remarks");
+        public Criteria andFunctionExplainNotLike(String value) {
+            addCriterion("function_explain not like", value, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksIn(List<String> values) {
-            addCriterion("remarks in", values, "remarks");
+        public Criteria andFunctionExplainIn(List<String> values) {
+            addCriterion("function_explain in", values, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksNotIn(List<String> values) {
-            addCriterion("remarks not in", values, "remarks");
+        public Criteria andFunctionExplainNotIn(List<String> values) {
+            addCriterion("function_explain not in", values, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksBetween(String value1, String value2) {
-            addCriterion("remarks between", value1, value2, "remarks");
+        public Criteria andFunctionExplainBetween(String value1, String value2) {
+            addCriterion("function_explain between", value1, value2, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andRemarksNotBetween(String value1, String value2) {
-            addCriterion("remarks not between", value1, value2, "remarks");
+        public Criteria andFunctionExplainNotBetween(String value1, String value2) {
+            addCriterion("function_explain not between", value1, value2, "functionExplain");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIsNull() {
-            addCriterion("detail is null");
+        public Criteria andOtherIsNull() {
+            addCriterion("other is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIsNotNull() {
-            addCriterion("detail is not null");
+        public Criteria andOtherIsNotNull() {
+            addCriterion("other is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailEqualTo(String value) {
-            addCriterion("detail =", value, "detail");
+        public Criteria andOtherEqualTo(String value) {
+            addCriterion("other =", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNotEqualTo(String value) {
-            addCriterion("detail <>", value, "detail");
+        public Criteria andOtherNotEqualTo(String value) {
+            addCriterion("other <>", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailGreaterThan(String value) {
-            addCriterion("detail >", value, "detail");
+        public Criteria andOtherGreaterThan(String value) {
+            addCriterion("other >", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailGreaterThanOrEqualTo(String value) {
-            addCriterion("detail >=", value, "detail");
+        public Criteria andOtherGreaterThanOrEqualTo(String value) {
+            addCriterion("other >=", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLessThan(String value) {
-            addCriterion("detail <", value, "detail");
+        public Criteria andOtherLessThan(String value) {
+            addCriterion("other <", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLessThanOrEqualTo(String value) {
-            addCriterion("detail <=", value, "detail");
+        public Criteria andOtherLessThanOrEqualTo(String value) {
+            addCriterion("other <=", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailLike(String value) {
-            addCriterion("detail like", value, "detail");
+        public Criteria andOtherLike(String value) {
+            addCriterion("other like", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNotLike(String value) {
-            addCriterion("detail not like", value, "detail");
+        public Criteria andOtherNotLike(String value) {
+            addCriterion("other not like", value, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailIn(List<String> values) {
-            addCriterion("detail in", values, "detail");
+        public Criteria andOtherIn(List<String> values) {
+            addCriterion("other in", values, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNotIn(List<String> values) {
-            addCriterion("detail not in", values, "detail");
+        public Criteria andOtherNotIn(List<String> values) {
+            addCriterion("other not in", values, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailBetween(String value1, String value2) {
-            addCriterion("detail between", value1, value2, "detail");
+        public Criteria andOtherBetween(String value1, String value2) {
+            addCriterion("other between", value1, value2, "other");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNotBetween(String value1, String value2) {
-            addCriterion("detail not between", value1, value2, "detail");
+        public Criteria andOtherNotBetween(String value1, String value2) {
+            addCriterion("other not between", value1, value2, "other");
             return (Criteria) this;
         }
     }
