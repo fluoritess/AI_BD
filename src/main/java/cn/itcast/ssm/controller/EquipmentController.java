@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -172,7 +173,9 @@ public class EquipmentController {
     public Map<String,Object> selectScene(){
         List<EquipmentUseScene> list=new ArrayList<>();
         list=equipmentService.selectScene();
-        return R.ok().put("list",list);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
     }
 
     /**
@@ -321,7 +324,9 @@ public class EquipmentController {
     public Map<String,Object> selectAllAddress(){
         List<SceneAddressInfo> list=new ArrayList<>();
         list=equipmentService.selectAllAddress();
-        return R.ok().put("list",list);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
     }
 
     /**
