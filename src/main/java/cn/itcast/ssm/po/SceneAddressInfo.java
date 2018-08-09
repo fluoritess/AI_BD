@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class SceneAddressInfo implements Serializable {
     private Integer addressId;
 
-    private String adress;
+    private String address;
 
     private Integer typeId;
 
     private String other;
 
-    private String explain;
+    private String interpret;
 
     private String unitName;
 
@@ -25,12 +25,12 @@ public class SceneAddressInfo implements Serializable {
         this.addressId = addressId;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress == null ? null : adress.trim();
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public Integer getTypeId() {
@@ -49,12 +49,12 @@ public class SceneAddressInfo implements Serializable {
         this.other = other == null ? null : other.trim();
     }
 
-    public String getExplain() {
-        return explain;
+    public String getInterpret() {
+        return interpret;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
+    public void setInterpret(String interpret) {
+        this.interpret = interpret == null ? null : interpret.trim();
     }
 
     public String getUnitName() {
@@ -72,10 +72,10 @@ public class SceneAddressInfo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", addressId=").append(addressId);
-        sb.append(", adress=").append(adress);
+        sb.append(", address=").append(address);
         sb.append(", typeId=").append(typeId);
         sb.append(", other=").append(other);
-        sb.append(", explain=").append(explain);
+        sb.append(", interpret=").append(interpret);
         sb.append(", unitName=").append(unitName);
         sb.append("]");
         return sb.toString();

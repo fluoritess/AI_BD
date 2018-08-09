@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class EquipmentUseScene implements Serializable {
     private Integer typeId;
 
-    private String explain;
+    private String name;
+
+    private String interpret;
 
     private String other;
-
-    private String name;
 
     private static final long serialVersionUID = 1L;
 
@@ -21,12 +21,20 @@ public class EquipmentUseScene implements Serializable {
         this.typeId = typeId;
     }
 
-    public String getExplain() {
-        return explain;
+    public String getName() {
+        return name;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getInterpret() {
+        return interpret;
+    }
+
+    public void setInterpret(String interpret) {
+        this.interpret = interpret == null ? null : interpret.trim();
     }
 
     public String getOther() {
@@ -37,14 +45,6 @@ public class EquipmentUseScene implements Serializable {
         this.other = other == null ? null : other.trim();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -52,9 +52,9 @@ public class EquipmentUseScene implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", typeId=").append(typeId);
-        sb.append(", explain=").append(explain);
-        sb.append(", other=").append(other);
         sb.append(", name=").append(name);
+        sb.append(", interpret=").append(interpret);
+        sb.append(", other=").append(other);
         sb.append("]");
         return sb.toString();
     }

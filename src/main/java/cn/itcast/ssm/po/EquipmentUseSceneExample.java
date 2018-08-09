@@ -164,73 +164,143 @@ public class EquipmentUseSceneExample {
             return (Criteria) this;
         }
 
-        public Criteria andExplainIsNull() {
-            addCriterion("explain is null");
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
-        public Criteria andExplainIsNotNull() {
-            addCriterion("explain is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExplainEqualTo(String value) {
-            addCriterion("explain =", value, "explain");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotEqualTo(String value) {
-            addCriterion("explain <>", value, "explain");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainGreaterThan(String value) {
-            addCriterion("explain >", value, "explain");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainGreaterThanOrEqualTo(String value) {
-            addCriterion("explain >=", value, "explain");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainLessThan(String value) {
-            addCriterion("explain <", value, "explain");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainLessThanOrEqualTo(String value) {
-            addCriterion("explain <=", value, "explain");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainLike(String value) {
-            addCriterion("explain like", value, "explain");
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotLike(String value) {
-            addCriterion("explain not like", value, "explain");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainIn(List<String> values) {
-            addCriterion("explain in", values, "explain");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotIn(List<String> values) {
-            addCriterion("explain not in", values, "explain");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainBetween(String value1, String value2) {
-            addCriterion("explain between", value1, value2, "explain");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andExplainNotBetween(String value1, String value2) {
-            addCriterion("explain not between", value1, value2, "explain");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretIsNull() {
+            addCriterion("interpret is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretIsNotNull() {
+            addCriterion("interpret is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretEqualTo(String value) {
+            addCriterion("interpret =", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretNotEqualTo(String value) {
+            addCriterion("interpret <>", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretGreaterThan(String value) {
+            addCriterion("interpret >", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretGreaterThanOrEqualTo(String value) {
+            addCriterion("interpret >=", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretLessThan(String value) {
+            addCriterion("interpret <", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretLessThanOrEqualTo(String value) {
+            addCriterion("interpret <=", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretLike(String value) {
+            addCriterion("interpret like", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretNotLike(String value) {
+            addCriterion("interpret not like", value, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretIn(List<String> values) {
+            addCriterion("interpret in", values, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretNotIn(List<String> values) {
+            addCriterion("interpret not in", values, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretBetween(String value1, String value2) {
+            addCriterion("interpret between", value1, value2, "interpret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInterpretNotBetween(String value1, String value2) {
+            addCriterion("interpret not between", value1, value2, "interpret");
             return (Criteria) this;
         }
 
@@ -301,76 +371,6 @@ public class EquipmentUseSceneExample {
 
         public Criteria andOtherNotBetween(String value1, String value2) {
             addCriterion("other not between", value1, value2, "other");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
     }

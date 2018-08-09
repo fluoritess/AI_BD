@@ -4,8 +4,12 @@ import cn.itcast.ssm.mapper.ControlTypeInfoMapper;
 import cn.itcast.ssm.po.ControlTypeInfo;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.mapper.EquipmentTypeInfoMapper;
+import cn.itcast.ssm.mapper.EquipmentUseSceneMapper;
+import cn.itcast.ssm.mapper.SceneAddressInfoMapper;
 import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.po.EquipmentTypeInfo;
+import cn.itcast.ssm.po.EquipmentUseScene;
+import cn.itcast.ssm.po.SceneAddressInfo;
 import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +33,12 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Autowired
     UserUtilMapper utilMapper;
+
+    @Autowired
+    EquipmentUseSceneMapper equipmentUseSceneMapper;
+
+    @Autowired
+    SceneAddressInfoMapper sceneAddressInfoMapper;
 
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
@@ -72,27 +82,58 @@ public class EquipmentServiceImpl implements EquipmentService {
         return page;
     }
     @Override
-    public  boolean addControlType(ControlTypeInfo controlTypeInfo){
+    public  boolean addControlType(ControlTypeInfo controlTypeInfo) {
 
-        if(controlTypeInfoMapper.insert(controlTypeInfo)!=0){
-        return true;
-            }else{
-        return false;
+        if (controlTypeInfoMapper.insert(controlTypeInfo) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<EquipmentUseScene> selectScene() {
+        return equipmentUseSceneMapper.selectByExample(null);
+    }
+
+    @Override
+    public boolean addSceneAddress(SceneAddressInfo sceneAddressInfo) {
+        if(sceneAddressInfoMapper.insertSelective(sceneAddressInfo)!=0){
+            return true;
+        }else{
+            return false;
         }
     }
 
     @Override
     public  boolean deleteControlType(Integer controlTypeId){
 
-        if(controlTypeInfoMapper.deleteByPrimaryKey(controlTypeId)!=0){
+        if(controlTypeInfoMapper.deleteByPrimaryKey(controlTypeId)!=0) {
             return true;
         }else{
             return false;
         }
     }
     @Override
-    public boolean updateControlType(ControlTypeInfo controlTypeInfo) {
-        if(controlTypeInfoMapper.updateByPrimaryKeySelective(controlTypeInfo)!=0){
+    public boolean updateControlType(ControlTypeInfo controlTypeInfo){
+                if (controlTypeInfoMapper.updateByPrimaryKeySelective(controlTypeInfo) != 0) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+    @Override
+    public boolean modifySceneAddress(SceneAddressInfo sceneAddressInfo) {
+        if(sceneAddressInfoMapper.updateByPrimaryKeySelective(sceneAddressInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteSceneAddress(Integer sceneAddressId) {
+        if(sceneAddressInfoMapper.deleteByPrimaryKey(sceneAddressId)!=0){
             return true;
         }else{
             return false;

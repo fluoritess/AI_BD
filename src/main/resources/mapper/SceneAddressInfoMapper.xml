@@ -3,10 +3,10 @@
 <mapper namespace="cn.itcast.ssm.mapper.SceneAddressInfoMapper">
   <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.SceneAddressInfo">
     <id column="address_id" jdbcType="INTEGER" property="addressId" />
-    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="other" jdbcType="VARCHAR" property="other" />
-    <result column="explain" jdbcType="VARCHAR" property="explain" />
+    <result column="interpret" jdbcType="VARCHAR" property="interpret" />
     <result column="unit_name" jdbcType="VARCHAR" property="unitName" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    address_id, adress, type_id, other, explain, unit_name
+    address_id, address, type_id, other, interpret, unit_name
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.SceneAddressInfoExample" resultMap="BaseResultMap">
     select
@@ -101,11 +101,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.SceneAddressInfo">
-    insert into scene_address_info (address_id, adress, type_id, 
-      other, explain, unit_name
+    insert into scene_address_info (address_id, address, type_id, 
+      other, interpret, unit_name
       )
-    values (#{addressId,jdbcType=INTEGER}, #{adress,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
-      #{other,jdbcType=VARCHAR}, #{explain,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}
+    values (#{addressId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
+      #{other,jdbcType=VARCHAR}, #{interpret,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.SceneAddressInfo">
@@ -114,8 +114,8 @@
       <if test="addressId != null">
         address_id,
       </if>
-      <if test="adress != null">
-        adress,
+      <if test="address != null">
+        address,
       </if>
       <if test="typeId != null">
         type_id,
@@ -123,8 +123,8 @@
       <if test="other != null">
         other,
       </if>
-      <if test="explain != null">
-        explain,
+      <if test="interpret != null">
+        interpret,
       </if>
       <if test="unitName != null">
         unit_name,
@@ -134,8 +134,8 @@
       <if test="addressId != null">
         #{addressId,jdbcType=INTEGER},
       </if>
-      <if test="adress != null">
-        #{adress,jdbcType=VARCHAR},
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null">
         #{typeId,jdbcType=INTEGER},
@@ -143,8 +143,8 @@
       <if test="other != null">
         #{other,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null">
-        #{explain,jdbcType=VARCHAR},
+      <if test="interpret != null">
+        #{interpret,jdbcType=VARCHAR},
       </if>
       <if test="unitName != null">
         #{unitName,jdbcType=VARCHAR},
@@ -163,8 +163,8 @@
       <if test="record.addressId != null">
         address_id = #{record.addressId,jdbcType=INTEGER},
       </if>
-      <if test="record.adress != null">
-        adress = #{record.adress,jdbcType=VARCHAR},
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.typeId != null">
         type_id = #{record.typeId,jdbcType=INTEGER},
@@ -172,8 +172,8 @@
       <if test="record.other != null">
         other = #{record.other,jdbcType=VARCHAR},
       </if>
-      <if test="record.explain != null">
-        explain = #{record.explain,jdbcType=VARCHAR},
+      <if test="record.interpret != null">
+        interpret = #{record.interpret,jdbcType=VARCHAR},
       </if>
       <if test="record.unitName != null">
         unit_name = #{record.unitName,jdbcType=VARCHAR},
@@ -186,10 +186,10 @@
   <update id="updateByExample" parameterType="map">
     update scene_address_info
     set address_id = #{record.addressId,jdbcType=INTEGER},
-      adress = #{record.adress,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
       type_id = #{record.typeId,jdbcType=INTEGER},
       other = #{record.other,jdbcType=VARCHAR},
-      explain = #{record.explain,jdbcType=VARCHAR},
+      interpret = #{record.interpret,jdbcType=VARCHAR},
       unit_name = #{record.unitName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -198,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.itcast.ssm.po.SceneAddressInfo">
     update scene_address_info
     <set>
-      <if test="adress != null">
-        adress = #{adress,jdbcType=VARCHAR},
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="typeId != null">
         type_id = #{typeId,jdbcType=INTEGER},
@@ -207,8 +207,8 @@
       <if test="other != null">
         other = #{other,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null">
-        explain = #{explain,jdbcType=VARCHAR},
+      <if test="interpret != null">
+        interpret = #{interpret,jdbcType=VARCHAR},
       </if>
       <if test="unitName != null">
         unit_name = #{unitName,jdbcType=VARCHAR},
@@ -218,10 +218,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.SceneAddressInfo">
     update scene_address_info
-    set adress = #{adress,jdbcType=VARCHAR},
+    set address = #{address,jdbcType=VARCHAR},
       type_id = #{typeId,jdbcType=INTEGER},
       other = #{other,jdbcType=VARCHAR},
-      explain = #{explain,jdbcType=VARCHAR},
+      interpret = #{interpret,jdbcType=VARCHAR},
       unit_name = #{unitName,jdbcType=VARCHAR}
     where address_id = #{addressId,jdbcType=INTEGER}
   </update>
