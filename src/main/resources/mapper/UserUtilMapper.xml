@@ -89,7 +89,21 @@
         SELECT rolename,role_state FROM user_manager WHERE userid=#{userId,jdbcType=INTEGER}
     </select>
 
+    <insert id="insertRole" parameterType="java.util.List">
+        INSERT into role_distribute (userid,roleid) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userid},#{item.roleid})
+        </foreach>
+    </insert>
 
+    <delete id="deleteRole" parameterType="java.util.List">
+        delete from page_distribute where
+        <foreach collection="list" item="item" index="index" separator="or">
+            (roleid = #{item.userid} and pageid = #{item.roleid})
+        </foreach>
+
+
+    </delete>
 
 
 </mapper>

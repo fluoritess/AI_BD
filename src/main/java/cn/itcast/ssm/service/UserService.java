@@ -78,4 +78,5 @@ public interface UserService {
     Boolean updataFunction( List<PageDistribute> addList,List<PageDistribute> deleteList);
     List<RoleDistribute> selectUserRole(Integer userId);
     List<Map<String,Object>> selectUserRole2(Integer userId);
+    Boolean updataRole( List<RoleDistribute> addList,List<RoleDistribute> deleteList);
 }

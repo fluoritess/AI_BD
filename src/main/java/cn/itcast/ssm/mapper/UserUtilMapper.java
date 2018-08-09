@@ -2,6 +2,7 @@ package cn.itcast.ssm.mapper;
 
 
 import cn.itcast.ssm.po.PageDistribute;
+import cn.itcast.ssm.po.RoleDistribute;
 import cn.itcast.ssm.po.UserInf;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -41,4 +42,6 @@ public interface UserUtilMapper {
     int insertFunction(@Param("list") List<PageDistribute> list);
     int deleteFunction(@Param("list") List<PageDistribute> list);
     List<Map<String,Object>> selectUserRole(@Param("userId") Integer userId);
+    int insertRole(@Param("list") List<RoleDistribute> list);
+    int deleteRole(@Param("list") List<RoleDistribute> list);
 }
