@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -172,7 +173,9 @@ public class EquipmentController {
     public Map<String,Object> selectScene(){
         List<EquipmentUseScene> list=new ArrayList<>();
         list=equipmentService.selectScene();
-        return R.ok().put("list",list);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
     }
 
     /**
@@ -183,7 +186,7 @@ public class EquipmentController {
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加场景地址信息")
     @RequestMapping(value = "/addSceneAddress.action")
-    public Map<String,Object> addSceneAddress(Map<String,Object> dataMap){
+    public Map<String,Object> addSceneAddress(@RequestBody Map<String,Object> dataMap){
         Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
         SceneAddressInfo sceneAddressInfo=new SceneAddressInfo();
         sceneAddressInfo.setUnitName(String.valueOf(data.get("unit_name")));
@@ -226,7 +229,7 @@ public class EquipmentController {
     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改场景地址信息")
     @RequestMapping(value = "/modifySceneAddress.action")
-    public Map<String,Object> modifySceneAddress(Map<String,Object> dataMap){
+    public Map<String,Object> modifySceneAddress(@RequestBody Map<String,Object> dataMap){
         Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
         SceneAddressInfo sceneAddressInfo=new SceneAddressInfo();
         sceneAddressInfo.setAddressId(Integer.parseInt(String.valueOf(data.get("address_id"))));
@@ -285,7 +288,9 @@ public class EquipmentController {
     public Map<String,Object> selectAllAddress(){
         List<SceneAddressInfo> list=new ArrayList<>();
         list=equipmentService.selectAllAddress();
-        return R.ok().put("list",list);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
     }
 
     /**
@@ -296,7 +301,7 @@ public class EquipmentController {
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加部署节点信息")
     @RequestMapping(value = "/addDeployNode.action")
-    public Map<String,Object> addDeployNode(Map<String,Object> dataMap){
+    public Map<String,Object> addDeployNode(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
         deployNodeInfo.setAddressId(Integer.parseInt(String.valueOf(data.get("address_id"))));
@@ -319,7 +324,7 @@ public class EquipmentController {
     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改部署节点信息")
     @RequestMapping(value = "/modifyDeployNode.action")
-    public Map<String,Object> modifyDeployNode(Map<String,Object> dataMap){
+    public Map<String,Object> modifyDeployNode(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
         deployNodeInfo.setDeployNodeId(Integer.parseInt(String.valueOf(data.get("deploy_node_id"))));
