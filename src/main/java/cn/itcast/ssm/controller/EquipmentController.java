@@ -140,4 +140,16 @@ public class EquipmentController {
         }
     }
 
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询场景地址信息")
+    @RequestMapping(value = "/selectSceneAddress.action")
+    public Map<String,Object> selectSceneAddress(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("scene_address_info", (active - 1) * pagelist, pagelist);
+        return R.ok("查询场景地址分页成功").put("data", paging);
+    }
+
 }
