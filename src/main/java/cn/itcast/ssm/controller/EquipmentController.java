@@ -522,7 +522,7 @@ public class EquipmentController {
     @ArchivesLog(operationType = "删除信息", operationName = "删除厂商信息")
     @RequestMapping(value = "/deleteManufacturerInfo.action")
     public Map<String,Object> deleteManufacturerInfo(@RequestBody Map<String,Object> dataMap){
-        Integer manufacturer_id=Integer.parseInt(String.valueOf(dataMap.get("manufacturer_id")));
+        Integer manufacturer_id=Integer.parseInt(String.valueOf(dataMap.get("id")));
         if(equipmentService.deleteManufacturerInfo(manufacturer_id)){
             return R.ok();
         }else{
