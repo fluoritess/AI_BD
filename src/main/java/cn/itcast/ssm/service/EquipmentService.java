@@ -1,5 +1,6 @@
 package cn.itcast.ssm.service;
 
+import cn.itcast.ssm.po.ControlTypeInfo;
 import cn.itcast.ssm.po.EquipmentTypeInfo;
 import cn.itcast.ssm.util.Paging;
 
@@ -41,4 +42,9 @@ public interface EquipmentService {
      */
     Paging selectPaging(String name, int offset, int pageSize);
 
+      boolean addControlType(ControlTypeInfo controlTypeInfo);
+
+    boolean deleteControlType(Integer controlTypeId);
+
+    boolean updateControlType(ControlTypeInfo controlTypeInfo);
 }

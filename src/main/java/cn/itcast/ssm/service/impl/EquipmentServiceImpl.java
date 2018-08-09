@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.ControlTypeInfoMapper;
+import cn.itcast.ssm.po.ControlTypeInfo;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.mapper.EquipmentTypeInfoMapper;
 import cn.itcast.ssm.mapper.UserUtilMapper;
@@ -70,10 +71,31 @@ public class EquipmentServiceImpl implements EquipmentService {
         //返回数据
         return page;
     }
-//    @Override
-//    public  boolean addControlType(){
-//
-//        if(controlTypeInfoMapper.insert()!=0)
-//
-//    }
+    @Override
+    public  boolean addControlType(ControlTypeInfo controlTypeInfo){
+
+        if(controlTypeInfoMapper.insert(controlTypeInfo)!=0){
+        return true;
+            }else{
+        return false;
+        }
+    }
+
+    @Override
+    public  boolean deleteControlType(Integer controlTypeId){
+
+        if(controlTypeInfoMapper.deleteByPrimaryKey(controlTypeId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    @Override
+    public boolean updateControlType(ControlTypeInfo controlTypeInfo) {
+        if(controlTypeInfoMapper.updateByPrimaryKeySelective(controlTypeInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
