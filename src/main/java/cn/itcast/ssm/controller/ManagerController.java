@@ -658,8 +658,6 @@ public class ManagerController {
         if (msg == false) {
             return R.error("数据更新不成功（没有数据更新）");
         }
-
-
         return R.error( "数据更新失败");
     }
 
