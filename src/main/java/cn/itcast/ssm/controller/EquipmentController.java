@@ -3,6 +3,7 @@ package cn.itcast.ssm.controller;
 import cn.itcast.ssm.po.EquipmentTypeInfo;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.spring.ArchivesLog;
+import cn.itcast.ssm.util.Paging;
 import cn.itcast.ssm.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +69,17 @@ public class EquipmentController {
         }
     }
 
-
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询设备类型信息")
+    @RequestMapping(value = "/selectEquipmentType.action")
+    public Map<String,Object> selectEquipmentType(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("equipment_type_info", (active - 1) * pagelist, pagelist);
+        return R.ok("查询设备类型分页成功").put("data", paging);
+    }
 
 
 }

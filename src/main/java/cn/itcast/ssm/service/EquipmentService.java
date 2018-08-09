@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service;
 
 import cn.itcast.ssm.po.EquipmentTypeInfo;
+import cn.itcast.ssm.util.Paging;
 
 /**
  * @author tyh
@@ -30,5 +31,14 @@ public interface EquipmentService {
      * @return
      */
     boolean deleteEquipmentType(Integer equipmentTypeId);
+
+    /**
+     * 查询分页
+     * @param name 数据库表名
+     * @param offset 当前页
+     * @param pageSize 每页大小
+     * @return
+     */
+    Paging selectPaging(String name, int offset, int pageSize);
 
 }
