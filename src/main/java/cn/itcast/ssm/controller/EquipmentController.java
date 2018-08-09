@@ -134,7 +134,7 @@ public class EquipmentController {
         ControlTypeInfo controlTypeInfo = new ControlTypeInfo();
         controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
         controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
-        controlTypeInfo.setOther("null");
+        controlTypeInfo.setOther("");
         if (equipmentService.addControlType(controlTypeInfo)) {
             return  R.ok("添加成功");
         }else {
@@ -241,42 +241,6 @@ public class EquipmentController {
         }
     }
 
-    /**
-     * 查询场景类别信息
-     * @param reMap
-     * @return
-     */
-    @ResponseBody
-    @ArchivesLog(operationType = "查询信息", operationName = "查询场景类别信息")
-    @RequestMapping(value = "/selectUseScene.action")
-    public Map<String,Object> selectUseScene(@RequestBody Map<String, Object> reMap){
-        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
-        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
-        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
-        Paging paging = new Paging();
-        paging = equipmentService.selectPaging("equipment_use_scene", (active - 1) * pagelist, pagelist);
-        return R.ok("查询场景类别分页成功").put("data", paging);
-    }
-
-//    @ResponseBody
-//    @ArchivesLog(operationType = "添加信息", operationName = "添加设备控制类型信息")
-//    @RequestMapping(value = "/addUserscene.action")
-//    public Map<String ,Object> addUserscene(@RequestBody Map<String,Object> dataMap){
-//        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
-//        EquipmentUseScene equipmentUseScene = new EquipmentUseScene();
-//        controlTypeInfo.setControlTypeName(String.valueOf(data.get("control_type_name")));
-//        controlTypeInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
-//        controlTypeInfo.setOther("null");
-//        if (equipmentService.addControlType(controlTypeInfo)) {
-//            return  R.ok("添加成功");
-//
-//        }else {
-//            return  R.error("添加失败");
-//
-//        }
-//
-//
-//    }
 
     /**
      * 删除场景地址信息
@@ -403,6 +367,162 @@ public class EquipmentController {
         Paging paging = new Paging();
         paging = equipmentService.selectPaging("deploy_node_info", (active - 1) * pagelist, pagelist);
         return R.ok("查询部署节点分页成功").put("data", paging);
+    }
+    /**
+     * 查询场景类别信息
+     * @param reMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询场景类别信息")
+    @RequestMapping(value = "/selectUseScene.action")
+    public Map<String,Object> selectUseScene(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("equipment_use_scene", (active - 1) * pagelist, pagelist);
+        return R.ok("查询场景类别分页成功").put("data", paging);
+    }
+
+    /**
+     * 添加场景信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "添加场景信息")
+    @RequestMapping(value = "/addUserScene.action")
+    public Map<String ,Object> addUserScene(@RequestBody Map<String,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        EquipmentUseScene equipmentUseScene = new EquipmentUseScene();
+        equipmentUseScene.setInterpret(String.valueOf(data.get("interpret")));
+        equipmentUseScene.setName(String.valueOf(data.get("name")));
+        equipmentUseScene.setOther("");
+        if (equipmentService.addUserScene(equipmentUseScene)) {
+            return  R.ok("添加成功");
+
+        }else {
+            return  R.error("添加失败");
+
+        }
+    }
+
+    /**
+     * 修改使用场景
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "修改信息", operationName = "修改使用场景信息")
+    @RequestMapping(value = "/updateUserScene.action")
+    public Map<String,Object> updateUserScene(@RequestBody Map<String,Object> dataMap){
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        EquipmentUseScene equipmentUseScene=new EquipmentUseScene();
+        equipmentUseScene.setTypeId(Integer.parseInt(String.valueOf(data.get("type_id"))));
+        equipmentUseScene.setName(String.valueOf(data.get("name")));
+        equipmentUseScene.setInterpret(String.valueOf(data.get("interpret")));
+        equipmentUseScene.setOther("");
+        if(equipmentService.updateUserScene(equipmentUseScene)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    /**
+     * 删除使用场景
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "删除信息", operationName = "删除使用场景信息")
+    @RequestMapping(value = "/deleteUseScene.action")
+    public Map<String,Object> deleteUseScene(@RequestBody Map<String,Object> dataMap){
+        Integer id=Integer.parseInt(String.valueOf(dataMap.get("id")));
+        if(equipmentService.deleteUseScene(id)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    /**
+     * 查询厂商信息
+     * @param reMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询厂商信息")
+    @RequestMapping(value = "/selectManufacturerInfo.action")
+    public Map<String,Object> selectManufacturerInfo(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("manufacturer_info", (active - 1) * pagelist, pagelist);
+        return R.ok("查询厂商信息分页成功").put("data", paging);
+    }
+
+    /**
+     * 添加厂商信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "添加厂商信息")
+    @RequestMapping(value = "/addManufacturerInfo.action")
+    public Map<String ,Object> addManufacturerInfo(@RequestBody Map<String,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        ManufacturerInfo manufacturerInfo = new ManufacturerInfo();
+        manufacturerInfo.setManufacturerName(String.valueOf(data.get("manufacturer_name")));
+        manufacturerInfo.setManufacturerDiscripte(String.valueOf(data.get("manufacturer_discripte")));
+        manufacturerInfo.setOther("");
+        if (equipmentService.addManufacturerInfo(manufacturerInfo)) {
+            return  R.ok("添加成功");
+
+        }else {
+            return  R.error("添加失败");
+
+        }
+    }
+
+    /**
+     * 修改厂商信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "修改信息", operationName = "修改厂商信息")
+    @RequestMapping(value = "/updateManufacturerInfo.action")
+    public Map<String,Object> updateManufacturerInfo(@RequestBody Map<String,Object> dataMap){
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        ManufacturerInfo manufacturerInfo=new ManufacturerInfo();
+        manufacturerInfo.setManufacturerId(Integer.parseInt(String.valueOf(data.get("manufacturer_id"))));
+        manufacturerInfo.setManufacturerName(String.valueOf(data.get("manufacturer_name")));
+        manufacturerInfo.setManufacturerDiscripte(String.valueOf(data.get("manufacturer_discripte")));
+        manufacturerInfo.setOther("");
+        if(equipmentService.updateManufacturerInfo(manufacturerInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+    /**
+     * 删除厂商信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "删除信息", operationName = "删除厂商信息")
+    @RequestMapping(value = "/deleteManufacturerInfo.action")
+    public Map<String,Object> deleteManufacturerInfo(@RequestBody Map<String,Object> dataMap){
+        Integer manufacturer_id=Integer.parseInt(String.valueOf(dataMap.get("manufacturer_id")));
+        if(equipmentService.deleteManufacturerInfo(manufacturer_id)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
     }
 
 }

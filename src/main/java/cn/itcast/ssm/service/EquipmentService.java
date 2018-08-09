@@ -95,5 +95,52 @@ public interface EquipmentService {
      */
     boolean modifyDeployNode(DeployNodeInfo deployNodeInfo);
 
+    /**
+     * 删除部署节点信息
+     * @param deployNodeId
+     * @return
+     */
     boolean deleteDeployNode(Integer deployNodeId);
+
+    /**
+     * 添加使用场景
+     * @param equipmentUseScene
+     * @return
+     */
+    boolean addUserScene(EquipmentUseScene equipmentUseScene);
+
+    /**
+     * 修改使用场景
+     * @param equipmentUseScene
+     * @return
+     */
+    boolean updateUserScene(EquipmentUseScene equipmentUseScene);
+
+    /**
+     * 删除使用场景
+     * @param typeId
+     * @return
+     */
+    boolean deleteUseScene(Integer typeId);
+
+    /**
+     * 添加厂商信息
+     * @param manufacturerInfo
+     * @return
+     */
+    boolean addManufacturerInfo(ManufacturerInfo manufacturerInfo);
+
+    /**
+     * 修改厂商信息
+     * @param manufacturerInfo
+     * @return
+     */
+    boolean updateManufacturerInfo(ManufacturerInfo manufacturerInfo);
+
+    /**
+     * 删除厂商信息
+     * @param typeId
+     * @return
+     */
+    boolean deleteManufacturerInfo(Integer typeId);
 }

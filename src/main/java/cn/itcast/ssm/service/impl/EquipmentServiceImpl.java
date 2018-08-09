@@ -35,7 +35,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Autowired
     DeployNodeInfoMapper deployNodeInfoMapper;
-
+    @Autowired
+    ManufacturerInfoMapper manufacturerInfoMapper;
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
         if(equipmentTypeInfoMapper.insertSelective(equipmentTypeInfo)!=0){
@@ -160,6 +161,58 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public boolean deleteDeployNode(Integer deployNodeId) {
         if(deployNodeInfoMapper.deleteByPrimaryKey(deployNodeId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addUserScene(EquipmentUseScene equipmentUseScene) {
+        if(equipmentUseSceneMapper.insertSelective(equipmentUseScene)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUserScene(EquipmentUseScene equipmentUseScene) {
+        if(equipmentUseSceneMapper.updateByPrimaryKeySelective(equipmentUseScene)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteUseScene(Integer typeId) {
+        if(equipmentUseSceneMapper.deleteByPrimaryKey(typeId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    @Override
+    public boolean addManufacturerInfo(ManufacturerInfo manufacturerInfo) {
+        if(manufacturerInfoMapper.insertSelective(manufacturerInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    @Override
+    public boolean updateManufacturerInfo(ManufacturerInfo manufacturerInfo) {
+        if(manufacturerInfoMapper.updateByPrimaryKeySelective(manufacturerInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteManufacturerInfo(Integer typeId) {
+        if(manufacturerInfoMapper.deleteByPrimaryKey(typeId)!=0){
             return true;
         }else{
             return false;
