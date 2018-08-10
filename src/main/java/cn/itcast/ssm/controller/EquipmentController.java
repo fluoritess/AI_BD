@@ -381,7 +381,7 @@ public class EquipmentController {
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询场景类别信息")
     @RequestMapping(value = "/selectUseScene.action")
-    public Map<String,Object> selectUseScene(@RequestBody Map<String, Object> reMap){
+    public Map<String,Object> selectUserScene(@RequestBody Map<String, Object> reMap){
         Map<String, Object> page = (Map<String, Object>) reMap.get("page");
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
