@@ -91,13 +91,14 @@ public class ManagerController {
     @RequestMapping("/deleteFunctionData.action")
     public Map<String, Object> deleteFunctionData(@RequestBody Map<String, Object> map) {
         String msg = "";
+        if(Integer.parseInt(String.valueOf(map.get("id"))) < 28){
+            return R.error("系统初始配置不能被删除！");
+        }
         msg = userService.deletegongneng(Integer.parseInt(String.valueOf(map.get("id"))));
         if ("功能删除失败".equals(msg)) {
-
             return R.error(msg);
         }
         if ("功能删除成功".equals(msg)) {
-
             return R.ok(msg);
         } else {
             return R.error("删除出错");
@@ -355,7 +356,7 @@ public class ManagerController {
         pageInf.setPerms(String.valueOf(data.get("perms")));
         pageInf.setType(Integer.parseInt(String.valueOf(data.get("type"))));
         pageInf.setId(Integer.parseInt(String.valueOf(data.get("id"))));
-        if (pageInf.getOrderNum() < 200) {
+        if (pageInf.getOrderNum() < 200 || pageInf.getId() < 28) {
             return R.error("系统初始配置无法修改！");
         }
         if (userService.updatePageInf(pageInf) != 0) {
