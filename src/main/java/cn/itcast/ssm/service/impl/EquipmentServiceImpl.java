@@ -249,4 +249,20 @@ public class EquipmentServiceImpl implements EquipmentService {
             return false;
         }
     }
+    @Override
+    public boolean updateEquipmentInfo(EquipmentInfo equipmentInfo) {
+        if(equipmentInfoMapper.updateByPrimaryKeySelective(equipmentInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    @Override
+    public boolean deleteEquipmentInfo(Integer typeId) {
+        if(equipmentInfoMapper.deleteByPrimaryKey(typeId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

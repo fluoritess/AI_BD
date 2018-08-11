@@ -697,21 +697,67 @@ public class EquipmentController {
         return R.ok("查询设备信息分页成功").put("data", paging);
     }
 
+    /**
+     * 部署设备
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "部署设备")
     @RequestMapping(value = "/deployEquipment.action")
-    public Map<String,Object> deployEquipment(@RequestBody Map<String ,Object> dataMap){
-        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+    public Map<String,Object> deployEquipment(@RequestBody Map<String ,Object> dataMap) {
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         EquipmentDeployInfo equipmentDeployInfo = new EquipmentDeployInfo();
         equipmentDeployInfo.setEquipmentId(Integer.parseInt(String.valueOf(data.get("equipment_id"))));
         equipmentDeployInfo.setDeployNodeId(Integer.parseInt(String.valueOf(data.get("deploy_node_id"))));
         equipmentDeployInfo.setDeployTime(new Date());
         equipmentDeployInfo.setRemarks(String.valueOf(data.get("remarks")));
-        if(equipmentService.addDeployEquipment(equipmentDeployInfo)){
+        if (equipmentService.addDeployEquipment(equipmentDeployInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+    /**
+     * 修改设备信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "修改信息", operationName = "修改设备信息")
+    @RequestMapping(value = "/updateEquipmentInfo.action")
+    public Map<String ,Object> updateEquipmentInfo(@RequestBody Map<String,Object> dataMap){
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        EquipmentInfo equipmentInfo=new EquipmentInfo();
+        equipmentInfo.setEquipmentTypeId(Integer.parseInt(String.valueOf(data.get("equipment_type_id"))));
+        equipmentInfo.setEquipmentName(String.valueOf(data.get("equipment_name")));
+        equipmentInfo.setEquipmentWorkState(String.valueOf(data.get("equipment_work_state")));
+        equipmentInfo.setEquipmentCheck(Integer.parseInt(String.valueOf(data.get("equipment_check"))));
+        equipmentInfo.setControlTypeId(Integer.parseInt(String.valueOf(data.get("control_type_id"))));
+        equipmentInfo.setManufacturerId(Integer.parseInt(String.valueOf(data.get("manufacturer_id"))));
+        equipmentInfo.setAlgModelId(String.valueOf(data.get("alg_model_id")));
+        equipmentInfo.setAppId(Integer.parseInt(String.valueOf(data.get("app_id"))));
+        equipmentInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
+        if(equipmentService.updateEquipmentInfo(equipmentInfo)){
             return R.ok();
         }else{
             return R.error();
         }
     }
-
+    /**
+     * 删除设备信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "删除信息", operationName = "删除设备信息")
+    @RequestMapping(value = "/deleteEquipmentInfo.action")
+    public Map<String,Object> deleteEquipmentInfo(@RequestBody Map<String,Object> dataMap){
+        Integer manufacturer_id=Integer.parseInt(String.valueOf(dataMap.get("id")));
+        if(equipmentService.deleteEquipmentInfo(manufacturer_id)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
 }
