@@ -397,7 +397,7 @@ public class EquipmentController {
      */
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加场景信息")
-    @RequestMapping(value = "/addUserScene.action")
+    @RequestMapping(value = "/addUseScene.action")
     public Map<String ,Object> addUserScene(@RequestBody Map<String,Object> dataMap){
         Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
         EquipmentUseScene equipmentUseScene = new EquipmentUseScene();
@@ -420,7 +420,7 @@ public class EquipmentController {
      */
     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改使用场景信息")
-    @RequestMapping(value = "/updateUserScene.action")
+    @RequestMapping(value = "/updateUseScene.action")
     public Map<String,Object> updateUserScene(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         EquipmentUseScene equipmentUseScene=new EquipmentUseScene();
