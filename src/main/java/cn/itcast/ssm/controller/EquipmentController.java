@@ -641,6 +641,12 @@ public class EquipmentController {
                     mark = equipmentService.selectInspectData("manufacturer_info","manufacturer_name",String.valueOf(datas.get("data")));
                 }
                 break;
+            //设备信息
+            case "equipmentinfor":
+                if("name".equals(String.valueOf(datas.get("name")))){
+                    mark = equipmentService.selectInspectData("equipment_info","equipment_name",String.valueOf(datas.get("data")));
+                }
+                break;
             default:
                 break;
         }
