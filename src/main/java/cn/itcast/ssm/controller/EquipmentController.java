@@ -172,7 +172,7 @@ public class EquipmentController {
     @RequestMapping(value = "/selectScene.action")
     public Map<String,Object> selectScene(){
         List<EquipmentUseScene> list=new ArrayList<>();
-        list=equipmentService.selectScene();
+        list=(List<EquipmentUseScene>)equipmentService.selectAllInfo(EquipmentUseScene.class);
         Map<String,Object> data=new HashMap<>();
         data.put("list",list);
         return R.ok().put("data",data);
@@ -287,7 +287,7 @@ public class EquipmentController {
     @RequestMapping(value = "/selectAllAddress.action")
     public Map<String,Object> selectAllAddress(){
         List<SceneAddressInfo> list=new ArrayList<>();
-        list=equipmentService.selectAllAddress();
+        list=(List<SceneAddressInfo>)equipmentService.selectAllInfo(SceneAddressInfo.class);
         Map<String,Object> data=new HashMap<>();
         data.put("list",list);
         return R.ok().put("data",data);
@@ -528,6 +528,141 @@ public class EquipmentController {
         }else{
             return R.error();
         }
+    }
+
+    /**
+     * 查询所有设备类型信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectAllEquipType.action")
+    public Map<String,Object> selectAllEquipType(){
+        List<EquipmentTypeInfo> list=new ArrayList<>();
+        list=(List<EquipmentTypeInfo>)equipmentService.selectAllInfo(EquipmentTypeInfo.class);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
+    }
+
+    /**
+     * 查询所有的设备控制类型信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectAllEquipControType.action")
+    public Map<String,Object> selectAllEquipControType(){
+        List<ControlTypeInfo> list=new ArrayList<>();
+        list=(List<ControlTypeInfo>)equipmentService.selectAllInfo(ControlTypeInfo.class);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
+    }
+
+    /**
+     * 查询所有的设备厂商信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectAllEquipCompany.action")
+    public Map<String,Object> selectAllEquipCompany(){
+        List<ManufacturerInfo> list=new ArrayList<>();
+        list=(List<ManufacturerInfo>)equipmentService.selectAllInfo(ManufacturerInfo.class);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
+    }
+
+    /**
+     * 查询所有的部署节点信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectAllDeployNode.action")
+    public Map<String,Object> selectAllDeployNode(){
+        List<DeployNodeInfo> list=new ArrayList<>();
+        list=(List<DeployNodeInfo>)equipmentService.selectAllInfo(DeployNodeInfo.class);
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",list);
+        return R.ok().put("data",data);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "增加", operationName = "增加设备信息")
+    @RequestMapping(value = "/addEquipmentInfo.action")
+    public Map<String,Object> addEquipmentInfo(@RequestBody Map<String,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        EquipmentInfo equipmentInfo=new EquipmentInfo();
+        equipmentInfo.setEquipmentName(String.valueOf(data.get("equipment_name")));
+        equipmentInfo.setEquipmentTypeId(Integer.parseInt(String.valueOf(data.get("equipment_type_id"))));
+        equipmentInfo.setControlTypeId(Integer.parseInt(String.valueOf(data.get("control_type_id"))));
+        equipmentInfo.setManufacturerId(Integer.parseInt(String.valueOf(data.get("manufacturer_id"))));
+        equipmentInfo.setFunctionExplain(String.valueOf(data.get("function_explain")));
+        equipmentInfo.setEquipmentCheck(0);
+        equipmentInfo.setEquipmentWorkState("未运行");
+        if(equipmentService.addEquipmentInfo(equipmentInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+    /**
+     * 查找单个数据是否存在
+     *
+     * @param map 数据
+     * @return 是否存在
+     */
+    @ArchivesLog(operationName = "用户检验信息完整", operationType = "查询信息")
+    @ResponseBody
+    @RequestMapping("/inspectData.action")
+    public Map<String, Object> inspectData(@RequestBody Map<String, Object> map) {
+        Map<String, Object> states = (Map<String, Object>) map.get("states");
+        Map<String, Object> datas = (Map<String, Object>) map.get("data");
+        boolean mark = true;
+        switch (String.valueOf(states.get("id"))) {
+            //场景类别
+            case "changjingleibie":
+                    if("name".equals(String.valueOf(datas.get("name")))){
+                        mark = equipmentService.selectInspectData("equipment_use_scene","name",String.valueOf(datas.get("data")));
+                    }
+                break;
+            //部署节点
+            case "device_deploy_node":
+                if("name".equals(String.valueOf(datas.get("name")))){
+                    mark = equipmentService.selectInspectData("deploy_node_info","node_name",String.valueOf(datas.get("data")));
+                }
+                break;
+            //设备控制类型
+            case "device_control_type":
+                if("name".equals(String.valueOf(datas.get("name")))){
+                    mark = equipmentService.selectInspectData("control_type_info","control_type_name",String.valueOf(datas.get("data")));
+                }
+                break;
+            //设备厂商
+            case "device_manufacturer":
+                if("name".equals(String.valueOf(datas.get("name")))){
+                    mark = equipmentService.selectInspectData("manufacturer_info","manufacturer_name",String.valueOf(datas.get("data")));
+                }
+                break;
+            default:
+                break;
+        }
+        if (mark) {
+            return R.error("已存在");
+        }
+        return R.ok();
+    }
+
+    /**
+     * 查询设备信息
+     * @param reMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询厂商信息")
+    @RequestMapping(value = "/selectEquipmentInfo.action")
+    public Map<String,Object> selectEquipmentInfo(@RequestBody Map<String, Object> reMap){
+        return R.ok();
     }
 
 }

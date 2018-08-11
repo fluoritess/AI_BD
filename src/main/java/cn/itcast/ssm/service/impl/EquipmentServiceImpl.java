@@ -20,23 +20,20 @@ import java.util.Map;
 public class EquipmentServiceImpl implements EquipmentService {
     @Autowired
     ControlTypeInfoMapper controlTypeInfoMapper;
-
     @Autowired
     EquipmentTypeInfoMapper equipmentTypeInfoMapper;
-
     @Autowired
     UserUtilMapper utilMapper;
-
     @Autowired
     EquipmentUseSceneMapper equipmentUseSceneMapper;
-
     @Autowired
     SceneAddressInfoMapper sceneAddressInfoMapper;
-
     @Autowired
     DeployNodeInfoMapper deployNodeInfoMapper;
     @Autowired
     ManufacturerInfoMapper manufacturerInfoMapper;
+    @Autowired
+    EquipmentInfoMapper equipmentInfoMapper;
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
         if(equipmentTypeInfoMapper.insertSelective(equipmentTypeInfo)!=0){
@@ -88,11 +85,6 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<EquipmentUseScene> selectScene() {
-        return equipmentUseSceneMapper.selectByExample(null);
-    }
-
-    @Override
     public boolean addSceneAddress(SceneAddressInfo sceneAddressInfo) {
         if(sceneAddressInfoMapper.insertSelective(sceneAddressInfo)!=0){
             return true;
@@ -133,11 +125,6 @@ public class EquipmentServiceImpl implements EquipmentService {
         }else{
             return false;
         }
-    }
-
-    @Override
-    public List<SceneAddressInfo> selectAllAddress() {
-        return sceneAddressInfoMapper.selectByExample(null);
     }
 
     @Override
@@ -217,5 +204,38 @@ public class EquipmentServiceImpl implements EquipmentService {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public List<?> selectAllInfo(Class c) {
+        if(c.equals(EquipmentTypeInfo.class)){
+            return equipmentTypeInfoMapper.selectByExample(null);
+        }else if(c.equals(EquipmentUseScene.class)){
+            return equipmentUseSceneMapper.selectByExample(null);
+        }else if(c.equals(SceneAddressInfo.class)){
+            return sceneAddressInfoMapper.selectByExample(null);
+        }else if(c.equals(ControlTypeInfo.class)){
+            return controlTypeInfoMapper.selectByExample(null);
+        }else if(c.equals(ManufacturerInfo.class)){
+            return manufacturerInfoMapper.selectByExample(null);
+        }else if(c.equals(DeployNodeInfo.class)){
+            return deployNodeInfoMapper.selectByExample(null);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean addEquipmentInfo(EquipmentInfo equipmentInfo) {
+        if(equipmentInfoMapper.insertSelective(equipmentInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean selectInspectData(String tableName, String listName, String listValue) {
+        List<Map<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
+        return list.size()!=0;
     }
 }

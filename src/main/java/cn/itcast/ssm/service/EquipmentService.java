@@ -48,11 +48,6 @@ public interface EquipmentService {
     boolean deleteControlType(Integer controlTypeId);
 
     boolean updateControlType(ControlTypeInfo controlTypeInfo);
-    /**
-     * 查询所有的设备使用场景
-     * @return
-     */
-    List<EquipmentUseScene> selectScene();
 
     /**
      * 添加场景地址信息
@@ -74,12 +69,6 @@ public interface EquipmentService {
      * @return
      */
     boolean deleteSceneAddress(Integer sceneAddressId);
-
-    /**
-     * 查询所有的场景地址信息
-     * @return
-     */
-    List<SceneAddressInfo> selectAllAddress();
 
     /**
      * 添加部署节点信息
@@ -143,4 +132,27 @@ public interface EquipmentService {
      * @return
      */
     boolean deleteManufacturerInfo(Integer typeId);
+
+    /**
+     * 查询所有的表信息
+     * @param c 类
+     * @return
+     */
+    List<?> selectAllInfo(Class c);
+
+    /**
+     * 添加设备信息
+     * @param equipmentInfo
+     * @return
+     */
+    boolean addEquipmentInfo(EquipmentInfo equipmentInfo);
+
+    /**
+     * 检验信息
+     * @param tableName 数据库表名
+     * @param listName 字段名
+     * @param listValue 字段值
+     * @return 是否存在
+     */
+    boolean selectInspectData(String tableName,String listName,String listValue);
 }
