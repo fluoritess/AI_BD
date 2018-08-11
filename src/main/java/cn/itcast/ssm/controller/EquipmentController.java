@@ -677,7 +677,7 @@ public class EquipmentController {
                 if(style.equals("0")){
                     paging=equipmentService.selectPaging("equipment_info_view",(active - 1) * pagelist, pagelist,null,null);
                 }else if(style.equals("1")){
-                    paging=equipmentService.selectPaging("equipment_deploy_info",(active - 1) * pagelist, pagelist,null,null);
+                    paging=equipmentService.selectPaging("equipment_deploy_view",(active - 1) * pagelist, pagelist,null,null);
                 }
                 break;
             case "1":
