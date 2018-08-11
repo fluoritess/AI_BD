@@ -34,6 +34,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     ManufacturerInfoMapper manufacturerInfoMapper;
     @Autowired
     EquipmentInfoMapper equipmentInfoMapper;
+    @Autowired
+    EquipmentDeployInfoMapper equipmentDeployInfoMapper;
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
         if(equipmentTypeInfoMapper.insertSelective(equipmentTypeInfo)!=0){
@@ -237,5 +239,14 @@ public class EquipmentServiceImpl implements EquipmentService {
     public boolean selectInspectData(String tableName, String listName, String listValue) {
         List<Map<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
         return list.size()!=0;
+    }
+
+    @Override
+    public boolean addDeployEquipment(EquipmentDeployInfo equipmentDeployInfo) {
+        if(equipmentDeployInfoMapper.insertSelective(equipmentDeployInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

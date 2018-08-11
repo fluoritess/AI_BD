@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author tyh
@@ -698,6 +695,23 @@ public class EquipmentController {
                 break;
         }
         return R.ok("查询设备信息分页成功").put("data", paging);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "部署设备")
+    @RequestMapping(value = "/deployEquipment.action")
+    public Map<String,Object> deployEquipment(@RequestBody Map<String ,Object> dataMap){
+        Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
+        EquipmentDeployInfo equipmentDeployInfo = new EquipmentDeployInfo();
+        equipmentDeployInfo.setEquipmentId(Integer.parseInt(String.valueOf(data.get("equipment_id"))));
+        equipmentDeployInfo.setDeployNodeId(Integer.parseInt(String.valueOf(data.get("deploy_node_id"))));
+        equipmentDeployInfo.setDeployTime(new Date());
+        equipmentDeployInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(equipmentService.addDeployEquipment(equipmentDeployInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
     }
 
 }

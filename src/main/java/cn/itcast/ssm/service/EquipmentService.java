@@ -155,4 +155,11 @@ public interface EquipmentService {
      * @return 是否存在
      */
     boolean selectInspectData(String tableName,String listName,String listValue);
+
+    /**
+     * 部署设备
+     * @param equipmentDeployInfo
+     * @return
+     */
+    boolean addDeployEquipment(EquipmentDeployInfo equipmentDeployInfo);
 }
