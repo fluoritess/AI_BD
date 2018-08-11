@@ -381,7 +381,7 @@ public class EquipmentController {
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询场景类别信息")
     @RequestMapping(value = "/selectUseScene.action")
-    public Map<String,Object> selectUseScene(@RequestBody Map<String, Object> reMap){
+    public Map<String,Object> selectUserScene(@RequestBody Map<String, Object> reMap){
         Map<String, Object> page = (Map<String, Object>) reMap.get("page");
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
@@ -397,7 +397,7 @@ public class EquipmentController {
      */
     @ResponseBody
     @ArchivesLog(operationType = "添加信息", operationName = "添加场景信息")
-    @RequestMapping(value = "/addUserScene.action")
+    @RequestMapping(value = "/addUseScene.action")
     public Map<String ,Object> addUserScene(@RequestBody Map<String,Object> dataMap){
         Map<String,Object> data = (Map<String,Object>)dataMap.get("data");
         EquipmentUseScene equipmentUseScene = new EquipmentUseScene();
@@ -420,7 +420,7 @@ public class EquipmentController {
      */
     @ResponseBody
     @ArchivesLog(operationType = "修改信息", operationName = "修改使用场景信息")
-    @RequestMapping(value = "/updateUserScene.action")
+    @RequestMapping(value = "/updateUseScene.action")
     public Map<String,Object> updateUserScene(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         EquipmentUseScene equipmentUseScene=new EquipmentUseScene();
