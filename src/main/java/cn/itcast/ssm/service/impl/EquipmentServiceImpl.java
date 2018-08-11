@@ -238,4 +238,21 @@ public class EquipmentServiceImpl implements EquipmentService {
         List<Map<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
         return list.size()!=0;
     }
-}
+
+    @Override
+    public boolean updateEquipmentInfo(EquipmentInfo equipmentInfo) {
+        if(equipmentInfoMapper.updateByPrimaryKeySelective(equipmentInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    @Override
+    public boolean deleteEquipmentInfo(Integer typeId) {
+        if(equipmentInfoMapper.deleteByPrimaryKey(typeId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    }

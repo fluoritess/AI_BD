@@ -155,4 +155,18 @@ public interface EquipmentService {
      * @return 是否存在
      */
     boolean selectInspectData(String tableName,String listName,String listValue);
+
+    /**
+     * 修改设备信息
+     * @param equipmentInfo
+     * @return
+     */
+    boolean updateEquipmentInfo(EquipmentInfo equipmentInfo);
+
+    /**
+     * 删除设备信息
+     * @param typeId
+     * @return
+     */
+    boolean deleteEquipmentInfo(Integer typeId);
 }
