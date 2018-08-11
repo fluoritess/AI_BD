@@ -250,7 +250,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean selectInspectData(String tableName,String listName,String listValue) {
-        List<Map<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
+        List<LinkedHashMap<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
         return list.size()!=0;
     }
 

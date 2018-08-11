@@ -760,4 +760,15 @@ public class EquipmentController {
             return R.error();
         }
     }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查看设备的部署详情")
+    @RequestMapping(value = "/selectDeployDetails.action")
+    public Map<String,Object> selectDeployDetails(@RequestBody Map<String,Object> dataMap){
+        String deployId=String.valueOf(dataMap.get("id"));
+        Paging paging=new Paging();
+        paging=equipmentService.selectDeployDetails(deployId);
+        return R.ok().put("data", paging);
+    }
+
 }

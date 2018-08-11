@@ -7,6 +7,7 @@ import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -237,7 +238,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public boolean selectInspectData(String tableName, String listName, String listValue) {
-        List<Map<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
+        List<LinkedHashMap<String,Object>> list=utilMapper.selectInspectData(tableName,listName,listValue);
         return list.size()!=0;
     }
 
@@ -264,5 +265,13 @@ public class EquipmentServiceImpl implements EquipmentService {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public Paging selectDeployDetails(String deployId) {
+        Paging paging=new Paging();
+        paging.addDataTitle(utilMapper.selectNotes("deploy_detail_view"));
+        paging.setLists(utilMapper.selectInspectData("deploy_detail_view","equipment_id",deployId));
+        return paging;
     }
 }

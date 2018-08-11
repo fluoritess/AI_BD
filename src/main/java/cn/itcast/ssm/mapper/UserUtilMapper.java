@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +33,9 @@ public interface UserUtilMapper {
                                           @Param(value = "limitName") String limitName,
                                           @Param(value = "limitValue") String limitValue);
 
-    List<Map<String,Object>> selectInspectData(@Param(value = "tableName") String tableName,
-                                               @Param(value = "listName") String listName,
-                                               @Param(value = "listValue") String listValue);
+    List<LinkedHashMap<String,Object>> selectInspectData(@Param(value = "tableName") String tableName,
+                                                         @Param(value = "listName") String listName,
+                                                         @Param(value = "listValue") String listValue);
 
 
     List<String> selectUserPermission(@Param("userId") int userId);
@@ -46,4 +47,5 @@ public interface UserUtilMapper {
     List<Map<String,Object>> selectUserRole(@Param("userId") Integer userId);
     int insertRole(@Param("list") List<RoleDistribute> list);
     int deleteRole(@Param("list") List<RoleDistribute> list);
+
 }

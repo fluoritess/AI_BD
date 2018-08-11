@@ -175,4 +175,11 @@ public interface EquipmentService {
      * @return
      */
     boolean deleteEquipmentInfo(Integer typeId);
+
+    /**
+     * 查询设备部署详情
+     * @param deployId
+     * @return
+     */
+    Paging selectDeployDetails(String deployId);
 }
