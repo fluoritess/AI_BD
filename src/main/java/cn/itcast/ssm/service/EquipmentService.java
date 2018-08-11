@@ -182,4 +182,18 @@ public interface EquipmentService {
      * @return
      */
     Paging selectDeployDetails(String deployId);
+
+    /**
+     * 更新部署信息
+     * @param equipmentDeployInfo
+     * @return
+     */
+    boolean updateDeployDetails(EquipmentDeployInfo equipmentDeployInfo);
+
+    /**
+     * 删除部署信息
+     * @param typeId
+     * @return
+     */
+    boolean deleteDeployDetails(Integer typeId);
 }

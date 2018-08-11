@@ -274,4 +274,22 @@ public class EquipmentServiceImpl implements EquipmentService {
         paging.setLists(utilMapper.selectInspectData("deploy_detail_view","equipment_id",deployId));
         return paging;
     }
+
+    @Override
+    public boolean updateDeployDetails(EquipmentDeployInfo equipmentDeployInfo) {
+        if(equipmentDeployInfoMapper.updateByPrimaryKeySelective(equipmentDeployInfo)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteDeployDetails(Integer typeId) {
+        if(equipmentDeployInfoMapper.deleteByPrimaryKey(typeId)!=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
