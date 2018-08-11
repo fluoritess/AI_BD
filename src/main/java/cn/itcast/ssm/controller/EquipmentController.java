@@ -101,7 +101,7 @@ public class EquipmentController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = equipmentService.selectPaging("equipment_type_info", (active - 1) * pagelist, pagelist);
+        paging = equipmentService.selectPaging("equipment_type_info", (active - 1) * pagelist, pagelist,null,null);
         return R.ok("查询设备类型分页成功").put("data", paging);
     }
 
@@ -118,7 +118,7 @@ public class EquipmentController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = equipmentService.selectPaging("control_type_info", (active - 1) * pagelist, pagelist);
+        paging = equipmentService.selectPaging("control_type_info", (active - 1) * pagelist, pagelist,null,null);
         return R.ok("查询控制类型类型分页成功").put("data", paging);
     }
 
@@ -275,7 +275,7 @@ public class EquipmentController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = equipmentService.selectPaging("scene_address_info", (active - 1) * pagelist, pagelist);
+        paging = equipmentService.selectPaging("scene_address_info", (active - 1) * pagelist, pagelist,null,null);
         return R.ok("查询场景地址分页成功").put("data", paging);
     }
 
@@ -370,7 +370,7 @@ public class EquipmentController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = equipmentService.selectPaging("deploy_node_info", (active - 1) * pagelist, pagelist);
+        paging = equipmentService.selectPaging("deploy_node_info", (active - 1) * pagelist, pagelist,null,null);
         return R.ok("查询部署节点分页成功").put("data", paging);
     }
     /**
@@ -386,7 +386,7 @@ public class EquipmentController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = equipmentService.selectPaging("equipment_use_scene", (active - 1) * pagelist, pagelist);
+        paging = equipmentService.selectPaging("equipment_use_scene", (active - 1) * pagelist, pagelist,null,null);
         return R.ok("查询场景类别分页成功").put("data", paging);
     }
 
@@ -465,7 +465,7 @@ public class EquipmentController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = equipmentService.selectPaging("manufacturer_info", (active - 1) * pagelist, pagelist);
+        paging = equipmentService.selectPaging("manufacturer_info", (active - 1) * pagelist, pagelist,null,null);
         return R.ok("查询厂商信息分页成功").put("data", paging);
     }
 
@@ -662,7 +662,42 @@ public class EquipmentController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询厂商信息")
     @RequestMapping(value = "/selectEquipmentInfo.action")
     public Map<String,Object> selectEquipmentInfo(@RequestBody Map<String, Object> reMap){
-        return R.ok();
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Map<String,Object> state = (Map<String, Object>) reMap.get("state");
+        Map<String, Object> stateInfo = (Map<String, Object>) state.get("state");
+        //取得种类信息
+        String type=String.valueOf(stateInfo.get("statetype_id"));
+        //取得类型
+        String style = String.valueOf(stateInfo.get("statetype_style_id"));
+        Paging paging = new Paging();
+        switch (type){
+            case "0":
+                if(style.equals("0")){
+                    paging=equipmentService.selectPaging("equipment_info_view",(active - 1) * pagelist, pagelist,null,null);
+                }else if(style.equals("1")){
+                    paging=equipmentService.selectPaging("equipment_deploy_info",(active - 1) * pagelist, pagelist,null,null);
+                }
+                break;
+            case "1":
+                if(style.equals("0")){
+                    paging=equipmentService.selectPaging("equipment_info_view",(active - 1) * pagelist, pagelist,"equipment_check","0");
+                }else if(style.equals("1")){
+                    paging=equipmentService.selectPaging("equipment_info_view",(active - 1) * pagelist, pagelist,"equipment_check","1");
+                }
+                break;
+            case "2":
+                if(style.equals("0")){
+                    paging=equipmentService.selectPaging("equipment_info_view",(active - 1) * pagelist, pagelist,"equipment_work_state","正在运行");
+                }else if(style.equals("1")){
+                    paging=equipmentService.selectPaging("equipment_info_view",(active - 1) * pagelist, pagelist,"equipment_work_state","未运行");
+                }
+                break;
+            default:
+                break;
+        }
+        return R.ok("查询设备信息分页成功").put("data", paging);
     }
 
 }

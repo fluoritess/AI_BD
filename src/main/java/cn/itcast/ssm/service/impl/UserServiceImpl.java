@@ -6,7 +6,6 @@ import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.util.PageUtils;
 import cn.itcast.ssm.util.Paging;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -146,14 +145,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Paging selectPaging(String name, int offset, int pageSize,String roleState) {
+    public Paging selectPaging(String name, int offset, int pageSize,String limitName, String limitValue) {
         Paging page=new Paging();
         //查询出注释
         page.addDataTitle(utilMapper.selectNotes(name));
         //查询出总条数
-        page.setListTotal(utilMapper.selectCount(name,roleState));
+        page.setListTotal(utilMapper.selectCount(name,limitName,limitValue));
         //查询数据
-        List<Map<String,Object>> list= utilMapper.selectPaging(name,offset,pageSize,roleState);
+        List<Map<String,Object>> list= utilMapper.selectPaging(name,offset,pageSize,limitName,limitValue);
 
         for (Map<String,Object> map:list ){
             if(map.get("regtime")!=null){

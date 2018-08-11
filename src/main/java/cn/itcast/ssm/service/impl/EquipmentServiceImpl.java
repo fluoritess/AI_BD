@@ -62,14 +62,14 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public Paging selectPaging(String name, int offset, int pageSize) {
+    public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
         Paging page=new Paging();
         //查询出注释
         page.addDataTitle(utilMapper.selectNotes(name));
         //查询出总条数
-        page.setListTotal(utilMapper.selectCount(name,null));
+        page.setListTotal(utilMapper.selectCount(name,limitName,limitValue));
         //查询数据
-        List<Map<String,Object>> list= utilMapper.selectPaging(name,offset,pageSize,null);
+        List<Map<String,Object>> list= utilMapper.selectPaging(name,offset,pageSize,limitName,limitValue);
         //装入数据
         page.setLists(list);
         //返回数据

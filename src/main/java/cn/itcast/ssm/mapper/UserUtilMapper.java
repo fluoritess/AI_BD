@@ -21,14 +21,16 @@ import java.util.Map;
 public interface UserUtilMapper {
 
     int selectCount(@Param(value = "name") String name,
-                    @Param(value = "roleState") String roleState);
+                    @Param(value = "limitName") String limitName,
+                    @Param(value = "limitValue") String limitValue);
 
     List<HashMap<String,Object>> selectNotes(@Param(value = "name") String name);
 
     List<Map<String,Object>> selectPaging(@Param(value = "name") String name,
                                           @Param(value = "offset") int offset,
                                           @Param(value = "pageSize") int pageSize,
-                                          @Param(value = "roleState") String roleState);
+                                          @Param(value = "limitName") String limitName,
+                                          @Param(value = "limitValue") String limitValue);
 
     List<Map<String,Object>> selectInspectData(@Param(value = "tableName") String tableName,
                                                @Param(value = "listName") String listName,

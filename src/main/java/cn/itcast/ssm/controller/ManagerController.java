@@ -170,7 +170,7 @@ public class ManagerController {
         Map<String, Object> page = (Map<String, Object>) reMap.get("page");
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
-        Paging paging = userService.selectPaging("page_inf", (active - 1) * pagelist, pagelist, null);
+        Paging paging = userService.selectPaging("page_inf", (active - 1) * pagelist, pagelist, null,null);
         return R.ok("查询功能分页成功").put("data", paging);
     }
 
@@ -188,7 +188,7 @@ public class ManagerController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = userService.selectPaging("role_inf", (active - 1) * pagelist, pagelist, null);
+        paging = userService.selectPaging("role_inf", (active - 1) * pagelist, pagelist, null,null);
         return R.ok("查询角色分页成功").put("data", paging);
     }
 
@@ -208,11 +208,11 @@ public class ManagerController {
         Map<String, Object> state = (Map<String, Object>) reMap.get("state");
         Paging paging = new Paging();
         if ("0".equals(String.valueOf(state.get("state")))) {
-            paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "0");
+            paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist,"role_state", "0");
         } else if ("1".equals(String.valueOf(state.get("state")))) {
-            paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "1");
+            paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "role_state","1");
         } else {
-            paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "0");
+            paging = userService.selectPaging("user_manager", (active - 1) * pagelist, pagelist, "role_state","0");
         }
         return R.ok("查询用户分页成功").put("data", paging);
     }
@@ -551,7 +551,7 @@ public class ManagerController {
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = userService.selectPaging("application_system_information", (active - 1) * pagelist, pagelist, null);
+        paging = userService.selectPaging("application_system_information", (active - 1) * pagelist, pagelist, null,null);
         return R.ok("查询应用系统管理分页成功").put("data", paging);
     }
 

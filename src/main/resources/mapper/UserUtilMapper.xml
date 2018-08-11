@@ -20,8 +20,8 @@
     <!--查询总数量-->
     <select id="selectCount" resultType="int">
         SELECT COUNT(*) FROM ${name}
-        <if test="roleState !=null">
-            WHERE role_state=#{roleState}
+        <if test="limitName !=null and limitValue !=null">
+            WHERE ${limitName}=#{limitValue}
         </if>
     </select>
     <!--查询注释信息-->
@@ -42,8 +42,8 @@
             </otherwise>
         </choose>
         FROM ${name}
-        <if test="roleState !=null">
-            WHERE role_state=#{roleState}
+        <if test="limitName !=null and limitValue !=null">
+            WHERE ${limitName}=#{limitValue}
         </if>
         <if test="name == 'page_inf'">
             order by order_num asc

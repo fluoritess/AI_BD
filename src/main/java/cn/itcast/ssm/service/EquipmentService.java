@@ -41,7 +41,7 @@ public interface EquipmentService {
      * @param pageSize 每页大小
      * @return
      */
-    Paging selectPaging(String name, int offset, int pageSize);
+    Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue);
 
     boolean addControlType(ControlTypeInfo controlTypeInfo);
 
