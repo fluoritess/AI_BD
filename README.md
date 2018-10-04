@@ -6,6 +6,11 @@ Web云平台
 #### 软件架构
 Spring+SpringMVC+Mybtis+SpringBoot+Shrio+Druid
 
+#### 1.0.3版本更新 2018.9.13
+1. 集成设备管理模块。
+2. 调整结构，适配smartPolice模块。
+3. 关于smartPolice下的Controller全部放在smartpolice下面。
+
 #### 1.0.2版本更新 2018.8.4
 1.集成Shiro权限管理，可动态添加页面和角色
 
