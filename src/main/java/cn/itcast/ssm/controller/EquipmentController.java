@@ -20,6 +20,7 @@ import java.util.*;
  * @Description:
  * @date 18-8-9 上午10:35
  */
+@SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/equipment")
 public class EquipmentController {
