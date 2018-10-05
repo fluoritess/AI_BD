@@ -767,6 +767,11 @@ public class EquipmentController {
         }
     }
 
+    /**
+     * 查看设备的部署详情
+     * @param dataMap
+     * @return
+     */
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查看设备的部署详情")
     @RequestMapping(value = "/selectDeployDetails.action")
