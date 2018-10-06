@@ -862,7 +862,7 @@ public class EquipmentController {
 
 
     @ResponseBody
-    @ArchivesLog(operationType = "删除传感器类型1", operationName = "删除传感器类型")
+    @ArchivesLog(operationType = "删除传感器类型", operationName = "删除传感器类型")
     @RequestMapping(value = "/deleteSensorTypeInfo,action")
     public Map<String,Object> deleteSenorTypeIno(@RequestBody Map<String,Object> deleteMap){
         Map<String,Object> data = (Map<String, Object>) deleteMap.get("data");
