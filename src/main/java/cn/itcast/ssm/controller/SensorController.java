@@ -39,7 +39,7 @@ public class SensorController {
 
     @ResponseBody
     @ArchivesLog(operationType = "增加传感器类型", operationName = "增加传感器类型")
-    @RequestMapping(value = "/addSensorTypeInfo,action")
+    @RequestMapping(value = "/addSensorTypeInfo.action")
     public Map<String,Object> addSensorTypeInfo(@RequestBody Map<String,Object> addMap){
         Map<String,Object> data = (Map<String, Object>) addMap.get("data");
         SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
@@ -55,7 +55,7 @@ public class SensorController {
 
     @ResponseBody
     @ArchivesLog(operationType = "修改传感器类型", operationName = "修改传感器类型")
-    @RequestMapping(value = "/updateSensorTypeInfo,action")
+    @RequestMapping(value = "/updateSensorTypeInfo.action")
     public Map<String,Object> updateSenorTypeIno(@RequestBody Map<String,Object> updateMap){
         Map<String,Object> data = (Map<String, Object>) updateMap.get("data");
         SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
@@ -73,7 +73,7 @@ public class SensorController {
 
     @ResponseBody
     @ArchivesLog(operationType = "删除传感器类型1", operationName = "删除传感器类型")
-    @RequestMapping(value = "/deleteSensorTypeInfo,action")
+    @RequestMapping(value = "/deleteSensorTypeInfo.action")
     public Map<String,Object> deleteSenorTypeIno(@RequestBody Map<String,Object> deleteMap){
         Map<String,Object> data = (Map<String, Object>) deleteMap.get("data");
         Integer sensorTypeInfo_id = Integer.valueOf(String.valueOf(data.get("id")));
