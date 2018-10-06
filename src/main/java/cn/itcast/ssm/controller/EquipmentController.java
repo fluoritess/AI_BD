@@ -844,7 +844,7 @@ public class EquipmentController {
     }
 
     @ResponseBody
-    @ArchivesLog(operationType = "修改传感器类型", operationName = "修改传感器类型")
+    @ArchivesLog(operationType = "修改传感器类型1", operationName = "修改传感器类型")
     @RequestMapping(value = "/updateSensorTypeInfo,action")
     public Map<String,Object> updateSenorTypeIno(@RequestBody Map<String,Object> updateMap){
         Map<String,Object> data = (Map<String, Object>) updateMap.get("data");
