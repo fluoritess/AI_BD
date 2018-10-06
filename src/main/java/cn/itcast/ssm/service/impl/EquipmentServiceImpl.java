@@ -37,6 +37,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     EquipmentInfoMapper equipmentInfoMapper;
     @Autowired
     EquipmentDeployInfoMapper equipmentDeployInfoMapper;
+    @Autowired
+    SensorTypeInfoMapper sensorTypeInfoMapper;
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
         if(equipmentTypeInfoMapper.insertSelective(equipmentTypeInfo)!=0){
@@ -289,6 +291,34 @@ public class EquipmentServiceImpl implements EquipmentService {
         if(equipmentDeployInfoMapper.deleteByPrimaryKey(typeId)!=0){
             return true;
         }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateSensorTypeInfo(SensorTypeInfo sensorTypeInfo) {
+        if(sensorTypeInfoMapper.updateByPrimaryKeySelective(sensorTypeInfo)!=0)
+        {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addSensorTypeInfos(SensorTypeInfo sensorTypeInfo) {
+        if(sensorTypeInfoMapper.insert(sensorTypeInfo)!=0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteSensorTypeInfo(Integer typeId) {
+        if(sensorTypeInfoMapper.deleteByPrimaryKey(typeId)!=0){
+            return true;
+        }else {
             return false;
         }
     }

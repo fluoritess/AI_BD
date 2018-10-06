@@ -196,4 +196,21 @@ public interface EquipmentService {
      * @return
      */
     boolean deleteDeployDetails(Integer typeId);
+
+
+    /**
+     * 增加传感器类型
+     */
+    boolean addSensorTypeInfos(SensorTypeInfo sensorTypeInfo);
+
+    /**
+     * 修改传感器类型
+     */
+    boolean updateSensorTypeInfo(SensorTypeInfo sensorTypeInfo);
+
+    /**
+     * 删除传感器类型
+     */
+    boolean deleteSensorTypeInfo(Integer typeId);
+
 }

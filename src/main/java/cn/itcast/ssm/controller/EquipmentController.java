@@ -1,7 +1,6 @@
 package cn.itcast.ssm.controller;
 
 import cn.itcast.ssm.po.*;
-
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -811,6 +810,64 @@ public class EquipmentController {
     public Map<String,Object> deleteDeployDetails(@RequestBody Map<String,Object> dataMap){
         Integer manufacturer_id=Integer.parseInt(String.valueOf(dataMap.get("id")));
         if(equipmentService.deleteDeployDetails(manufacturer_id)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+    @ResponseBody
+    @ArchivesLog(operationType = "传感器类型信息分页", operationName = "传感器类型信息分页")
+    @RequestMapping(value = "/selectSensorTypeInfo.action")
+    public Map<String,Object> selectSensorTypeInfo(@RequestBody Map<String, Object> reMap){
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = equipmentService.selectPaging("sensor_type_info", (active - 1) * pagelist, pagelist,null,null);
+        return R.ok("传感器类型信息分页成功").put("data", paging);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "增加传感器类型", operationName = "增加传感器类型")
+    @RequestMapping(value = "/addSensorTypeInfo,action")
+    public Map<String,Object> addSensorTypeInfo(@RequestBody Map<String,Object> addMap){
+        Map<String,Object> data = (Map<String, Object>) addMap.get("data");
+        SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
+        sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_name")));
+        sensorTypeInfo.setRemark(String.valueOf(data.get("remark")));
+        sensorTypeInfo.setSensorFuncationRemark(String.valueOf(data.get("sensor_funcation_remark")));
+        if(equipmentService.addSensorTypeInfos(sensorTypeInfo)){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "修改传感器类型", operationName = "修改传感器类型")
+    @RequestMapping(value = "/updateSensorTypeInfo,action")
+    public Map<String,Object> updateSenorTypeIno(@RequestBody Map<String,Object> updateMap){
+        Map<String,Object> data = (Map<String, Object>) updateMap.get("data");
+        SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
+        sensorTypeInfo.setSensorTypeId(Integer.valueOf(String.valueOf(data.get("sensor_type_id"))));
+        sensorTypeInfo.setSensorFuncationRemark(String.valueOf(data.get("sensor_funcation_remark")));
+        sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_name")));
+        sensorTypeInfo.setRemark(String.valueOf(data.get("remark")));
+        if(equipmentService.updateSensorTypeInfo(sensorTypeInfo)) {
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
+
+
+    @ResponseBody
+    @ArchivesLog(operationType = "删除传感器类型", operationName = "删除传感器类型")
+    @RequestMapping(value = "/deleteSensorTypeInfo,action")
+    public Map<String,Object> deleteSenorTypeIno(@RequestBody Map<String,Object> deleteMap){
+        Map<String,Object> data = (Map<String, Object>) deleteMap.get("data");
+        Integer sensorTypeInfo_id = Integer.valueOf(String.valueOf(data.get("id")));
+        if(equipmentService.deleteSensorTypeInfo(sensorTypeInfo_id)) {
             return R.ok();
         }else{
             return R.error();
