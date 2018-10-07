@@ -75,8 +75,7 @@ public class SensorController {
     @ArchivesLog(operationType = "删除传感器类型1", operationName = "删除传感器类型")
     @RequestMapping(value = "/deleteSensorTypeInfo.action")
     public Map<String,Object> deleteSenorTypeIno(@RequestBody Map<String,Object> deleteMap){
-        Map<String,Object> data = (Map<String, Object>) deleteMap.get("data");
-        Integer sensorTypeInfo_id = Integer.valueOf(String.valueOf(data.get("id")));
+        Integer sensorTypeInfo_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         if(sensorService.deleteSensorTypeInfo(sensorTypeInfo_id)) {
             return R.ok();
         }else{
