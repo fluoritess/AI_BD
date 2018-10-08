@@ -1,7 +1,6 @@
 package cn.itcast.ssm.controller;
 
 import cn.itcast.ssm.po.*;
-
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -817,5 +816,6 @@ public class EquipmentController {
             return R.error();
         }
     }
+
 
 }

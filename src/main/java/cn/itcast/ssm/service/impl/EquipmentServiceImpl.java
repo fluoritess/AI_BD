@@ -37,6 +37,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     EquipmentInfoMapper equipmentInfoMapper;
     @Autowired
     EquipmentDeployInfoMapper equipmentDeployInfoMapper;
+
     @Override
     public boolean addEquipmentType(EquipmentTypeInfo equipmentTypeInfo) {
         if(equipmentTypeInfoMapper.insertSelective(equipmentTypeInfo)!=0){
@@ -292,4 +293,6 @@ public class EquipmentServiceImpl implements EquipmentService {
             return false;
         }
     }
+
+
 }
