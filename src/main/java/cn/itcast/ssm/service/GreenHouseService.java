@@ -25,12 +25,12 @@ public interface GreenHouseService {
     boolean addGreenHouseInfos(GreenhouseInfo greenhouseInfo);
 
     /**
-     * 修改传感器类型
+     * 修改大棚类型
      */
     boolean updateSensorTypeInfo(GreenhouseInfo greenhouseInfo);
 
     /**
-     * 删除传感器类型
+     * 删除大棚类型
      */
     boolean deleteSensorTypeInfo(Integer typeId);
 
