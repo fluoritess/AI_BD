@@ -27,4 +27,9 @@ public interface SensorService {
      * 删除传感器类型
      */
     boolean deleteSensorTypeInfo(Integer typeId);
+
+    /**
+     * 检查数据
+     */
+    boolean inspectData(String tableName,String listName,String listValue);
 }
