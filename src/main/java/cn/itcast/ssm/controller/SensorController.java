@@ -49,13 +49,33 @@ public class SensorController {
     @ResponseBody
     @RequestMapping("/inspectData.action")
     public Map<String, Object> inspectData(@RequestBody Map<String, Object> map) {
-        String listName = String.valueOf(map.get("name"));
-        String listValue = String.valueOf(map.get("data"));
-        if (sensorService.inspectData("sensor_type_info", listName, listValue)) {
-            return R.ok();
-        } else {
-            return R.error();
+        Map<String,Object> datas = (Map<String, Object>) map.get("data");
+        Map<String,Object> states = (Map<String, Object>) map.get("states");
+        boolean mark = true;
+        switch (String.valueOf(states.get("id"))){
+            //传感器设备信息
+            case "sensorTypeInfo":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("sensor_type_info","sensor_name",String.valueOf(datas.get("data")));
+                }
+                break;
+
+            //绿色大棚信息
+            case "greenHouseInfo":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("greenhouse_info","greenhouse_name",String.valueOf(datas.get("data")));
+                }
+                break;
         }
+        //true代表没有注册过
+        if(mark) {
+            return R.ok();
+        }else {
+            return  R.error("已存在");
+        }
+
     }
 
 
