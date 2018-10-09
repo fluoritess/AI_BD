@@ -12,5 +12,4 @@ public class AiBdApplication {
     public static void main(String[] args) {
         SpringApplication.run(AiBdApplication.class, args);
     }
-
 }
