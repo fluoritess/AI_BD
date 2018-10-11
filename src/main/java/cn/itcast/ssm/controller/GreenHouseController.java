@@ -2,7 +2,6 @@ package cn.itcast.ssm.controller;
 
 
 import cn.itcast.ssm.po.GreenhouseInfo;
-import cn.itcast.ssm.po.SensorTypeInfo;
 import cn.itcast.ssm.service.GreenHouseService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -13,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @Author: LiuYang
@@ -52,7 +54,10 @@ public class GreenHouseController {
         greenhouseInfo.setRemark(String.valueOf(data.get("remark")));
         greenhouseInfo.setGreenhouseAddress(String.valueOf(data.get("greenhouse_address")));
         greenhouseInfo.setGreenhouseUseage(String.valueOf(data.get("greenhouse_useage")));
-        greenhouseInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
+        Date day=new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String number = df.format(day).replaceAll("[^(0-9)]", "");
+        greenhouseInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))+number));
         if(greenHouseService.addGreenHouseInfos(greenhouseInfo)){
             return R.ok();
         }else {

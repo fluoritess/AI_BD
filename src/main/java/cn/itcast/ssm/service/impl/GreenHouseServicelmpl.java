@@ -53,6 +53,7 @@ public class GreenHouseServicelmpl implements GreenHouseService {
     }
     @Override
     public boolean updateSensorTypeInfo(GreenhouseInfo greenhouseInfo) {
+
         if(greenhouseInfoMapper.updateByPrimaryKeySelective(greenhouseInfo)!=0)
         {
             return true;
