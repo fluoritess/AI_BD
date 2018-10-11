@@ -8,6 +8,7 @@ import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,5 +60,11 @@ public class SensorServiceImpl implements SensorService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public boolean inspectData(String tableName, String listName, String listValue) {
+        List<LinkedHashMap<String, Object>> list = utilMapper.selectInspectData(tableName, listName, listValue);
+        return list.size()==0;//返回true则代表未被注册过
     }
 }

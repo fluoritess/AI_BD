@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * author:xw
+ *
  * @Package cn.itcast.ssm.controller
  */
 @Controller
@@ -28,27 +29,68 @@ public class SensorController {
     @ResponseBody
     @ArchivesLog(operationType = "传感器类型信息分页", operationName = "传感器类型信息分页")
     @RequestMapping(value = "/selectSensorTypeInfo.action")
-    public Map<String,Object> selectSensorTypeInfo(@RequestBody Map<String, Object> reMap){
+    public Map<String, Object> selectSensorTypeInfo(@RequestBody Map<String, Object> reMap) {
         Map<String, Object> page = (Map<String, Object>) reMap.get("page");
         Integer active = Integer.valueOf(String.valueOf(page.get("active")));
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
-        paging = sensorService.selectPaging("sensor_type_info", (active - 1) * pagelist, pagelist,null,null);
+        paging = sensorService.selectPaging("sensor_type_info", (active - 1) * pagelist, pagelist, null, null);
         return R.ok("传感器类型信息分页成功").put("data", paging);
     }
+
+
+    /**
+     * 查找单个数据是否存在
+     *
+     * @param map 数据
+     * @return 是否存在
+     */
+    @ArchivesLog(operationName = "用户检验信息完整", operationType = "查询信息")
+    @ResponseBody
+    @RequestMapping("/inspectFarmData.action")
+    public Map<String, Object> inspectData(@RequestBody Map<String, Object> map) {
+        Map<String,Object> datas = (Map<String, Object>) map.get("data");
+        Map<String,Object> states = (Map<String, Object>) map.get("states");
+        boolean mark = true;
+        switch (String.valueOf(states.get("id"))){
+            //传感器设备信息
+            case "sensorTypeInfo":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("sensor_type_info","sensor_name",String.valueOf(datas.get("data")));
+                }
+                break;
+
+            //绿色大棚信息
+            case "greenHouseInfo":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("greenhouse_info","greenhouse_name",String.valueOf(datas.get("data")));
+                }
+                break;
+        }
+        //true代表没有注册过
+        if(mark) {
+            return R.ok();
+        }else {
+            return  R.error("已存在");
+        }
+
+    }
+
 
     @ResponseBody
     @ArchivesLog(operationType = "增加传感器类型", operationName = "增加传感器类型")
     @RequestMapping(value = "/addSensorTypeInfo.action")
-    public Map<String,Object> addSensorTypeInfo(@RequestBody Map<String,Object> addMap){
-        Map<String,Object> data = (Map<String, Object>) addMap.get("data");
+    public Map<String, Object> addSensorTypeInfo(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
         SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
         sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_name")));
         sensorTypeInfo.setRemark(String.valueOf(data.get("remark")));
         sensorTypeInfo.setSensorFuncationRemark(String.valueOf(data.get("sensor_funcation_remark")));
-        if(sensorService.addSensorTypeInfos(sensorTypeInfo)){
+        if (sensorService.addSensorTypeInfos(sensorTypeInfo)) {
             return R.ok();
-        }else {
+        } else {
             return R.error();
         }
     }
@@ -56,16 +98,16 @@ public class SensorController {
     @ResponseBody
     @ArchivesLog(operationType = "修改传感器类型", operationName = "修改传感器类型")
     @RequestMapping(value = "/updateSensorTypeInfo.action")
-    public Map<String,Object> updateSenorTypeIno(@RequestBody Map<String,Object> updateMap){
-        Map<String,Object> data = (Map<String, Object>) updateMap.get("data");
+    public Map<String, Object> updateSenorTypeIno(@RequestBody Map<String, Object> updateMap) {
+        Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
         SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
         sensorTypeInfo.setSensorTypeId(Integer.valueOf(String.valueOf(data.get("sensor_type_id"))));
         sensorTypeInfo.setSensorFuncationRemark(String.valueOf(data.get("sensor_funcation_remark")));
         sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_name")));
         sensorTypeInfo.setRemark(String.valueOf(data.get("remark")));
-        if(sensorService.updateSensorTypeInfo(sensorTypeInfo)) {
+        if (sensorService.updateSensorTypeInfo(sensorTypeInfo)) {
             return R.ok();
-        }else{
+        } else {
             return R.error();
         }
     }
@@ -74,11 +116,11 @@ public class SensorController {
     @ResponseBody
     @ArchivesLog(operationType = "删除传感器类型1", operationName = "删除传感器类型")
     @RequestMapping(value = "/deleteSensorTypeInfo.action")
-    public Map<String,Object> deleteSenorTypeIno(@RequestBody Map<String,Object> deleteMap){
+    public Map<String, Object> deleteSenorTypeIno(@RequestBody Map<String, Object> deleteMap) {
         Integer sensorTypeInfo_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
-        if(sensorService.deleteSensorTypeInfo(sensorTypeInfo_id)) {
+        if (sensorService.deleteSensorTypeInfo(sensorTypeInfo_id)) {
             return R.ok();
-        }else{
+        } else {
             return R.error();
         }
     }
