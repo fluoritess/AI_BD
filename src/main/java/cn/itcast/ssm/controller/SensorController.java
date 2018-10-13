@@ -47,7 +47,7 @@ public class SensorController {
      */
     @ArchivesLog(operationName = "用户检验信息完整", operationType = "查询信息")
     @ResponseBody
-    @RequestMapping("/inspectFarmData.action")
+    @RequestMapping("/inspectData.action")
     public Map<String, Object> inspectData(@RequestBody Map<String, Object> map) {
         Map<String,Object> datas = (Map<String, Object>) map.get("data");
         Map<String,Object> states = (Map<String, Object>) map.get("states");
