@@ -15,6 +15,8 @@ public class DeployNodeInfo implements Serializable {
 
     private String remarks;
 
+    private Integer parentId;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDeployNodeId() {
@@ -65,6 +67,14 @@ public class DeployNodeInfo implements Serializable {
         this.remarks = remarks == null ? null : remarks.trim();
     }
 
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -77,6 +87,7 @@ public class DeployNodeInfo implements Serializable {
         sb.append(", purposeExplain=").append(purposeExplain);
         sb.append(", insideLocation=").append(insideLocation);
         sb.append(", remarks=").append(remarks);
+        sb.append(", parentId=").append(parentId);
         sb.append("]");
         return sb.toString();
     }

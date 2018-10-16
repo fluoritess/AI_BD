@@ -3,11 +3,9 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.DeployNodeInfo;
 import cn.itcast.ssm.po.DeployNodeInfoExample;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface DeployNodeInfoMapper {
     long countByExample(DeployNodeInfoExample example);
 

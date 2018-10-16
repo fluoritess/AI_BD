@@ -8,6 +8,7 @@
     <result column="purpose_explain" jdbcType="VARCHAR" property="purposeExplain" />
     <result column="inside_location" jdbcType="VARCHAR" property="insideLocation" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    deploy_node_id, address_id, node_name, purpose_explain, inside_location, remarks
+    deploy_node_id, address_id, node_name, purpose_explain, inside_location, remarks, 
+    parent_id
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.DeployNodeInfoExample" resultMap="BaseResultMap">
     select
@@ -102,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.DeployNodeInfo">
     insert into deploy_node_info (deploy_node_id, address_id, node_name, 
-      purpose_explain, inside_location, remarks
-      )
+      purpose_explain, inside_location, remarks, 
+      parent_id)
     values (#{deployNodeId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, #{nodeName,jdbcType=VARCHAR}, 
-      #{purposeExplain,jdbcType=VARCHAR}, #{insideLocation,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
-      )
+      #{purposeExplain,jdbcType=VARCHAR}, #{insideLocation,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.DeployNodeInfo">
     insert into deploy_node_info
@@ -129,6 +131,9 @@
       <if test="remarks != null">
         remarks,
       </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deployNodeId != null">
@@ -148,6 +153,9 @@
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +186,9 @@
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +201,8 @@
       node_name = #{record.nodeName,jdbcType=VARCHAR},
       purpose_explain = #{record.purposeExplain,jdbcType=VARCHAR},
       inside_location = #{record.insideLocation,jdbcType=VARCHAR},
-      remarks = #{record.remarks,jdbcType=VARCHAR}
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +225,9 @@
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
     </set>
     where deploy_node_id = #{deployNodeId,jdbcType=INTEGER}
   </update>
@@ -222,7 +237,8 @@
       node_name = #{nodeName,jdbcType=VARCHAR},
       purpose_explain = #{purposeExplain,jdbcType=VARCHAR},
       inside_location = #{insideLocation,jdbcType=VARCHAR},
-      remarks = #{remarks,jdbcType=VARCHAR}
+      remarks = #{remarks,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER}
     where deploy_node_id = #{deployNodeId,jdbcType=INTEGER}
   </update>
 </mapper>
