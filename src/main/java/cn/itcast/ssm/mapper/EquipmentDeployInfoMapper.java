@@ -3,11 +3,9 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.EquipmentDeployInfo;
 import cn.itcast.ssm.po.EquipmentDeployInfoExample;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface EquipmentDeployInfoMapper {
     long countByExample(EquipmentDeployInfoExample example);
 
