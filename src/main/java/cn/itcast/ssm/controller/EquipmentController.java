@@ -306,6 +306,9 @@ public class EquipmentController {
         deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
         deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
         deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(!String.valueOf(data.get("parent_id")).equals("null")){
+            deployNodeInfo.setParentId(Integer.parseInt(String.valueOf(data.get("parent_id"))));
+        }
         if(equipmentService.addDeployNode(deployNodeInfo)){
             return R.ok();
         }else{
@@ -330,6 +333,9 @@ public class EquipmentController {
         deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
         deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
         deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(!String.valueOf(data.get("parent_id")).equals("null")){
+            deployNodeInfo.setParentId(Integer.parseInt(String.valueOf(data.get("parent_id"))));
+        }
         if(equipmentService.modifyDeployNode(deployNodeInfo)){
             return R.ok();
         }else{
