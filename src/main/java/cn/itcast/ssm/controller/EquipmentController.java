@@ -291,7 +291,7 @@ public class EquipmentController {
         return R.ok().put("data",data);
     }
     /**
-     * 查询所有的场景节点信息
+     * 查询所有的场景节点信息_
      * @return
      */
     @ResponseBody
