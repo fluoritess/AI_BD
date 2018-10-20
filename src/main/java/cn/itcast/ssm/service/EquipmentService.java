@@ -92,6 +92,13 @@ public interface EquipmentService {
     boolean deleteDeployNode(Integer deployNodeId);
 
     /**
+     * 根据id查询部署节点信息
+     * @param deployNodeId
+     * @return
+     */
+    DeployNodeInfo selectDeployNode(Integer deployNodeId);
+
+    /**
      * 添加使用场景
      * @param equipmentUseScene
      * @return

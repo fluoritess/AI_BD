@@ -140,6 +140,8 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
     }
 
+
+
     @Override
     public boolean modifyDeployNode(DeployNodeInfo deployNodeInfo) {
         if(deployNodeInfoMapper.updateByPrimaryKeySelective(deployNodeInfo)!=0){
@@ -151,13 +153,17 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public boolean deleteDeployNode(Integer deployNodeId) {
+
         if(deployNodeInfoMapper.deleteByPrimaryKey(deployNodeId)!=0){
             return true;
         }else{
             return false;
         }
     }
-
+   @Override
+   public  DeployNodeInfo selectDeployNode(Integer deployNodeId){
+       return  deployNodeInfoMapper.selectByPrimaryKey(deployNodeId);
+   }
     @Override
     public boolean addUserScene(EquipmentUseScene equipmentUseScene) {
         if(equipmentUseSceneMapper.insertSelective(equipmentUseScene)!=0){
