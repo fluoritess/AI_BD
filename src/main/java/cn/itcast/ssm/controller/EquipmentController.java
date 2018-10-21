@@ -291,7 +291,7 @@ public class EquipmentController {
         return R.ok().put("data",data);
     }
     /**
-     * 查询所有的场景节点信息_
+     * 查询所有的场景节点信息
      * @return
      */
     @ResponseBody
@@ -343,17 +343,28 @@ public class EquipmentController {
     @RequestMapping(value = "/addEquipmentNode.action")
     public Map<String,Object> addEquipmentNode(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        String node_name=String.valueOf(data.get("node_name"));
+        //根据父节点名字查询父节点id
+        Integer parent_id=0;
+        List<DeployNodeInfo> list=(List)equipmentService.selectAllInfo(DeployNodeInfo.class);
+        Iterator<DeployNodeInfo> it=list.iterator();
+        while(it.hasNext()){
+            DeployNodeInfo deployNodeInfo=it.next();
+            if(deployNodeInfo.getNodeName().equals(node_name)){
+                parent_id=deployNodeInfo.getParentId();
+            }
+        }
+        //添加
         DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
-        Integer parent_id=Integer.parseInt(String.valueOf(data.get("parent_id")));
         DeployNodeInfo parent_deployNodeInfo=new DeployNodeInfo();
         parent_deployNodeInfo=equipmentService.selectDeployNode(parent_id);
         Integer address_id=parent_deployNodeInfo.getAddressId();
+        deployNodeInfo.setParentId(parent_id);
         deployNodeInfo.setAddressId(address_id);
+        deployNodeInfo.setNodeName(node_name);
         deployNodeInfo.setInsideLocation(String.valueOf(data.get("inside_location")));
-        deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
         deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
         deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
-        deployNodeInfo.setParentId(Integer.parseInt(String.valueOf(data.get("parent_id"))));
         if(equipmentService.addDeployNode(deployNodeInfo)){
             return R.ok();
         }else{
