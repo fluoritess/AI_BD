@@ -5,6 +5,7 @@ import cn.itcast.ssm.po.CollectInfoValueExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -22,6 +23,9 @@ public interface CollectInfoValueMapper {
     List<CollectInfoValue> selectByExample(CollectInfoValueExample example);
 
     CollectInfoValue selectByPrimaryKey(Integer collectId);
+
+    /**/
+    CollectInfoValue selectByTime(Date date);
 
     int updateByExampleSelective(@Param("record") CollectInfoValue record, @Param("example") CollectInfoValueExample example);
 

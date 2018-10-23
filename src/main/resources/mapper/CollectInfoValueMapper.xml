@@ -82,6 +82,10 @@
       order by ${orderByClause}
     </if>
   </select>
+  <!--根据时间 查询-->
+  <select id="selectByTime" parameterType="date" resultMap="BaseResultMap">
+    select * from collect_info_value where collect_time="2018-10-22 20:56:57"
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -141,6 +145,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update collect_info_value
     <set>
