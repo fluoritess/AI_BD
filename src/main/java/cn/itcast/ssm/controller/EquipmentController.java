@@ -327,9 +327,6 @@ public class EquipmentController {
         deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
         deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
         deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
-        if(!String.valueOf(data.get("parent_id")).equals("null")){
-            deployNodeInfo.setParentId(Integer.parseInt(String.valueOf(data.get("parent_id"))));
-        }
         if(equipmentService.addDeployNode(deployNodeInfo)){
             return R.ok();
         }else{
@@ -346,22 +343,13 @@ public class EquipmentController {
     @RequestMapping(value = "/addEquipmentNode.action")
     public Map<String,Object> addEquipmentNode(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
-        String node_name=String.valueOf(data.get("node_name"));
-        //根据父节点名字查询父节点id
-        Integer parent_id=0;
-        List<DeployNodeInfo> list=(List)equipmentService.selectAllInfo(DeployNodeInfo.class);
-        Iterator<DeployNodeInfo> it=list.iterator();
-        while(it.hasNext()){
-            DeployNodeInfo deployNodeInfo=it.next();
-            if(deployNodeInfo.getNodeName().equals(node_name)){
-                parent_id=deployNodeInfo.getParentId();
-            }
-        }
+       Integer parent_id=Integer.parseInt(String.valueOf(data.get("parent_id")));
         //添加
         DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
         DeployNodeInfo parent_deployNodeInfo=new DeployNodeInfo();
         parent_deployNodeInfo=equipmentService.selectDeployNode(parent_id);
         Integer address_id=parent_deployNodeInfo.getAddressId();
+        String node_name=parent_deployNodeInfo.getNodeName();
         deployNodeInfo.setParentId(parent_id);
         deployNodeInfo.setAddressId(address_id);
         deployNodeInfo.setNodeName(node_name);
