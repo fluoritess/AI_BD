@@ -12,6 +12,10 @@ import java.util.List;
         * @date 2018/10/20 22:22
         */
 public interface StatisticalAnalysisService {
+    /*
+    * 查询最新数据
+    * */
+    CollectInfoValue selectLatest(Integer SensorId);
         /*
         * 统计十五分钟内的数据
         * */

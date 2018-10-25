@@ -15,6 +15,11 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Override
+    public CollectInfoValue selectLatest(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
+        return null;
+    }
+    @Override
     public  List<CollectInfoValue> StatisticalQuarter(Integer SensorId){
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
