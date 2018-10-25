@@ -28,8 +28,8 @@ public class AiBdApplicationTests {
     @Test
     public void contextLoads() throws Exception{
 
-     CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest(1);
-     System.out.print(collectInfoValue.getCollectTime());
+   /*  CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest(1);
+     System.out.print(collectInfoValue.getCollectTime());*/
 
       }
 

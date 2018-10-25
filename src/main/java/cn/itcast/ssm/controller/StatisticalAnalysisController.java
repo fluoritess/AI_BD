@@ -34,13 +34,13 @@ public class StatisticalAnalysisController {
      */
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询最新的收集数据")
-    @RequestMapping(value = "/selectQuarter.action")
+    @RequestMapping(value = "/selectLatest.action")
     public Map<String,Object> selectSensorId(@RequestBody Map<String, Object> dataMap){
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest(SensorId);
-        Map<String,Object> data_=new HashMap<>();
-        data_.put("collectInfoValue",collectInfoValue);
-        return R.ok().put("data",data_);
+       /* Map<String,Object> data_=new HashMap<>();
+        data_.put("collectInfoValue",collectInfoValue);*/
+        return R.ok().put("data",collectInfoValue);
 
     }
     /**
