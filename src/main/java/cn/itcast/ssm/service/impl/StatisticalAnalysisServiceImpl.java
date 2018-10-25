@@ -6,8 +6,8 @@ import cn.itcast.ssm.service.StatisticalAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 @Service
@@ -15,10 +15,11 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Override
-    public  List<CollectInfoValue> StatisticalQuarter(java.util.Date date,Integer SensorId){
+    public  List<CollectInfoValue> StatisticalQuarter(Integer SensorId){
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         Iterator<CollectInfoValue> it=list.iterator();
+        Date date=new Date();
         while(it.hasNext()){
             CollectInfoValue collectInfoValue=it.next();
             java.util.Date date1=collectInfoValue.getCollectTime();
@@ -32,10 +33,11 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
         return tarlist;
     }
     @Override
-    public  List<CollectInfoValue> StatisticalOneHour(java.util.Date  date,Integer SensorId) {
+    public  List<CollectInfoValue> StatisticalOneHour(Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         Iterator<CollectInfoValue> it=list.iterator();
+        Date date=new Date();
         while(it.hasNext()){
             CollectInfoValue collectInfoValue=it.next();
             java.util.Date date1=collectInfoValue.getCollectTime();
@@ -49,9 +51,10 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     }
 
     @Override
-    public  List<CollectInfoValue> StatisticalOneDay(java.util.Date  date,Integer SensorId) {
+    public  List<CollectInfoValue> StatisticalOneDay(Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
+        Date date=new Date();
         Iterator<CollectInfoValue> it=list.iterator();
         while(it.hasNext()){
             CollectInfoValue collectInfoValue=it.next();
@@ -66,9 +69,10 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     }
 
     @Override
-    public  List<CollectInfoValue>  StatisticalOneWeek(java.util.Date  date,Integer SensorId) {
+    public  List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
+        Date date=new Date();
         Iterator<CollectInfoValue> it=list.iterator();
         while(it.hasNext()){
             CollectInfoValue collectInfoValue=it.next();

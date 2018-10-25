@@ -15,20 +15,20 @@ public interface StatisticalAnalysisService {
         /*
         * 统计十五分钟内的数据
         * */
-        List<CollectInfoValue> StatisticalQuarter(java.util.Date date,Integer SensorId);
+        List<CollectInfoValue> StatisticalQuarter(Integer SensorId);
         /*
         * 统计一小时内的数据
         */
-        List<CollectInfoValue>  StatisticalOneHour(java.util.Date date,Integer SensorId);
+        List<CollectInfoValue>  StatisticalOneHour(Integer SensorId);
 
         /*
         * 统计一天内的数据
         * */
-        List<CollectInfoValue> StatisticalOneDay(java.util.Date  date,Integer SensorId);
+        List<CollectInfoValue> StatisticalOneDay(Integer SensorId);
 
         /*
         * 统计一周内的数据
         * */
-        List<CollectInfoValue>  StatisticalOneWeek(java.util.Date  date,Integer SensorId);
+        List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId);
 
 }
