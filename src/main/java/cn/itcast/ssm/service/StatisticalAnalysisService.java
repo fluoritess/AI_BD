@@ -12,23 +12,27 @@ import java.util.List;
         * @date 2018/10/20 22:22
         */
 public interface StatisticalAnalysisService {
+    /*
+    * 查询最新数据
+    * */
+    CollectInfoValue selectLatest(Integer SensorId);
         /*
         * 统计十五分钟内的数据
         * */
-        List<CollectInfoValue> StatisticalQuarter(java.util.Date date);
+        List<CollectInfoValue> StatisticalQuarter(Integer SensorId);
         /*
         * 统计一小时内的数据
         */
-        List<CollectInfoValue>  StatisticalOneHour(java.util.Date date);
+        List<CollectInfoValue>  StatisticalOneHour(Integer SensorId);
 
         /*
         * 统计一天内的数据
         * */
-        List<CollectInfoValue> StatisticalOneDay(java.util.Date  date);
+        List<CollectInfoValue> StatisticalOneDay(Integer SensorId);
 
         /*
         * 统计一周内的数据
         * */
-        List<CollectInfoValue>  StatisticalOneWeek(java.util.Date  date);
+        List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId);
 
 }
