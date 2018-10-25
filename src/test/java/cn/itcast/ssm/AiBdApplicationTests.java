@@ -29,12 +29,8 @@ public class AiBdApplicationTests {
     @Test
     public void contextLoads() throws Exception{
 
-        List<CollectInfoValue> collectInfoValues=statisticalAnalysisService.StatisticalOneWeek(new Date(),1);
-        Iterator<CollectInfoValue> it=collectInfoValues.iterator();
-        while(it.hasNext()){
-            CollectInfoValue collectInfoValue=it.next();
-            System.out.print(collectInfoValue.getCollectId()+"      "+collectInfoValue.getCollectTime());
-        }
+     CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest(1);
+     System.out.print(collectInfoValue.getCollectTime());
 
       }
 

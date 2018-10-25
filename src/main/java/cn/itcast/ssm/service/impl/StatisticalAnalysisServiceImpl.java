@@ -17,7 +17,19 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     @Override
     public CollectInfoValue selectLatest(Integer SensorId){
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
-        return null;
+        Iterator<CollectInfoValue> it=list.iterator();
+        CollectInfoValue collectInfoValue_tar=null;
+        Date date=new Date();
+        long count=1000000000;
+        while(it.hasNext()){
+            CollectInfoValue collectInfoValue=it.next();
+            java.util.Date date1=collectInfoValue.getCollectTime();
+            if((date.getTime()-date1.getTime())<count){
+               collectInfoValue_tar=collectInfoValue;
+               count=date.getTime()-date1.getTime();
+            }
+        }
+        return collectInfoValue_tar;
     }
     @Override
     public  List<CollectInfoValue> StatisticalQuarter(Integer SensorId){
