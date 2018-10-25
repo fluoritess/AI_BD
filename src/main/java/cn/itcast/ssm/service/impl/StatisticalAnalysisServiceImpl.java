@@ -15,7 +15,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Override
-    public  List<CollectInfoValue> StatisticalQuarter(java.util.Date date){
+    public  List<CollectInfoValue> StatisticalQuarter(java.util.Date date,Integer SensorId){
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         Iterator<CollectInfoValue> it=list.iterator();
@@ -24,13 +24,15 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long min=(date.getTime()-date1.getTime())/60000;
             if(min<=15){
-                tarlist.add(collectInfoValue);
+                if(SensorId==collectInfoValue.getSensorId()) {
+                    tarlist.add(collectInfoValue);
+                }
             }
         }
         return tarlist;
     }
     @Override
-    public  List<CollectInfoValue> StatisticalOneHour(java.util.Date  date) {
+    public  List<CollectInfoValue> StatisticalOneHour(java.util.Date  date,Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         Iterator<CollectInfoValue> it=list.iterator();
@@ -39,14 +41,15 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long min=(date.getTime()-date1.getTime())/60000;
             if(min<=60){
+                if(SensorId==collectInfoValue.getSensorId()) {
                 tarlist.add(collectInfoValue);
-            }
+            }}
         }
         return tarlist;
     }
 
     @Override
-    public  List<CollectInfoValue> StatisticalOneDay(java.util.Date  date) {
+    public  List<CollectInfoValue> StatisticalOneDay(java.util.Date  date,Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         Iterator<CollectInfoValue> it=list.iterator();
@@ -55,14 +58,15 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long hour=(date.getTime()-date1.getTime())/60000/60;
             if(hour<=24){
-                tarlist.add(collectInfoValue);
+                if(SensorId==collectInfoValue.getSensorId()) {
+                tarlist.add(collectInfoValue);}
             }
         }
         return tarlist;
     }
 
     @Override
-    public  List<CollectInfoValue>  StatisticalOneWeek(java.util.Date  date) {
+    public  List<CollectInfoValue>  StatisticalOneWeek(java.util.Date  date,Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         Iterator<CollectInfoValue> it=list.iterator();
@@ -71,8 +75,9 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long day=(date.getTime()-date1.getTime())/60000/60/24;
             if(day<=7){
-                tarlist.add(collectInfoValue);
-            }
+                if(SensorId==collectInfoValue.getSensorId()) {
+                    tarlist.add(collectInfoValue);
+                }}
         }
         return tarlist;
     }

@@ -38,7 +38,8 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectQuarter(@RequestBody Map<String, Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalQuarter(date);
+        Integer SensorId=(Integer)data.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalQuarter(date,SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
@@ -55,7 +56,8 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectOneHour(@RequestBody Map<String, Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneHour(date);
+        Integer SensorId=(Integer)data.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneHour(date,SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
@@ -72,7 +74,8 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectOneDay(@RequestBody Map<String, Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneDay(date);
+        Integer SensorId=(Integer)data.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneDay(date,SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
@@ -88,7 +91,8 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectOneWeek(@RequestBody Map<String, Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
         Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneWeek(date);
+        Integer SensorId=(Integer)data.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneWeek(date,SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
