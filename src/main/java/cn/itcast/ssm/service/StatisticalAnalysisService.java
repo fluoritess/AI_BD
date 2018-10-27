@@ -35,4 +35,5 @@ public interface StatisticalAnalysisService {
         * */
         List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId);
 
+
 }
