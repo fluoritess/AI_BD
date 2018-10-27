@@ -23,8 +23,8 @@ public class AiBdApplicationTests {
     EquipmentService equipmentService;
     @Autowired
     StatisticalAnalysisService statisticalAnalysisService;
-   @Autowired
-   CollectInfoValueMapper collectInfoValueMapper;
+    @Autowired
+    CollectInfoValueMapper collectInfoValueMapper;
     @Test
     public void contextLoads() throws Exception{
 
