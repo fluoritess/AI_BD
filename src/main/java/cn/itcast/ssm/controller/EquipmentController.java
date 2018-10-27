@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.*;
 
 /**
- * @author tyh
- * @Package cn.itcast.ssm.controller
- * @Description:
- * @date 18-8-9 上午10:35
- */
+        * @author tyh
+        * @Package cn.itcast.ssm.controller
+        * @Description:
+        * @date 18-8-9 上午10:35
+        */
 @SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/equipment")
