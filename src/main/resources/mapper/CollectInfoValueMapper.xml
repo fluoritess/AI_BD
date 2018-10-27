@@ -82,9 +82,31 @@
       order by ${orderByClause}
     </if>
   </select>
-  <!--根据时间 查询-->
-  <select id="selectByTime" parameterType="date" resultMap="BaseResultMap">
-    select * from collect_info_value where collect_time="2018-10-22 20:56:57"
+
+  <!--查询今天的数据-->
+  <select id="selectOneDay" resultMap="BaseResultMap">
+    SELECT * from collect_info_value
+    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;1
+  </select>
+  <!--查询一周的数据-->
+  <select id="selectOneWeek" resultMap="BaseResultMap">
+    SELECT * from collect_info_value
+    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;7
+  </select>
+  <!--查询十五分钟-->
+  <select id="selectQuarter" resultMap="BaseResultMap">
+    select * from collect_info_value
+  where collect_time >= now()-interval 15 minute;
+  </select>
+  <!--查询一小时-->
+  <select id="selectOneHour" resultMap="BaseResultMap">
+    select * from collect_info_value
+  where collect_time >= now()-interval 60 minute;
+  </select>
+  <!--查询最新-->
+  <select id="selectLatest" resultMap="BaseResultMap">
+    SELECT * from collect_info_value
+where collect_time ORDER BY collect_time DESC LIMIT 1
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

@@ -17,7 +17,19 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     @Override
     public CollectInfoValue selectLatest(Integer SensorId){
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
-        return null;
+        Iterator<CollectInfoValue> it=list.iterator();
+        CollectInfoValue collectInfoValue_tar=null;
+        Date date=new Date();
+        long count=1000000000;
+        while(it.hasNext()){
+            CollectInfoValue collectInfoValue=it.next();
+            java.util.Date date1=collectInfoValue.getCollectTime();
+            if((date.getTime()-date1.getTime())<count){
+               collectInfoValue_tar=collectInfoValue;
+               count=date.getTime()-date1.getTime();
+            }
+        }
+        return collectInfoValue_tar;
     }
     @Override
     public  List<CollectInfoValue> StatisticalQuarter(Integer SensorId){
@@ -89,5 +101,30 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
                 }}
         }
         return tarlist;
+    }
+    @Override
+    public  List<CollectInfoValue> StatisticalOneDay_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneDay();
+        return  list;
+    }
+    @Override
+    public   List<CollectInfoValue>  StatisticalOneWeek_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneWeek();
+        return  list;
+    }
+    @Override
+    public   List<CollectInfoValue>  StatisticalQuarter_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectQuarter();
+        return  list;
+    }
+    @Override
+    public   List<CollectInfoValue>  StatisticalOneHour_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneHour();
+        return  list;
+    }
+    @Override
+    public   CollectInfoValue  selectLatest_2(Integer SensorId){
+       CollectInfoValue collectInfoValue=collectInfoValueMapper.selectLatest();
+        return  collectInfoValue;
     }
 }

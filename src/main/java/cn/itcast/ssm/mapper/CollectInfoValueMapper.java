@@ -25,7 +25,15 @@ public interface CollectInfoValueMapper {
     CollectInfoValue selectByPrimaryKey(Integer collectId);
 
     /**/
-    CollectInfoValue selectByTime(Date date);
+    List<CollectInfoValue> selectOneDay();
+
+    List<CollectInfoValue> selectOneWeek();
+
+    List<CollectInfoValue> selectQuarter();
+
+    List<CollectInfoValue> selectOneHour();
+
+    CollectInfoValue selectLatest();
 
     int updateByExampleSelective(@Param("record") CollectInfoValue record, @Param("example") CollectInfoValueExample example);
 
