@@ -102,5 +102,29 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
         }
         return tarlist;
     }
-
+    @Override
+    public  List<CollectInfoValue> StatisticalOneDay_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneDay();
+        return  list;
+    }
+    @Override
+    public   List<CollectInfoValue>  StatisticalOneWeek_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneWeek();
+        return  list;
+    }
+    @Override
+    public   List<CollectInfoValue>  StatisticalQuarter_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectQuarter();
+        return  list;
+    }
+    @Override
+    public   List<CollectInfoValue>  StatisticalOneHour_2(Integer SensorId){
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneHour();
+        return  list;
+    }
+    @Override
+    public   CollectInfoValue  selectLatest_2(Integer SensorId){
+       CollectInfoValue collectInfoValue=collectInfoValueMapper.selectLatest();
+        return  collectInfoValue;
+    }
 }

@@ -35,5 +35,24 @@ public interface StatisticalAnalysisService {
         * */
         List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId);
 
-
+    /*
+     * 统计今天的数据2.0
+     * */
+    List<CollectInfoValue> StatisticalOneDay_2(Integer SensorId);
+    /*
+     * 统计一周内的数据2.0
+     * */
+    List<CollectInfoValue>  StatisticalOneWeek_2(Integer SensorId);
+    /*
+    * 统计十五分钟2.0
+    * */
+    List<CollectInfoValue>  StatisticalQuarter_2(Integer SensorId);
+    /*
+    * 统计一小时2.0
+    * */
+    List<CollectInfoValue> StatisticalOneHour_2(Integer SensorId);
+    /*
+     * 查询最新数据
+     * */
+    CollectInfoValue selectLatest_2(Integer SensorId);
 }
