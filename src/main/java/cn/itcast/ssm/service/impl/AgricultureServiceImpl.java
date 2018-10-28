@@ -1,10 +1,8 @@
 package cn.itcast.ssm.service.impl;
 
-import cn.itcast.ssm.mapper.CropInfoMapper;
-import cn.itcast.ssm.mapper.NodedeviceSensorconfigInfoMapper;
-import cn.itcast.ssm.mapper.SoilTypeInfoMapper;
-import cn.itcast.ssm.mapper.UserUtilMapper;
+import cn.itcast.ssm.mapper.*;
 import cn.itcast.ssm.po.CropInfo;
+import cn.itcast.ssm.po.CropVarietiesInfo;
 import cn.itcast.ssm.po.NodedeviceSensorconfigInfo;
 import cn.itcast.ssm.po.SoilTypeInfo;
 import cn.itcast.ssm.service.AgricultureService;
@@ -26,6 +24,8 @@ public class AgricultureServiceImpl implements AgricultureService {
     CropInfoMapper cropInfoMapper;
     @Autowired
     NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
+    @Autowired
+    CropVarietiesInfoMapper cropVarietiesInfoMapper;
 
     @Override
     public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
@@ -96,6 +96,16 @@ public class AgricultureServiceImpl implements AgricultureService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public List<SoilTypeInfo> selectSoilType() {
+        return soilTypeInfoMapper.selectSoilType();
+    }
+
+    @Override
+    public List<CropVarietiesInfo> selectCropType() {
+        return cropVarietiesInfoMapper.selectCropVarieties();
     }
 
     @Override

@@ -178,4 +178,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where soil_type_id = #{soilTypeId,jdbcType=INTEGER}
   </update>
+  <select id="selectSoilType" resultType="cn.itcast.ssm.po.SoilTypeInfo">
+    select soil_type_id,soil_type_name from soil_type_info
+  </select>
 </mapper>

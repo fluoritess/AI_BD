@@ -143,6 +143,21 @@ public class AgricultureController {
         }
     }
 
+    @ResponseBody
+    @ArchivesLog(operationType = "查询作物类型", operationName = "查询作物类型")
+    @RequestMapping(value = "/selectCropType.action")
+    public Map<String, Object> selectCropType() {
+       return R.ok().put("data",agricultureService.selectCropType());
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询土壤类型", operationName = "查询土壤类型")
+    @RequestMapping(value = "/selectSoilType.action")
+    public Map<String, Object> selectSoilType() {
+        return R.ok().put("data",agricultureService.selectSoilType());
+    }
+
+
 
     @ResponseBody
     @ArchivesLog(operationType = "节点设备信息分页", operationName = "节点设备信息分页")
