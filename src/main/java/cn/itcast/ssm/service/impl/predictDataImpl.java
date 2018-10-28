@@ -3,6 +3,7 @@ package cn.itcast.ssm.service.impl;
 import cn.itcast.ssm.mapper.CollectInfoValueMapper;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.predictData;
+import cn.itcast.ssm.util.GreyModel;
 import cn.itcast.ssm.util.LeastSquare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,5 +62,29 @@ public class predictDataImpl implements predictData {
                 tarlist.add(collectInfoValue);
         }
         return tarlist;
+    }
+    public  double[] predictOneDayGM(Integer SensorId){
+        GreyModel greyModel=new GreyModel();
+        double[] arr=new double[1000];
+        int i=0;
+        List<CollectInfoValue> list=collectInfoValueMapper.selectOneDay();
+        Iterator<CollectInfoValue> collectInfoValueIterator=list.iterator();
+        while(collectInfoValueIterator.hasNext()){
+            CollectInfoValue collectInfoValue=collectInfoValueIterator.next();
+            double value=(double)collectInfoValue.getSensorValue();
+            arr[i]=value;
+            i++;
+        }
+        double[] tar=new double[1000];
+        int m=0;
+        for(int j=0;j<list.size();j++){
+            double y=greyModel.gm(arr,2);
+            arr[i]=y;
+            i++;
+            tar[m]=y;
+            m++;
+        }
+
+        return tar;
     }
 }

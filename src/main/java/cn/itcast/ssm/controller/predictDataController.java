@@ -35,11 +35,26 @@ public class predictDataController {
     @ResponseBody
     @ArchivesLog(operationType = "预测信息", operationName = "预测未来一天信息")
     @RequestMapping(value = "/predictOneDay.action")
-    public Map<String,Object> addEquipmentType(@RequestBody Map<String,Object> dataMap){
+    public Map<String,Object> predictOneDay(@RequestBody Map<String,Object> dataMap){
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         List<CollectInfoValue> list=predictData.predictOneDay(SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);
+    }
+    /**
+     * 灰色模型预测
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "预测信息", operationName = "预测未来一天信息")
+    @RequestMapping(value = "/predictOneDayGM.action")
+    public Map<String,Object> predictOneDayGM(@RequestBody Map<String,Object> dataMap){
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+       double[] arr=predictData.predictOneDayGM(SensorId);
+        Map<String,Object> data_=new HashMap<>();
+        data_.put("list",arr);
+        return R.ok().put("data",arr);
     }
 }

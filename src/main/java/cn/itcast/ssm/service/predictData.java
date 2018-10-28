@@ -15,4 +15,8 @@ public interface predictData {
      * 统一一天的数据并预测一天后的数据
      * */
     List<CollectInfoValue> predictOneDay(Integer SensorId);
+    /*
+    * 灰色模型预测一天后的数据
+    * */
+    double[] predictOneDayGM(Integer SensorId);
 }

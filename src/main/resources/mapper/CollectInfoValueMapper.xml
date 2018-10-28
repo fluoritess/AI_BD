@@ -86,12 +86,12 @@
   <!--查询今天的数据-->
   <select id="selectOneDay" resultMap="BaseResultMap">
     SELECT * from collect_info_value
-    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;1
+    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;1 ORDER BY collect_time
   </select>
   <!--查询一周的数据-->
   <select id="selectOneWeek" resultMap="BaseResultMap">
     SELECT * from collect_info_value
-    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;7
+    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;7 ORDER BY collect_time
   </select>
   <!--查询十五分钟-->
   <select id="selectQuarter" resultMap="BaseResultMap">
