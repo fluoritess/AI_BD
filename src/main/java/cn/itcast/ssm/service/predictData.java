@@ -8,7 +8,7 @@ import java.util.List;
  * @author wsw
  * @Package cn.itcast.ssm.service
  * @Description:
- * @date 2018/10/27 11:00
+ * @date 2018/10/27 11:02
  */
 public interface predictData {
     /*

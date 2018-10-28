@@ -5,6 +5,7 @@ package cn.itcast.ssm.util;
  * 灰色预测模型
  * 灰色预测对于单调变化的序列预测精度较高
  * 但是对波动变化明显的序列而言，灰色预测的误差相对比较大
+ * @date 2018-10-26 22:14
  */
 public class GreyModel {
     public static void main(String[] args) {
