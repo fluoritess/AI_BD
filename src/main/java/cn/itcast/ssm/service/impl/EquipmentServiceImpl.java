@@ -7,6 +7,7 @@ import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     ControlTypeInfoMapper controlTypeInfoMapper;
     @Autowired
     EquipmentTypeInfoMapper equipmentTypeInfoMapper;
+    @Autowired
+    CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     UserUtilMapper utilMapper;
     @Autowired
@@ -133,7 +136,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public boolean addDeployNode(DeployNodeInfo deployNodeInfo) {
-        if(deployNodeInfoMapper.insertSelective(deployNodeInfo)!=0){
+        if(deployNodeInfoMapper.insert(deployNodeInfo)!=0){
             return true;
         }else{
             return false;
@@ -299,6 +302,5 @@ public class EquipmentServiceImpl implements EquipmentService {
             return false;
         }
     }
-
 
 }

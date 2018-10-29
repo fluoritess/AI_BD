@@ -12,6 +12,7 @@ import java.util.List;
         * @date 2018/10/20 22:22
         */
 public interface StatisticalAnalysisService {
+
     /*
     * 查询最新数据
     * */
@@ -28,11 +29,14 @@ public interface StatisticalAnalysisService {
         /*
         * 统计一天内的数据
         * */
+
         List<CollectInfoValue> StatisticalOneDay(Integer SensorId);
+
 
         /*
         * 统计一周内的数据
         * */
+
         List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId);
 
     /*
@@ -55,4 +59,5 @@ public interface StatisticalAnalysisService {
      * 查询最新数据
      * */
     CollectInfoValue selectLatest_2(Integer SensorId);
+
 }

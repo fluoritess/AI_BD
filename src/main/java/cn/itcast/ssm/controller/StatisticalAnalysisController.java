@@ -28,6 +28,8 @@ public class StatisticalAnalysisController {
     @Autowired
     UserUtilMapper userUtilMapper;
     /**
+<<<<<<< HEAD
+=======
      * 查询最新的收集数据
      * @param dataMap
      * @return
@@ -46,6 +48,7 @@ public class StatisticalAnalysisController {
 
     }
     /**
+>>>>>>> fc287f9aab188224d2ec46699c589fb8f2acc8f0
      * 查询十五分钟内的收集数据
      * @param dataMap
      * @return
@@ -54,6 +57,7 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询十五分钟内的收集数据")
     @RequestMapping(value = "/selectQuarter.action")
     public Map<String,Object> selectQuarter(@RequestBody Map<String, Object> dataMap){
+
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalQuarter_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
@@ -71,6 +75,7 @@ public class StatisticalAnalysisController {
     @RequestMapping(value = "/selectOneHour.action")
     public Map<String,Object> selectOneHour(@RequestBody Map<String, Object> dataMap){
 
+
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneHour_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
@@ -87,7 +92,6 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一天内的收集数据")
     @RequestMapping(value = "/selectOneDay.action")
     public Map<String,Object> selectOneDay(@RequestBody Map<String, Object> dataMap){
-
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneDay_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
@@ -103,7 +107,6 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一周内的收集数据")
     @RequestMapping(value = "/selectOneWeek.action")
     public Map<String,Object> selectOneWeek(@RequestBody Map<String, Object> dataMap){
-
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneWeek_2(SensorId);
         Map<String,Object> data_=new HashMap<>();

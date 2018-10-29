@@ -204,5 +204,4 @@ public interface EquipmentService {
      */
     boolean deleteDeployDetails(Integer typeId);
 
-
 }

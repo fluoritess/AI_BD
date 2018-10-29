@@ -5,7 +5,6 @@ import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,6 +14,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Override
+
     public CollectInfoValue selectLatest(Integer SensorId){
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         Iterator<CollectInfoValue> it=list.iterator();
@@ -42,6 +42,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long min=(date.getTime()-date1.getTime())/60000;
             if(min<=15){
+
                 if(SensorId==collectInfoValue.getSensorId()) {
                     tarlist.add(collectInfoValue);
                 }
@@ -60,6 +61,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long min=(date.getTime()-date1.getTime())/60000;
             if(min<=60){
+
                 if(SensorId==collectInfoValue.getSensorId()) {
                 tarlist.add(collectInfoValue);
             }}
@@ -68,6 +70,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     }
 
     @Override
+
     public  List<CollectInfoValue> StatisticalOneDay(Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
@@ -78,6 +81,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long hour=(date.getTime()-date1.getTime())/60000/60;
             if(hour<=24){
+
                 if(SensorId==collectInfoValue.getSensorId()) {
                 tarlist.add(collectInfoValue);}
             }
@@ -86,6 +90,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     }
 
     @Override
+
     public  List<CollectInfoValue>  StatisticalOneWeek(Integer SensorId) {
         List<CollectInfoValue> list=collectInfoValueMapper.selectByExample(null);
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
@@ -96,6 +101,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
             java.util.Date date1=collectInfoValue.getCollectTime();
             long day=(date.getTime()-date1.getTime())/60000/60/24;
             if(day<=7){
+
                 if(SensorId==collectInfoValue.getSensorId()) {
                     tarlist.add(collectInfoValue);
                 }}

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
-
 @Repository
 public interface CollectInfoValueMapper {
     long countByExample(CollectInfoValueExample example);
