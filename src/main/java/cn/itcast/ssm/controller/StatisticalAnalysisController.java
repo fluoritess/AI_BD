@@ -1,5 +1,6 @@
 package cn.itcast.ssm.controller;
 
+import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -11,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author wsw
@@ -27,6 +25,8 @@ import java.util.Map;
 public class StatisticalAnalysisController {
     @Autowired
     StatisticalAnalysisService statisticalAnalysisService;
+    @Autowired
+    UserUtilMapper userUtilMapper;
     /**
      * 查询最新的收集数据
      * @param dataMap
@@ -38,9 +38,11 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectSensorId(@RequestBody Map<String, Object> dataMap){
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-       /* Map<String,Object> data_=new HashMap<>();
-        data_.put("collectInfoValue",collectInfoValue);*/
-        return R.ok().put("data",collectInfoValue);
+        List<LinkedHashMap<String,Object>> parameter=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
+        Map<String,Object> data_=new HashMap<>();
+        data_.put("collectInfoValue",collectInfoValue);
+        data_.put("parameter",parameter);
+        return R.ok().put("data",data_);
 
     }
     /**
