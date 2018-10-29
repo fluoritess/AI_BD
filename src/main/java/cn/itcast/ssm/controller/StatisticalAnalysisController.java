@@ -6,12 +6,16 @@ import cn.itcast.ssm.service.StatisticalAnalysisService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
 import cn.itcast.ssm.util.R;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -27,9 +31,43 @@ public class StatisticalAnalysisController {
     StatisticalAnalysisService statisticalAnalysisService;
     @Autowired
     UserUtilMapper userUtilMapper;
+
     /**
-<<<<<<< HEAD
-=======
+     * 查询环境上下限
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询环境上下限")
+    @RequestMapping(value = "/selectParameter.action")
+    public Map<String,Object> selectParameter(@RequestBody Map<String, Object> dataMap,HttpSession session){
+        List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
+        if(parameter!=null){
+            return R.ok().put("data",parameter);
+        }
+        else{
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
+        List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
+        session.setAttribute("parameter",parameter2);
+            return R.ok().put("data",parameter);
+        }
+
+    }
+
+    /**
+     * 从缓存查询环境上下限
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询环境上下限")
+    @RequestMapping(value = "/selectParameter2.action")
+    public Map<String,Object> selectParameter2(@RequestBody Map<String, Object> dataMap,HttpSession session){
+        List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
+        return R.ok().put("data",parameter);
+    }
+    /**
      * 查询最新的收集数据
      * @param dataMap
      * @return
@@ -37,18 +75,17 @@ public class StatisticalAnalysisController {
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询最新的收集数据")
     @RequestMapping(value = "/selectLatest.action")
-    public Map<String,Object> selectSensorId(@RequestBody Map<String, Object> dataMap){
+    public Map<String,Object> selectLatest(@RequestBody Map<String, Object> dataMap){
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-        List<LinkedHashMap<String,Object>> parameter=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
+       /* List<LinkedHashMap<String,Object>> parameter=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("collectInfoValue",collectInfoValue);
-        data_.put("parameter",parameter);
-        return R.ok().put("data",data_);
+        data_.put("parameter",parameter);*/
+        return R.ok().put("data",collectInfoValue);
 
     }
     /**
->>>>>>> fc287f9aab188224d2ec46699c589fb8f2acc8f0
      * 查询十五分钟内的收集数据
      * @param dataMap
      * @return
