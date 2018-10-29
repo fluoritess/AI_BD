@@ -28,6 +28,25 @@ public class StatisticalAnalysisController {
     @Autowired
     StatisticalAnalysisService statisticalAnalysisService;
     /**
+<<<<<<< HEAD
+=======
+     * 查询最新的收集数据
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询信息", operationName = "查询最新的收集数据")
+    @RequestMapping(value = "/selectLatest.action")
+    public Map<String,Object> selectSensorId(@RequestBody Map<String, Object> dataMap){
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
+       /* Map<String,Object> data_=new HashMap<>();
+        data_.put("collectInfoValue",collectInfoValue);*/
+        return R.ok().put("data",collectInfoValue);
+
+    }
+    /**
+>>>>>>> fc287f9aab188224d2ec46699c589fb8f2acc8f0
      * 查询十五分钟内的收集数据
      * @param dataMap
      * @return
@@ -36,9 +55,9 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询十五分钟内的收集数据")
     @RequestMapping(value = "/selectQuarter.action")
     public Map<String,Object> selectQuarter(@RequestBody Map<String, Object> dataMap){
-        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
-        Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalQuarter(date);
+
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalQuarter_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
@@ -53,9 +72,10 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一小时内的收集数据")
     @RequestMapping(value = "/selectOneHour.action")
     public Map<String,Object> selectOneHour(@RequestBody Map<String, Object> dataMap){
-        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
-        Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneHour(date);
+
+
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneHour_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
@@ -70,9 +90,8 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一天内的收集数据")
     @RequestMapping(value = "/selectOneDay.action")
     public Map<String,Object> selectOneDay(@RequestBody Map<String, Object> dataMap){
-        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
-        Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneDay(date);
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneDay_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);
@@ -86,9 +105,8 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一周内的收集数据")
     @RequestMapping(value = "/selectOneWeek.action")
     public Map<String,Object> selectOneWeek(@RequestBody Map<String, Object> dataMap){
-        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
-        Date date=(Date) data.get("date");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneWeek(date);
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneWeek_2(SensorId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",collectInfoValueList);
         return R.ok().put("data",data_);

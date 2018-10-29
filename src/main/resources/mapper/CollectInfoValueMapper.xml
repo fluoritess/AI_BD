@@ -82,6 +82,32 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <!--查询今天的数据-->
+  <select id="selectOneDay" resultMap="BaseResultMap">
+    SELECT * from collect_info_value
+    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;1 ORDER BY collect_time
+  </select>
+  <!--查询一周的数据-->
+  <select id="selectOneWeek" resultMap="BaseResultMap">
+    SELECT * from collect_info_value
+    where TO_DAYS(now())-TO_DAYS(collect_time)&lt;7 ORDER BY collect_time
+  </select>
+  <!--查询十五分钟-->
+  <select id="selectQuarter" resultMap="BaseResultMap">
+    select * from collect_info_value
+  where collect_time >= now()-interval 15 minute;
+  </select>
+  <!--查询一小时-->
+  <select id="selectOneHour" resultMap="BaseResultMap">
+    select * from collect_info_value
+  where collect_time >= now()-interval 60 minute;
+  </select>
+  <!--查询最新-->
+  <select id="selectLatest" resultMap="BaseResultMap">
+    SELECT * from collect_info_value
+where collect_time ORDER BY collect_time DESC LIMIT 1
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -141,6 +167,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update collect_info_value
     <set>
