@@ -1,6 +1,9 @@
 package cn.itcast.ssm.controller;
 
 
+import cn.itcast.ssm.po.DeployNodeInfo;
+import cn.itcast.ssm.po.EquipmentInfo;
+import cn.itcast.ssm.po.SceneAddressInfo;
 import cn.itcast.ssm.po.SensorTypeInfo;
 import cn.itcast.ssm.service.SensorService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -12,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * author:xw
+ * author:xw and liuyang
  *
  * @Package cn.itcast.ssm.controller
  */
@@ -25,6 +30,7 @@ public class SensorController {
 
     @Autowired
     SensorService sensorService;
+
 
     @ResponseBody
     @ArchivesLog(operationType = "传感器类型信息分页", operationName = "传感器类型信息分页")
@@ -117,12 +123,60 @@ public class SensorController {
     @ArchivesLog(operationType = "删除传感器类型1", operationName = "删除传感器类型")
     @RequestMapping(value = "/deleteSensorTypeInfo.action")
     public Map<String, Object> deleteSenorTypeIno(@RequestBody Map<String, Object> deleteMap) {
-        Integer sensorTypeInfo_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
-        if (sensorService.deleteSensorTypeInfo(sensorTypeInfo_id)) {
+        Integer deploy__node_id= Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        if (sensorService.deleteSensorTypeInfo(deploy__node_id)) {
             return R.ok();
         } else {
             return R.error();
         }
     }
 
+    @ResponseBody
+    @ArchivesLog(operationType = "查询农场", operationName = "查询农场")
+    @RequestMapping(value = "/selectAddress.action")
+    public Map<String, Object> selectAddress(@RequestBody Map<String, Object> deleteMap) {
+        Integer sceneTypeId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        List<SceneAddressInfo> sceneAddressInfos=sensorService.selectSceneAddressName(sceneTypeId);
+        return  R.ok().put("sceneAddressInfos",sceneAddressInfos);
+    }
+    @ResponseBody
+    @ArchivesLog(operationType = "查询大棚", operationName = "查询大棚")
+    @RequestMapping(value = "/selectGreenHouse.action")
+    public Map<String, Object> selectGreenHouse(@RequestBody Map<String, Object> deleteMap) {
+        Integer address_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        List<DeployNodeInfo> deployNodeInfos=sensorService.selectGreenHouse(address_id);
+        return  R.ok().put("deployNodeInfosGreenHouse",deployNodeInfos);
+    }
+
+    /**
+     * 可能会用到
+     * @param deleteMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "查询大棚下节点信息", operationName = "查询大棚设备")
+    @RequestMapping(value = "/selectDeployNode.action")
+    public Map<String, Object> selectDeployNode(@RequestBody Map<String, Object> deleteMap) {
+        Integer parent_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        List<DeployNodeInfo> deployNodeInfos=sensorService.selectDeployNode(parent_id);
+        return  R.ok().put("deployNodeInfos",deployNodeInfos);
+    }
+    @ResponseBody
+    @ArchivesLog(operationType = "查询大棚设备信息", operationName = "查询大棚设备信息")
+    @RequestMapping(value = "/selectGreenHouseEquipment.action")
+    public Map<String, Object> selectGreenHouseEquipment(@RequestBody Map<String, Object> deleteMap) {
+        Integer node_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        List<EquipmentInfo> EquipmentInfo=sensorService.selectGreenHouseEquipment(node_id);
+        return  R.ok().put("EquipmentInfos",EquipmentInfo);
+    }
+
+   @ResponseBody
+    @ArchivesLog(operationType = "查询传感器", operationName = "查询传感器")
+    @RequestMapping(value = "/selectSensor.action")
+    public Map<String, Object> selectSensorName(@RequestBody Map<String, Object> deleteMap) {
+        Integer equipment_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+       List<SensorTypeInfo> sensorTypeInfos=sensorService.seleceSensorInfo(equipment_id);
+
+        return  R.ok().put("sensorTypeInfos",sensorTypeInfos);
+    }
 }

@@ -7,6 +7,7 @@ import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     ControlTypeInfoMapper controlTypeInfoMapper;
     @Autowired
     EquipmentTypeInfoMapper equipmentTypeInfoMapper;
+    @Autowired
+    CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     UserUtilMapper utilMapper;
     @Autowired
@@ -133,12 +136,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public boolean addDeployNode(DeployNodeInfo deployNodeInfo) {
-        if(deployNodeInfoMapper.insertSelective(deployNodeInfo)!=0){
+        if(deployNodeInfoMapper.insert(deployNodeInfo)!=0){
             return true;
         }else{
             return false;
         }
     }
+
+
 
     @Override
     public boolean modifyDeployNode(DeployNodeInfo deployNodeInfo) {
@@ -151,13 +156,17 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public boolean deleteDeployNode(Integer deployNodeId) {
+
         if(deployNodeInfoMapper.deleteByPrimaryKey(deployNodeId)!=0){
             return true;
         }else{
             return false;
         }
     }
-
+   @Override
+   public  DeployNodeInfo selectDeployNode(Integer deployNodeId){
+       return  deployNodeInfoMapper.selectByPrimaryKey(deployNodeId);
+   }
     @Override
     public boolean addUserScene(EquipmentUseScene equipmentUseScene) {
         if(equipmentUseSceneMapper.insertSelective(equipmentUseScene)!=0){
@@ -293,6 +302,5 @@ public class EquipmentServiceImpl implements EquipmentService {
             return false;
         }
     }
-
 
 }
