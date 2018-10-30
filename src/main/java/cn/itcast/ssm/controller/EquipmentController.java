@@ -285,18 +285,39 @@ public class EquipmentController {
     public Map<String,Object> selectAllAddress(){
         List<SceneAddressInfo> list=new ArrayList<>();
         list=(List<SceneAddressInfo>)equipmentService.selectAllInfo(SceneAddressInfo.class);
+
         Map<String,Object> data=new HashMap<>();
         data.put("list",list);
         return R.ok().put("data",data);
     }
-
     /**
-     * 添加部署节点信息
+     * 查询所有的场景节点信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectSceneNode.action")
+    public Map<String,Object> selectSceneNode(){
+        List<DeployNodeInfo> SceneNode=new ArrayList<>();
+        List<DeployNodeInfo> list=new ArrayList<>();
+        list=(List<DeployNodeInfo>)equipmentService.selectAllInfo(DeployNodeInfo.class);
+        Iterator<DeployNodeInfo> it=list.iterator();
+        while(it.hasNext()){
+            DeployNodeInfo deployNodeInfo=it.next();
+            if(deployNodeInfo.getParentId()==null){
+                SceneNode.add(deployNodeInfo);
+            }
+        }
+        Map<String,Object> data=new HashMap<>();
+        data.put("list",SceneNode);
+        return R.ok().put("data",data);
+    }
+    /**
+     * 添加部署(场景)节点信息
      * @param dataMap
      * @return
      */
     @ResponseBody
-    @ArchivesLog(operationType = "添加信息", operationName = "添加部署节点信息")
+    @ArchivesLog(operationType = "添加信息", operationName = "添加部署(场景)节点信息")
     @RequestMapping(value = "/addDeployNode.action")
     public Map<String,Object> addDeployNode(@RequestBody Map<String,Object> dataMap){
         Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
@@ -312,7 +333,35 @@ public class EquipmentController {
             return R.error();
         }
     }
-
+    /**
+     * 添加设备节点信息
+     * @param dataMap
+     * @return
+     */
+    @ResponseBody
+    @ArchivesLog(operationType = "添加信息", operationName = "添加设备节点信息")
+    @RequestMapping(value = "/addEquipmentNode.action")
+    public Map<String,Object> addEquipmentNode(@RequestBody Map<String,Object> dataMap){
+        Map<String, Object> data = (Map<String, Object>) dataMap.get("data");
+        Integer parent_id=Integer.parseInt(String.valueOf(data.get("parent_id")));
+        //添加
+        DeployNodeInfo deployNodeInfo=new DeployNodeInfo();
+        DeployNodeInfo parent_deployNodeInfo=new DeployNodeInfo();
+        parent_deployNodeInfo=equipmentService.selectDeployNode(parent_id);
+        Integer address_id=parent_deployNodeInfo.getAddressId();
+        String node_name=parent_deployNodeInfo.getNodeName();
+        deployNodeInfo.setParentId(parent_id);
+        deployNodeInfo.setAddressId(address_id);
+        deployNodeInfo.setNodeName(node_name);
+        deployNodeInfo.setInsideLocation(String.valueOf(data.get("inside_location")));
+        deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
+        deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(equipmentService.addDeployNode(deployNodeInfo)){
+            return R.ok();
+        }else{
+            return R.error();
+        }
+    }
     /**
      * 修改部署节点信息
      * @param dataMap
@@ -330,6 +379,9 @@ public class EquipmentController {
         deployNodeInfo.setNodeName(String.valueOf(data.get("node_name")));
         deployNodeInfo.setPurposeExplain(String.valueOf(data.get("purpose_explain")));
         deployNodeInfo.setRemarks(String.valueOf(data.get("remarks")));
+        if(!String.valueOf(data.get("parent_id")).equals("null")){
+            deployNodeInfo.setParentId(Integer.parseInt(String.valueOf(data.get("parent_id"))));
+        }
         if(equipmentService.modifyDeployNode(deployNodeInfo)){
             return R.ok();
         }else{
@@ -368,8 +420,33 @@ public class EquipmentController {
         Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
         Paging paging = new Paging();
         paging = equipmentService.selectPaging("deploy_node_info", (active - 1) * pagelist, pagelist,null,null);
+        List list=paging.getLists();
+        for(int i=0;i<list.size();i++){
+            Map<String,String> map = new LinkedHashMap<>();
+            map=(LinkedHashMap)list.get(i);
+            Collection collection=map.values();
+            if(collection.size()<7){
+                map.put("parent_id","null");
+            }
+            else{
+                Iterator it = map.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry   entity = (Map.Entry) it.next();
+                    if(!it.hasNext()){
+                        entity.getKey();
+                        entity.getValue();
+                        DeployNodeInfo deployNodeInfo=equipmentService.selectDeployNode(Integer.parseInt(String.valueOf(entity.getValue())));
+                        String parentName=deployNodeInfo.getNodeName();
+                        map.put("parent_id",parentName);
+                    }
+                }
+            }
+        }
+
+
         return R.ok("查询部署节点分页成功").put("data", paging);
     }
+
     /**
      * 查询场景类别信息
      * @param reMap
@@ -619,9 +696,9 @@ public class EquipmentController {
         switch (String.valueOf(states.get("id"))) {
             //场景类别
             case "changjingleibie":
-                    if("name".equals(String.valueOf(datas.get("name")))){
-                        mark = equipmentService.selectInspectData("equipment_use_scene","name",String.valueOf(datas.get("data")));
-                    }
+                if("name".equals(String.valueOf(datas.get("name")))){
+                    mark = equipmentService.selectInspectData("equipment_use_scene","name",String.valueOf(datas.get("data")));
+                }
                 break;
             //部署节点
             case "device_deploy_node":
