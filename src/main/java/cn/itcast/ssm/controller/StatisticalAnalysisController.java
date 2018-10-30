@@ -48,7 +48,7 @@ public class StatisticalAnalysisController {
         else{
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-        List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",String.valueOf(SensorId));
+        List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
         session.setAttribute("parameter",parameter2);
             return R.ok().put("data",parameter);
         }
