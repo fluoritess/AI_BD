@@ -178,7 +178,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER}
   </update>
-  <select id="selectCropVarieties" resultType="cn.itcast.ssm.po.CropInfo">
+  <select id="selectCropVarieties" resultType="cn.itcast.ssm.po.CropVarietiesInfo">
     select crop_varieties_id,crop_varieties_name from crop_varieties_info
   </select>
 </mapper>
