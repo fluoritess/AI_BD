@@ -48,25 +48,13 @@ public class StatisticalAnalysisController {
         else{
         Integer SensorId=(Integer)dataMap.get("sensor_id");
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-        List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
+        List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData2("parameter_threshold_view","sensor_id",SensorId);
         session.setAttribute("parameter",parameter2);
             return R.ok().put("data",parameter);
         }
 
     }
 
-    /**
-     * 从缓存查询环境上下限
-     * @param dataMap
-     * @return
-     */
-    @ResponseBody
-    @ArchivesLog(operationType = "查询信息", operationName = "查询环境上下限")
-    @RequestMapping(value = "/selectParameter2.action")
-    public Map<String,Object> selectParameter2(@RequestBody Map<String, Object> dataMap,HttpSession session){
-        List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
-        return R.ok().put("data",parameter);
-    }
     /**
      * 查询最新的收集数据
      * @param dataMap

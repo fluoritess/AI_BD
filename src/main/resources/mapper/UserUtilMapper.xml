@@ -58,6 +58,10 @@
         SELECT * FROM ${tableName} WHERE ${listName}=#{listValue}
     </select>
 
+    <select id="selectInspectData2" resultType="java.util.LinkedHashMap">
+        SELECT * FROM ${tableName} WHERE ${listName}=#{listValue}
+    </select>
+
     <select id="selectUserPermission" resultType="string">
         SELECT perms FROM user_permission WHERE userid=#{userId} AND role_state='1'
     </select>

@@ -35,9 +35,12 @@ public interface UserUtilMapper {
 
     List<LinkedHashMap<String,Object>> selectInspectData(@Param(value = "tableName") String tableName,
                                                          @Param(value = "listName") String listName,
+                                                         @Param(value = "listValue") String listValue);
+
+
+    List<LinkedHashMap<String,Object>> selectInspectData2(@Param(value = "tableName") String tableName,
+                                                         @Param(value = "listName") String listName,
                                                          @Param(value = "listValue") Integer listValue);
-
-
     List<String> selectUserPermission(@Param("userId") int userId);
 
     List<Integer> selectAllPageId(@Param("userId") int userId);
