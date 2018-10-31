@@ -100,7 +100,8 @@ public class AgricultureServiceImpl implements AgricultureService {
 
     @Override
     public List<SoilTypeInfo> selectSoilType() {
-        return soilTypeInfoMapper.selectSoilType();
+       /* return soilTypeInfoMapper.selectSoilType();*/
+        return null;
     }
 
     @Override

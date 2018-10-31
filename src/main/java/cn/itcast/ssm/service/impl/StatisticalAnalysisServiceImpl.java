@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.CollectInfoValueMapper;
+import cn.itcast.ssm.mapper.CollectUtil;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import java.util.List;
 public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisService {
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
+    @Autowired
+    CollectUtil collectUtil;
     @Override
 
     public CollectInfoValue selectLatest(Integer SensorId){
@@ -110,27 +113,27 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     }
     @Override
     public  List<CollectInfoValue> StatisticalOneDay_2(Integer SensorId){
-        List<CollectInfoValue> list=collectInfoValueMapper.selectOneDay();
+        List<CollectInfoValue> list=collectUtil.selectOneDay(SensorId);
         return  list;
     }
     @Override
     public   List<CollectInfoValue>  StatisticalOneWeek_2(Integer SensorId){
-        List<CollectInfoValue> list=collectInfoValueMapper.selectOneWeek();
+        List<CollectInfoValue> list=collectUtil.selectOneWeek(SensorId);
         return  list;
     }
     @Override
     public   List<CollectInfoValue>  StatisticalQuarter_2(Integer SensorId){
-        List<CollectInfoValue> list=collectInfoValueMapper.selectQuarter();
+        List<CollectInfoValue> list=collectUtil.selectQuarter(SensorId);
         return  list;
     }
     @Override
     public   List<CollectInfoValue>  StatisticalOneHour_2(Integer SensorId){
-        List<CollectInfoValue> list=collectInfoValueMapper.selectOneHour();
+        List<CollectInfoValue> list=collectUtil.selectOneHour(SensorId);
         return  list;
     }
     @Override
     public   CollectInfoValue  selectLatest_2(Integer SensorId){
-       CollectInfoValue collectInfoValue=collectInfoValueMapper.selectLatest();
+       CollectInfoValue collectInfoValue=collectUtil.selectLatest(SensorId);
         return  collectInfoValue;
     }
 }
