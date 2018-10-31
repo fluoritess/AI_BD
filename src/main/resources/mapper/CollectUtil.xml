@@ -11,27 +11,27 @@
     <!--查询今天的数据-->
     <select id="selectOneDay" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT * from collect_info_value
-    where "sensor_id"=#{sensor_id} And TO_DAYS(now())-TO_DAYS(collect_time)&lt;1 ORDER BY collect_time
+    where sensor_id=#{sensor_id} And TO_DAYS(now())-TO_DAYS(collect_time)&lt;1 ORDER BY collect_time
   </select>
     <!--查询一周的数据-->
     <select id="selectOneWeek" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT * from collect_info_value
-    where "sensor_id"=#{sensor_id} And TO_DAYS(now())-TO_DAYS(collect_time)&lt;7 ORDER BY collect_time
+    where sensor_id=#{sensor_id} And TO_DAYS(now())-TO_DAYS(collect_time)&lt;7 ORDER BY collect_time
   </select>
     <!--查询十五分钟-->
     <select id="selectQuarter" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select * from collect_info_value
-  where "sensor_id"=#{sensor_id} And collect_time >= now()-interval 15 minute;
+  where sensor_id=#{sensor_id} And collect_time >= now()-interval 15 minute;
   </select>
     <!--查询一小时-->
     <select id="selectOneHour" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select * from collect_info_value
-  where "sensor_id"=#{sensor_id} And collect_time >= now()-interval 60 minute;
+  where sensor_id=#{sensor_id} And collect_time >= now()-interval 60 minute;
   </select>
     <!--查询最新-->
     <select id="selectLatest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT * from collect_info_value
-where "sensor_id"=#{sensor_id} And collect_time ORDER BY collect_time DESC LIMIT 1
+where sensor_id=#{sensor_id} And collect_time ORDER BY collect_time DESC LIMIT 1
   </select>
 
 </mapper>
