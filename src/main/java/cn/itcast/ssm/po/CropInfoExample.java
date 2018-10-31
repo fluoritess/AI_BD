@@ -355,62 +355,62 @@ public class CropInfoExample {
         }
 
         public Criteria andCropRowSpacingIsNull() {
-            addCriterion("\"crop_row spacing\" is null");
+            addCriterion("crop_row_spacing is null");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingIsNotNull() {
-            addCriterion("\"crop_row spacing\" is not null");
+            addCriterion("crop_row_spacing is not null");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingEqualTo(Integer value) {
-            addCriterion("\"crop_row spacing\" =", value, "cropRowSpacing");
+            addCriterion("crop_row_spacing =", value, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingNotEqualTo(Integer value) {
-            addCriterion("\"crop_row spacing\" <>", value, "cropRowSpacing");
+            addCriterion("crop_row_spacing <>", value, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingGreaterThan(Integer value) {
-            addCriterion("\"crop_row spacing\" >", value, "cropRowSpacing");
+            addCriterion("crop_row_spacing >", value, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\"crop_row spacing\" >=", value, "cropRowSpacing");
+            addCriterion("crop_row_spacing >=", value, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingLessThan(Integer value) {
-            addCriterion("\"crop_row spacing\" <", value, "cropRowSpacing");
+            addCriterion("crop_row_spacing <", value, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingLessThanOrEqualTo(Integer value) {
-            addCriterion("\"crop_row spacing\" <=", value, "cropRowSpacing");
+            addCriterion("crop_row_spacing <=", value, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingIn(List<Integer> values) {
-            addCriterion("\"crop_row spacing\" in", values, "cropRowSpacing");
+            addCriterion("crop_row_spacing in", values, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingNotIn(List<Integer> values) {
-            addCriterion("\"crop_row spacing\" not in", values, "cropRowSpacing");
+            addCriterion("crop_row_spacing not in", values, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingBetween(Integer value1, Integer value2) {
-            addCriterion("\"crop_row spacing\" between", value1, value2, "cropRowSpacing");
+            addCriterion("crop_row_spacing between", value1, value2, "cropRowSpacing");
             return (Criteria) this;
         }
 
         public Criteria andCropRowSpacingNotBetween(Integer value1, Integer value2) {
-            addCriterion("\"crop_row spacing\" not between", value1, value2, "cropRowSpacing");
+            addCriterion("crop_row_spacing not between", value1, value2, "cropRowSpacing");
             return (Criteria) this;
         }
 

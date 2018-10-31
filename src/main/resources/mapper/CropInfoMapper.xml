@@ -6,7 +6,7 @@
     <result column="crop_varieties_id" jdbcType="INTEGER" property="cropVarietiesId" />
     <result column="soil_type_id" jdbcType="INTEGER" property="soilTypeId" />
     <result column="crop_name" jdbcType="VARCHAR" property="cropName" />
-    <result column="crop_row spacing" jdbcType="INTEGER" property="cropRowSpacing" />
+    <result column="crop_row_spacing" jdbcType="INTEGER" property="cropRowSpacing" />
     <result column="crop_density" jdbcType="INTEGER" property="cropDensity" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    crop_id, crop_varieties_id, soil_type_id, crop_name, "crop_row spacing", crop_density, 
+    crop_id, crop_varieties_id, soil_type_id, crop_name, crop_row_spacing, crop_density, 
     remark
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.CropInfoExample" resultMap="BaseResultMap">
@@ -104,7 +104,7 @@
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.CropInfo">
     insert into crop_info (crop_id, crop_varieties_id, soil_type_id, 
-      crop_name, "crop_row spacing", crop_density, 
+      crop_name, crop_row_spacing, crop_density, 
       remark)
     values (#{cropId,jdbcType=INTEGER}, #{cropVarietiesId,jdbcType=INTEGER}, #{soilTypeId,jdbcType=INTEGER}, 
       #{cropName,jdbcType=VARCHAR}, #{cropRowSpacing,jdbcType=INTEGER}, #{cropDensity,jdbcType=INTEGER}, 
@@ -126,7 +126,7 @@
         crop_name,
       </if>
       <if test="cropRowSpacing != null">
-        "crop_row spacing",
+        crop_row_spacing,
       </if>
       <if test="cropDensity != null">
         crop_density,
@@ -181,7 +181,7 @@
         crop_name = #{record.cropName,jdbcType=VARCHAR},
       </if>
       <if test="record.cropRowSpacing != null">
-        "crop_row spacing" = #{record.cropRowSpacing,jdbcType=INTEGER},
+        crop_row_spacing = #{record.cropRowSpacing,jdbcType=INTEGER},
       </if>
       <if test="record.cropDensity != null">
         crop_density = #{record.cropDensity,jdbcType=INTEGER},
@@ -200,7 +200,7 @@
       crop_varieties_id = #{record.cropVarietiesId,jdbcType=INTEGER},
       soil_type_id = #{record.soilTypeId,jdbcType=INTEGER},
       crop_name = #{record.cropName,jdbcType=VARCHAR},
-      "crop_row spacing" = #{record.cropRowSpacing,jdbcType=INTEGER},
+      crop_row_spacing = #{record.cropRowSpacing,jdbcType=INTEGER},
       crop_density = #{record.cropDensity,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -220,7 +220,7 @@
         crop_name = #{cropName,jdbcType=VARCHAR},
       </if>
       <if test="cropRowSpacing != null">
-        "crop_row spacing" = #{cropRowSpacing,jdbcType=INTEGER},
+        crop_row_spacing = #{cropRowSpacing,jdbcType=INTEGER},
       </if>
       <if test="cropDensity != null">
         crop_density = #{cropDensity,jdbcType=INTEGER},
@@ -236,10 +236,9 @@
     set crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER},
       soil_type_id = #{soilTypeId,jdbcType=INTEGER},
       crop_name = #{cropName,jdbcType=VARCHAR},
-      "crop_row spacing" = #{cropRowSpacing,jdbcType=INTEGER},
+      crop_row_spacing = #{cropRowSpacing,jdbcType=INTEGER},
       crop_density = #{cropDensity,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
     where crop_id = #{cropId,jdbcType=INTEGER}
   </update>
-
 </mapper>
