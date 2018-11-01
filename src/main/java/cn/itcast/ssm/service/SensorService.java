@@ -37,7 +37,7 @@ public interface SensorService {
 /**
 * 查询传感器
 * */
-List<SensorTypeInfo>  seleceSensorInfo(Integer equipmentId);
+List<NodedeviceSensorconfigInfo>seleceNodedeviceSensorconfigInfo(Integer equipmentId);
 
 /**
  * 查询场景地址
@@ -55,5 +55,25 @@ List<DeployNodeInfo> selectGreenHouse(Integer addressId);
      * @return
      */
     List<DeployNodeInfo>  selectDeployNode(Integer parentId);
+
+    /**
+     * 查询农场设备
+     * @param nodeId
+     * @return
+     */
     List<EquipmentInfo> selectGreenHouseEquipment(Integer nodeId);
+
+    /**
+     * 查询设备所属地址
+     * @param nodeId
+     * @return
+     */
+    String selectInsideLocation(Integer nodeId);
+
+    /**
+     * 查询传感器名称
+     * @param sensorTypeId
+     * @return
+     */
+    String seleceSensorName(Integer sensorTypeId);
 }

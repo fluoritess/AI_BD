@@ -91,11 +91,17 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public List<DeployNodeInfo> selectGreenHouse(Integer addressId) {
+        List<DeployNodeInfo> list = new ArrayList<>();
         DeployNodeInfoExample deployNodeInfoExample = new DeployNodeInfoExample();
         DeployNodeInfoExample.Criteria criteria = deployNodeInfoExample.createCriteria();
         criteria.andAddressIdEqualTo(addressId);
-        criteria.andParentIdEqualTo(null);
-        return  deployNodeInfoMapper.selectByExample(deployNodeInfoExample);
+        List<DeployNodeInfo> deployNodeInfos=deployNodeInfoMapper.selectByExample(deployNodeInfoExample);
+        for (DeployNodeInfo deployNodeInfo:deployNodeInfos){
+            if(deployNodeInfo.getParentId()==null){
+                list.add(deployNodeInfo);
+            }
+        }
+        return  list;
     }
 
     @Override
@@ -105,12 +111,22 @@ public class SensorServiceImpl implements SensorService {
         criteria.andParentIdEqualTo(parentId);
         return  deployNodeInfoMapper.selectByExample(deployNodeInfoExample);
     }
+    @Override
+    public String selectInsideLocation(Integer nodeId) {
+        DeployNodeInfoExample deployNodeInfoExample = new DeployNodeInfoExample();
+        DeployNodeInfoExample.Criteria criteria = deployNodeInfoExample.createCriteria();
+        criteria.andDeployNodeIdEqualTo(nodeId);
+        return  deployNodeInfoMapper.selectByExample(deployNodeInfoExample).get(0).getInsideLocation();
+    }
+
+
 
     @Override
     public List<EquipmentInfo> selectGreenHouseEquipment(Integer nodeId) {
         List<EquipmentInfo> list = new ArrayList<>();
         DeployNodeInfoExample deployNodeInfoExample = new DeployNodeInfoExample();
         DeployNodeInfoExample.Criteria criteria1 = deployNodeInfoExample.createCriteria();
+        criteria1.andParentIdEqualTo(nodeId);
         List<DeployNodeInfo> deployNodeInfos=deployNodeInfoMapper.selectByExample(deployNodeInfoExample);
         for (DeployNodeInfo deployNodeInfo:deployNodeInfos){
             EquipmentDeployInfoExample equipmentDeployInfoExample = new EquipmentDeployInfoExample();
@@ -126,18 +142,18 @@ public class SensorServiceImpl implements SensorService {
 return  list;
     }
     @Override
-    public List<SensorTypeInfo> seleceSensorInfo(Integer equipmentId) {
+    public List<NodedeviceSensorconfigInfo> seleceNodedeviceSensorconfigInfo(Integer equipmentId) {
         List<SensorTypeInfo> sensorTypeInfos =new ArrayList<>();
 NodedeviceSensorconfigInfoExample nodedeviceSensorconfigInfoExample = new NodedeviceSensorconfigInfoExample();
 NodedeviceSensorconfigInfoExample.Criteria criteria = nodedeviceSensorconfigInfoExample.createCriteria();
 criteria.andDeviceIdEqualTo(equipmentId);
-
         List<NodedeviceSensorconfigInfo> nodedeviceSensorconfigInfos= nodedeviceSensorconfigInfoMapper.selectByExample(nodedeviceSensorconfigInfoExample);
-        for (NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo:nodedeviceSensorconfigInfos){
-sensorTypeInfos.add(sensorTypeInfoMapper.selectByPrimaryKey(nodedeviceSensorconfigInfo.getSensorTypeId()));
+return  nodedeviceSensorconfigInfos;
+    }
+    @Override
+    public String seleceSensorName(Integer sensorTypeId) {
 
-        }
-return  sensorTypeInfos;
+        return  sensorTypeInfoMapper.selectByPrimaryKey(sensorTypeId).getSensorName();
     }
 
 }

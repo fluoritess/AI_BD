@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,7 +57,7 @@ public class AgricultureController {
         Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
        SoilTypeInfo soilTypeInfo = new SoilTypeInfo();
         soilTypeInfo.setSoilTypeId(Integer.valueOf(String.valueOf(data.get("soil_type_id"))));
-        soilTypeInfo.setSoilTypeName(String.valueOf(data.get("sensor_name")));
+        soilTypeInfo.setSoilTypeName(String.valueOf(data.get("soil_type_name")));
         soilTypeInfo.setRemark(String.valueOf(data.get("remark")));
         if (agricultureService.updateSoilTypeInfo(soilTypeInfo)) {
             return R.ok();
@@ -97,12 +98,11 @@ public class AgricultureController {
     public Map<String, Object> addCropTypeInfo(@RequestBody Map<String, Object> addMap) {
         Map<String, Object> data = (Map<String, Object>) addMap.get("data");
         CropInfo cropInfo = new CropInfo();
-        cropInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropInfo.setCropName(String.valueOf(data.get("crop_name")));
         cropInfo.setRemark(String.valueOf(data.get("remark")));
         cropInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
         cropInfo.setSoilTypeId(Integer.parseInt(String.valueOf(data.get("soil_type_id"))));
-        cropInfo.setCropRowSpacing(Integer.parseInt(String.valueOf(data.get("crop_row spacing"))));
+        cropInfo.setCropRowSpacing(Integer.parseInt(String.valueOf(data.get("crop_row_spacing"))));
         cropInfo.setCropDensity(Integer.parseInt(String.valueOf(data.get("crop_density"))));
         if ( agricultureService.addCropTypeInfos(cropInfo)) {
             return R.ok();
@@ -119,9 +119,10 @@ public class AgricultureController {
         CropInfo cropInfo = new CropInfo();
         cropInfo.setCropName(String.valueOf(data.get("crop_name")));
         cropInfo.setRemark(String.valueOf(data.get("remark")));
+        cropInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
         cropInfo.setSoilTypeId(Integer.parseInt(String.valueOf(data.get("soil_type_id"))));
-        cropInfo.setCropRowSpacing(Integer.parseInt(String.valueOf(data.get("crop_row spacing"))));
+        cropInfo.setCropRowSpacing(Integer.parseInt(String.valueOf(data.get("crop_row_spacing"))));
         cropInfo.setCropDensity(Integer.parseInt(String.valueOf(data.get("crop_density"))));
         if (agricultureService.updateCropTypeInfo(cropInfo)) {
             return R.ok();
@@ -154,7 +155,22 @@ public class AgricultureController {
     @ArchivesLog(operationType = "查询土壤类型", operationName = "查询土壤类型")
     @RequestMapping(value = "/selectSoilType.action")
     public Map<String, Object> selectSoilType() {
-        return R.ok().put("data",agricultureService.selectSoilType());
+        List<SoilTypeInfo> soilTypeInfos = agricultureService.selectSoilType();
+        return R.ok().put("data",soilTypeInfos);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询传感器类型", operationName = "查询传感器类型")
+    @RequestMapping(value = "/selectSensorType.action")
+    public Map<String, Object> selectSensorType() {
+        return R.ok().put("data", agricultureService.selectSensorType());
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询设备类型", operationName = "查询设备类型")
+    @RequestMapping(value = "/selectEquipmentType.action")
+    public Map<String, Object> selectEquipmentType() {
+        return R.ok().put("data",agricultureService.selectEquipmentTypeInfo());
     }
 
 
