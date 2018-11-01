@@ -1,10 +1,7 @@
 package cn.itcast.ssm.controller;
 
 
-import cn.itcast.ssm.po.DeployNodeInfo;
-import cn.itcast.ssm.po.EquipmentInfo;
-import cn.itcast.ssm.po.SceneAddressInfo;
-import cn.itcast.ssm.po.SensorTypeInfo;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.SensorService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,16 +134,32 @@ public class SensorController {
     @RequestMapping(value = "/selectAddress.action")
     public Map<String, Object> selectAddress(@RequestBody Map<String, Object> deleteMap) {
         Integer sceneTypeId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        List<Map<String,Object>> list = new ArrayList<>();
         List<SceneAddressInfo> sceneAddressInfos=sensorService.selectSceneAddressName(sceneTypeId);
-        return  R.ok().put("data",sceneAddressInfos);
+       for (SceneAddressInfo sceneAddressInfo:sceneAddressInfos){
+           Map<String,Object> map = new HashMap<>();
+           map.put("id",sceneAddressInfo.getAddressId());
+           map.put("address",sceneAddressInfo.getAddress());
+           map.put("name",sceneAddressInfo.getUnitName());
+           list.add(map);
+       }
+        return  R.ok().put("data",list);
     }
     @ResponseBody
     @ArchivesLog(operationType = "查询大棚", operationName = "查询大棚")
     @RequestMapping(value = "/selectGreenHouse.action")
     public Map<String, Object> selectGreenHouse(@RequestBody Map<String, Object> deleteMap) {
+        List<Map<String,Object>> list = new ArrayList<>();
         Integer address_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         List<DeployNodeInfo> deployNodeInfos=sensorService.selectGreenHouse(address_id);
-        return  R.ok().put("data",deployNodeInfos);
+        for (DeployNodeInfo deployNodeInfo:deployNodeInfos){
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",deployNodeInfo.getDeployNodeId());
+            map.put("address",deployNodeInfo.getInsideLocation());
+            map.put("name",deployNodeInfo.getNodeName());
+            list.add(map);
+        }
+        return  R.ok().put("data",list);
     }
 
     /**
@@ -166,8 +180,16 @@ public class SensorController {
     @RequestMapping(value = "/selectGreenHouseEquipment.action")
     public Map<String, Object> selectGreenHouseEquipment(@RequestBody Map<String, Object> deleteMap) {
         Integer node_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
-        List<EquipmentInfo> EquipmentInfo=sensorService.selectGreenHouseEquipment(node_id);
-        return  R.ok().put("data",EquipmentInfo).put("inside_location",sensorService.selectInsideLocation(node_id));
+        List<Map<String,Object>> list = new ArrayList<>();
+        List<EquipmentInfo> equipmentInfos=sensorService.selectGreenHouseEquipment(node_id);
+        for (EquipmentInfo equipmentInf:equipmentInfos){
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",equipmentInf.getEquipmentId());
+            map.put("name",equipmentInf.getEquipmentName());
+            map.put("address",sensorService.selectInsideLocation(node_id));
+            list.add(map);
+        }
+        return  R.ok().put("data",list);
     }
 
    @ResponseBody
@@ -175,8 +197,15 @@ public class SensorController {
     @RequestMapping(value = "/selectSensor.action")
     public Map<String, Object> selectSensorName(@RequestBody Map<String, Object> deleteMap) {
         Integer equipment_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
-       List<SensorTypeInfo> sensorTypeInfos=sensorService.seleceSensorInfo(equipment_id);
-
-        return  R.ok().put("data",sensorTypeInfos);
+       List<Map<String,Object>> list = new ArrayList<>();
+       List<NodedeviceSensorconfigInfo> nodedeviceSensorconfigInfos=sensorService.seleceNodedeviceSensorconfigInfo(equipment_id);
+       for(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo:nodedeviceSensorconfigInfos){
+           Map<String,Object> map = new HashMap<>();
+           map.put("id",nodedeviceSensorconfigInfo.getSensorId());
+           map.put("name",sensorService.seleceSensorName(nodedeviceSensorconfigInfo.getSensorTypeId()));
+            map.put("address",nodedeviceSensorconfigInfo.getSensorPosition());
+            list.add(map);
+       }
+        return  R.ok().put("data",list);
     }
 }
