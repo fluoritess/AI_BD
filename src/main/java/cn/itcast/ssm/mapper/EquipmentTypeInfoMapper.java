@@ -30,4 +30,6 @@ public interface EquipmentTypeInfoMapper {
     int updateByPrimaryKeySelective(EquipmentTypeInfo record);
 
     int updateByPrimaryKey(EquipmentTypeInfo record);
+
+    List<EquipmentTypeInfo> selectEquipmentTypeInfo();
 }

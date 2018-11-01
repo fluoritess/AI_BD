@@ -1,10 +1,7 @@
 package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.*;
-import cn.itcast.ssm.po.CropInfo;
-import cn.itcast.ssm.po.CropVarietiesInfo;
-import cn.itcast.ssm.po.NodedeviceSensorconfigInfo;
-import cn.itcast.ssm.po.SoilTypeInfo;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.AgricultureService;
 import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,10 @@ public class AgricultureServiceImpl implements AgricultureService {
     NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
     @Autowired
     CropVarietiesInfoMapper cropVarietiesInfoMapper;
+    @Autowired
+    SensorTypeInfoMapper sensorTypeInfoMapper;
+    @Autowired
+    EquipmentTypeInfoMapper equipmentTypeInfoMapper;
 
     @Override
     public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
@@ -100,13 +101,22 @@ public class AgricultureServiceImpl implements AgricultureService {
 
     @Override
     public List<SoilTypeInfo> selectSoilType() {
-       /* return soilTypeInfoMapper.selectSoilType();*/
-        return null;
+        return soilTypeInfoMapper.selectSoilType();
     }
 
     @Override
     public List<CropVarietiesInfo> selectCropType() {
         return cropVarietiesInfoMapper.selectCropVarieties();
+    }
+
+    @Override
+    public List<SensorTypeInfo> selectSensorType() {
+        return sensorTypeInfoMapper.selectSensorType();
+    }
+
+    @Override
+    public List<EquipmentTypeInfo> selectEquipmentTypeInfo() {
+        return equipmentTypeInfoMapper.selectEquipmentTypeInfo();
     }
 
     @Override

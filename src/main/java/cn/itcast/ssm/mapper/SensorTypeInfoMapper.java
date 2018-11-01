@@ -30,4 +30,6 @@ public interface SensorTypeInfoMapper {
     int updateByPrimaryKeySelective(SensorTypeInfo record);
 
     int updateByPrimaryKey(SensorTypeInfo record);
+
+    List<SensorTypeInfo> selectSensorType();
 }
