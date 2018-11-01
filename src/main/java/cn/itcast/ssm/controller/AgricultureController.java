@@ -57,7 +57,7 @@ public class AgricultureController {
         Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
        SoilTypeInfo soilTypeInfo = new SoilTypeInfo();
         soilTypeInfo.setSoilTypeId(Integer.valueOf(String.valueOf(data.get("soil_type_id"))));
-        soilTypeInfo.setSoilTypeName(String.valueOf(data.get("sensor_name")));
+        soilTypeInfo.setSoilTypeName(String.valueOf(data.get("soil_type_name")));
         soilTypeInfo.setRemark(String.valueOf(data.get("remark")));
         if (agricultureService.updateSoilTypeInfo(soilTypeInfo)) {
             return R.ok();
@@ -119,9 +119,10 @@ public class AgricultureController {
         CropInfo cropInfo = new CropInfo();
         cropInfo.setCropName(String.valueOf(data.get("crop_name")));
         cropInfo.setRemark(String.valueOf(data.get("remark")));
+        cropInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
         cropInfo.setSoilTypeId(Integer.parseInt(String.valueOf(data.get("soil_type_id"))));
-        cropInfo.setCropRowSpacing(Integer.parseInt(String.valueOf(data.get("crop_row spacing"))));
+        cropInfo.setCropRowSpacing(Integer.parseInt(String.valueOf(data.get("crop_row_spacing"))));
         cropInfo.setCropDensity(Integer.parseInt(String.valueOf(data.get("crop_density"))));
         if (agricultureService.updateCropTypeInfo(cropInfo)) {
             return R.ok();
@@ -166,7 +167,7 @@ public class AgricultureController {
     }
 
     @ResponseBody
-    @ArchivesLog(operationType = "查询土壤类型", operationName = "查询土壤类型")
+    @ArchivesLog(operationType = "查询设备类型", operationName = "查询设备类型")
     @RequestMapping(value = "/selectEquipmentType.action")
     public Map<String, Object> selectEquipmentType() {
         return R.ok().put("data",agricultureService.selectEquipmentTypeInfo());
