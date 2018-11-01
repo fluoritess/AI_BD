@@ -55,5 +55,18 @@ List<DeployNodeInfo> selectGreenHouse(Integer addressId);
      * @return
      */
     List<DeployNodeInfo>  selectDeployNode(Integer parentId);
+
+    /**
+     * 查询农场设备
+     * @param nodeId
+     * @return
+     */
     List<EquipmentInfo> selectGreenHouseEquipment(Integer nodeId);
+
+    /**
+     * 查询设备所属地址
+     * @param nodeId
+     * @return
+     */
+    String selectInsideLocation(Integer nodeId);
 }

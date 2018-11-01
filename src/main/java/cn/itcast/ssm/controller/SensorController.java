@@ -137,7 +137,7 @@ public class SensorController {
     public Map<String, Object> selectAddress(@RequestBody Map<String, Object> deleteMap) {
         Integer sceneTypeId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         List<SceneAddressInfo> sceneAddressInfos=sensorService.selectSceneAddressName(sceneTypeId);
-        return  R.ok().put("sceneAddressInfos",sceneAddressInfos);
+        return  R.ok().put("data",sceneAddressInfos);
     }
     @ResponseBody
     @ArchivesLog(operationType = "查询大棚", operationName = "查询大棚")
@@ -145,7 +145,7 @@ public class SensorController {
     public Map<String, Object> selectGreenHouse(@RequestBody Map<String, Object> deleteMap) {
         Integer address_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         List<DeployNodeInfo> deployNodeInfos=sensorService.selectGreenHouse(address_id);
-        return  R.ok().put("deployNodeInfosGreenHouse",deployNodeInfos);
+        return  R.ok().put("data",deployNodeInfos);
     }
 
     /**
@@ -159,7 +159,7 @@ public class SensorController {
     public Map<String, Object> selectDeployNode(@RequestBody Map<String, Object> deleteMap) {
         Integer parent_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         List<DeployNodeInfo> deployNodeInfos=sensorService.selectDeployNode(parent_id);
-        return  R.ok().put("deployNodeInfos",deployNodeInfos);
+        return  R.ok().put("data",deployNodeInfos);
     }
     @ResponseBody
     @ArchivesLog(operationType = "查询大棚设备信息", operationName = "查询大棚设备信息")
@@ -167,7 +167,7 @@ public class SensorController {
     public Map<String, Object> selectGreenHouseEquipment(@RequestBody Map<String, Object> deleteMap) {
         Integer node_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         List<EquipmentInfo> EquipmentInfo=sensorService.selectGreenHouseEquipment(node_id);
-        return  R.ok().put("EquipmentInfos",EquipmentInfo);
+        return  R.ok().put("data",EquipmentInfo).put("inside_location",sensorService.selectInsideLocation(node_id));
     }
 
    @ResponseBody
@@ -177,6 +177,6 @@ public class SensorController {
         Integer equipment_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
        List<SensorTypeInfo> sensorTypeInfos=sensorService.seleceSensorInfo(equipment_id);
 
-        return  R.ok().put("sensorTypeInfos",sensorTypeInfos);
+        return  R.ok().put("data",sensorTypeInfos);
     }
 }
