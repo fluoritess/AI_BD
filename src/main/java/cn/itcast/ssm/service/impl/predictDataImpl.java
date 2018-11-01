@@ -58,7 +58,7 @@ public class predictDataImpl implements predictData {
                 float n=(float)y[i-1];
                 CollectInfoValue collectInfoValue=new CollectInfoValue();
                 collectInfoValue.setSensorValue(n);
-                Date date2=new Date(new Date().getTime()+(j-1440)*60000);
+                Date date2=new Date(System.currentTimeMillis()+(j-1440)*60000);
                 collectInfoValue.setCollectTime(date2);
                 collectInfoValue.setSensorId(SensorId);
                 tarlist.add(collectInfoValue);
