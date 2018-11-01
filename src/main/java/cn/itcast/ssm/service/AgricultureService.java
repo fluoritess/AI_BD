@@ -1,9 +1,6 @@
 package cn.itcast.ssm.service;
 
-import cn.itcast.ssm.po.CropInfo;
-import cn.itcast.ssm.po.CropVarietiesInfo;
-import cn.itcast.ssm.po.NodedeviceSensorconfigInfo;
-import cn.itcast.ssm.po.SoilTypeInfo;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.util.Paging;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +20,10 @@ public interface AgricultureService {
     List<SoilTypeInfo> selectSoilType();
     //获取作物类型id和name
     List<CropVarietiesInfo> selectCropType();
+    //查询传感器类型
+    List<SensorTypeInfo> selectSensorType();
+    //查询所属设备
+    List<EquipmentTypeInfo> selectEquipmentTypeInfo();
 
     boolean addNodeDeviceInfos(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo);
     boolean updateNodeDeviceInfo(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo);
