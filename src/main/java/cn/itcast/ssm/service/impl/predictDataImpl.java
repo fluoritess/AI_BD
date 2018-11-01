@@ -63,7 +63,9 @@ public class predictDataImpl implements predictData {
         }
         return tarlist;
     }
+
     /**/
+    @Override
     public  double[] predictOneDayGM(Integer SensorId){
         GreyModel greyModel=new GreyModel();
         double[] arr=new double[1000];

@@ -193,4 +193,5 @@
       collect_time = #{collectTime,jdbcType=TIMESTAMP}
     where " collect_id" = #{collectId,jdbcType=INTEGER}
   </update>
+
 </mapper>
