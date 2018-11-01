@@ -55,18 +55,18 @@ public class StatisticalAnalysisController {
 
     }
 
-    /**
+  /*  *//**
      * 从缓存查询环境上下限
      * @param dataMap
      * @return
-     */
+     *//*
     @ResponseBody
     @ArchivesLog(operationType = "查询信息", operationName = "查询环境上下限")
     @RequestMapping(value = "/selectParameter2.action")
     public Map<String,Object> selectParameter2(@RequestBody Map<String, Object> dataMap,HttpSession session){
         List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
         return R.ok().put("data",parameter);
-    }
+    }*/
     /**
      * 查询最新的收集数据
      * @param dataMap
