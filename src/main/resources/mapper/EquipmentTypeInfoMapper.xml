@@ -194,7 +194,5 @@
     where equipment_type_id = #{equipmentTypeId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectEquipmentTypeInfo" resultType="cn.itcast.ssm.po.EquipmentTypeInfo">
-    select equipment_type_name,equipment_type_id from equipment_type_info
-  </select>
+
 </mapper>

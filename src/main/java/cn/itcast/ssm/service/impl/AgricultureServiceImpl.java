@@ -26,7 +26,8 @@ public class AgricultureServiceImpl implements AgricultureService {
     @Autowired
     SensorTypeInfoMapper sensorTypeInfoMapper;
     @Autowired
-    EquipmentTypeInfoMapper equipmentTypeInfoMapper;
+    EquipmentInfoMapper equipmentInfoMapper;
+
 
     @Override
     public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
@@ -115,9 +116,11 @@ public class AgricultureServiceImpl implements AgricultureService {
     }
 
     @Override
-    public List<EquipmentTypeInfo> selectEquipmentTypeInfo() {
-        return equipmentTypeInfoMapper.selectEquipmentTypeInfo();
+    public List<EquipmentInfo> selectEquipmentInfo() {
+
+        return equipmentInfoMapper.selectEquipmentInfo();
     }
+
 
     @Override
     public boolean addNodeDeviceInfos(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo) {
