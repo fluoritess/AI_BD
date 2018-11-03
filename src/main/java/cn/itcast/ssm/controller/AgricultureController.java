@@ -197,7 +197,7 @@ public class AgricultureController {
         nodedeviceSensorconfigInfo.setSensorTypeId(Integer.parseInt(String.valueOf(data.get("sensor_type_id"))));
         nodedeviceSensorconfigInfo.setSensorPosition(String.valueOf(data.get("sensor_position")));
         nodedeviceSensorconfigInfo.setRemark(String.valueOf(data.get("remark")));
-        nodedeviceSensorconfigInfo.setSensorId(Integer.parseInt(String.valueOf(data.get("sensor_id"))));
+        nodedeviceSensorconfigInfo.setDeviceId(Integer.parseInt(String.valueOf(data.get("device_id"))));
         if ( agricultureService.addNodeDeviceInfos(nodedeviceSensorconfigInfo)) {
             return R.ok();
         } else {
