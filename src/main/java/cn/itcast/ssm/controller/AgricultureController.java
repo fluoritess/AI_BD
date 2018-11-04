@@ -1,8 +1,6 @@
 package cn.itcast.ssm.controller;
 
-import cn.itcast.ssm.po.CropInfo;
-import cn.itcast.ssm.po.NodedeviceSensorconfigInfo;
-import cn.itcast.ssm.po.SoilTypeInfo;
+import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.AgricultureService;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -163,14 +161,16 @@ public class AgricultureController {
     @ArchivesLog(operationType = "查询传感器类型", operationName = "查询传感器类型")
     @RequestMapping(value = "/selectSensorType.action")
     public Map<String, Object> selectSensorType() {
-        return R.ok().put("data", agricultureService.selectSensorType());
+        List<SensorTypeInfo> sensorTypeInfos = agricultureService.selectSensorType();
+        return R.ok().put("data",sensorTypeInfos);
     }
 
     @ResponseBody
     @ArchivesLog(operationType = "查询设备类型", operationName = "查询设备类型")
-    @RequestMapping(value = "/selectEquipmentType.action")
-    public Map<String, Object> selectEquipmentType() {
-        return R.ok().put("data",agricultureService.selectEquipmentTypeInfo());
+    @RequestMapping(value = "/selectEquipmentInfo.action")
+    public Map<String, Object> selectEquipmentInfo() {
+        List<EquipmentInfo> equipmentInfos = agricultureService.selectEquipmentInfo();
+        return R.ok().put("data",equipmentInfos);
     }
 
 
@@ -197,7 +197,7 @@ public class AgricultureController {
         nodedeviceSensorconfigInfo.setSensorTypeId(Integer.parseInt(String.valueOf(data.get("sensor_type_id"))));
         nodedeviceSensorconfigInfo.setSensorPosition(String.valueOf(data.get("sensor_position")));
         nodedeviceSensorconfigInfo.setRemark(String.valueOf(data.get("remark")));
-        nodedeviceSensorconfigInfo.setSensorTypeId(Integer.parseInt(String.valueOf(data.get("sensor_id"))));
+        nodedeviceSensorconfigInfo.setDeviceId(Integer.parseInt(String.valueOf(data.get("device_id"))));
         if ( agricultureService.addNodeDeviceInfos(nodedeviceSensorconfigInfo)) {
             return R.ok();
         } else {
@@ -215,7 +215,7 @@ public class AgricultureController {
         nodedeviceSensorconfigInfo.setSensorTypeId(Integer.parseInt(String.valueOf(data.get("sensor_type_id"))));
         nodedeviceSensorconfigInfo.setSensorPosition(String.valueOf(data.get("sensor_position")));
         nodedeviceSensorconfigInfo.setRemark(String.valueOf(data.get("remark")));
-        nodedeviceSensorconfigInfo.setSensorTypeId(Integer.parseInt(String.valueOf(data.get("sensor_id"))));
+        nodedeviceSensorconfigInfo.setSensorId(Integer.parseInt(String.valueOf(data.get("sensor_id"))));
         if (agricultureService.updateNodeDeviceInfo(nodedeviceSensorconfigInfo)) {
             return R.ok();
         } else {
