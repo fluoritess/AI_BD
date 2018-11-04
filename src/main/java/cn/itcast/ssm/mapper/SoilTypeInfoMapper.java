@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 @Repository
 public interface SoilTypeInfoMapper {
     long countByExample(SoilTypeInfoExample example);
@@ -30,7 +29,4 @@ public interface SoilTypeInfoMapper {
     int updateByPrimaryKeySelective(SoilTypeInfo record);
 
     int updateByPrimaryKey(SoilTypeInfo record);
-
-    //获取土壤类型id和name
-    List<SoilTypeInfo> selectSoilType();
 }
