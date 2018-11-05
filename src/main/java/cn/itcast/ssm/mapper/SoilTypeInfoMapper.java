@@ -29,4 +29,5 @@ public interface SoilTypeInfoMapper {
     int updateByPrimaryKeySelective(SoilTypeInfo record);
 
     int updateByPrimaryKey(SoilTypeInfo record);
+    List<SoilTypeInfo> selectSoilType();
 }
