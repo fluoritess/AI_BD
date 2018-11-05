@@ -45,12 +45,13 @@ public class AiBdApplicationTests {
         double b=(double)map.get("b");
         double y=a*6+b;
         System.out.println(y);*/
-       List<CollectInfoValue> list=statisticalAnalysisService.StatisticalOneHour_2(1);
+      /* List<CollectInfoValue> list=statisticalAnalysisService.StatisticalOneHour_2(1);
        List<CollectInfoValue> list3=statisticalAnalysisService.StatisticalOneDay_2(1);
         List<CollectInfoValue> list2=statisticalAnalysisService.StatisticalQuarter_2(1);
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(1);
-        List<CollectInfoValue> list4=statisticalAnalysisService.StatisticalOneWeek_2(1);
-       System.out.print(list.size());
+        List<CollectInfoValue> list4=statisticalAnalysisService.StatisticalOneWeek_2(1);*/
+      predictData.predictOneDayGM(1);
+       System.out.print("sdasd");
       }
 
 

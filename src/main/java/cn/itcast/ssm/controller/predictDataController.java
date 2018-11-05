@@ -52,9 +52,9 @@ public class predictDataController {
     @RequestMapping(value = "/predictOneDayGM.action")
     public Map<String,Object> predictOneDayGM(@RequestBody Map<String,Object> dataMap){
         Integer SensorId=(Integer)dataMap.get("sensor_id");
-       double[] arr=predictData.predictOneDayGM(SensorId);
+        List<CollectInfoValue> list=predictData.predictOneDayGM(SensorId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",arr);
-        return R.ok().put("data",arr);
+        data_.put("list",list);
+        return R.ok().put("data",data_);
     }
 }

@@ -8,17 +8,14 @@ package cn.itcast.ssm.util;
  * @date 2018-10-26 22:14
  */
 public class GreyModel {
-    public static void main(String[] args) {
-        double[] arr = { 28, 26, 22, 22, 21, 20,30,40,20,50,10 }; // 历史数据
-        System.out.println(gm(arr, 2)); // 预测数据
-    }
+
 
     /** 灰色预测模型函数
      * @param fs 参考数据
      * @param T
      * @return 预测数据
      */
-    public static double gm(double[] fs, int T) {
+    public  double gm(double[] fs, int T) {
         int size = fs.length;
         int tsize = fs.length - 1;
         double[] arr = fs;// 原始数组

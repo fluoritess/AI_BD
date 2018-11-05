@@ -68,7 +68,8 @@ public class predictDataImpl implements predictData {
 
     /**/
     @Override
-    public  double[] predictOneDayGM(Integer SensorId){
+    public  List<CollectInfoValue>  predictOneDayGM(Integer SensorId){
+        List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         GreyModel greyModel=new GreyModel();
         double[] arr=new double[1000];
         int i=0;
@@ -82,14 +83,24 @@ public class predictDataImpl implements predictData {
         }
         double[] tar=new double[1000];
         int m=0;
+        int hour=1;
         for(int j=0;j<list.size();j++){
+
             double y=greyModel.gm(arr,2);
+            float n=(float) y;
+            CollectInfoValue collectInfoValue=new CollectInfoValue();
+            collectInfoValue.setSensorValue(n);
+            collectInfoValue.setSensorId(SensorId);
+            Date date2=new Date(System.currentTimeMillis()+hour*60000*60);
+            collectInfoValue.setCollectTime(date2);
+            tarlist.add(collectInfoValue);
+            hour++;
             arr[i]=y;
             i++;
             tar[m]=y;
             m++;
         }
 
-        return tar;
+        return tarlist;
     }
 }

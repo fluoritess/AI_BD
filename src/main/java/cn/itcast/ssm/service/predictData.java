@@ -18,5 +18,5 @@ public interface predictData {
     /*
     * 灰色模型预测一天后的数据
     * */
-    double[] predictOneDayGM(Integer SensorId);
+    List<CollectInfoValue> predictOneDayGM(Integer SensorId);
 }
