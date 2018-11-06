@@ -197,4 +197,5 @@
   <select id="selectGrowthParam" resultType="cn.itcast.ssm.po.GrowthParameter">
     select growth_parameters_id,growth_parameters_name from growth_parameter
   </select>
+
 </mapper>

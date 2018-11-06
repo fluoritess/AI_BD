@@ -135,7 +135,7 @@ public class AgricultureController {
     public Map<String, Object> addGrowthParam(@RequestBody Map<String, Object> addMap) {
         Map<String, Object> data = (Map<String, Object>) addMap.get("data");
         GrowthEnviromentSeting growthEnviromentSeting = new GrowthEnviromentSeting();
-        growthEnviromentSeting.setGropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
+        growthEnviromentSeting.setGropId(Integer.parseInt(String.valueOf(data.get("grop_id"))));
         growthEnviromentSeting.setGrowthParameterId(Integer.parseInt(String.valueOf(data.get("growth_parameter_id"))));
         growthEnviromentSeting.setGrowthParameterMax(Float.parseFloat(String.valueOf(data.get("growth_parameter_max"))));
         growthEnviromentSeting.setGrowthParameterMin(Float.parseFloat(String.valueOf(data.get("growth_parameter_min"))));
