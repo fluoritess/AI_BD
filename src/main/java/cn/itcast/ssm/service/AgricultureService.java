@@ -16,6 +16,11 @@ public interface AgricultureService {
     boolean addCropTypeInfos(CropInfo cropInfo);
     boolean updateCropTypeInfo(CropInfo cropInfo);
     boolean deleteCropTypeInfo(Integer typeId);
+
+    boolean addGrowthParam(GrowthEnviromentSeting growthEnviromentSeting);
+
+    //获取生长环境参数
+    List<GrowthParameter> selectGrowthParam();
     //获取土壤类型id和name
     List<SoilTypeInfo> selectSoilType();
     //获取作物类型id和name

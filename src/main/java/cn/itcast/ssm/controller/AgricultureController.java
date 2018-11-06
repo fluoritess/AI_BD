@@ -129,6 +129,23 @@ public class AgricultureController {
         }
     }
 
+    @ResponseBody
+    @ArchivesLog(operationType = "增加生长环境参数信息", operationName = "增加生长环境参数")
+    @RequestMapping(value = "/addGrowthParam.action")
+    public Map<String, Object> addGrowthParam(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
+        GrowthEnviromentSeting growthEnviromentSeting = new GrowthEnviromentSeting();
+        growthEnviromentSeting.setGropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
+        growthEnviromentSeting.setGrowthParameterId(Integer.parseInt(String.valueOf(data.get("growth_parameter_id"))));
+        growthEnviromentSeting.setGrowthParameterMax(Float.parseFloat(String.valueOf(data.get("growth_parameter_max"))));
+        growthEnviromentSeting.setGrowthParameterMin(Float.parseFloat(String.valueOf(data.get("growth_parameter_min"))));
+        growthEnviromentSeting.setGrowthParameterMin(Float.parseFloat(String.valueOf(data.get("growth_parameter_value"))));
+        if ( agricultureService.addGrowthParam(growthEnviromentSeting)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
 
     @ResponseBody
     @ArchivesLog(operationType = "删除作物信息", operationName = "删除作物信息")
@@ -155,6 +172,14 @@ public class AgricultureController {
     public Map<String, Object> selectSoilType() {
         List<SoilTypeInfo> soilTypeInfos = agricultureService.selectSoilType();
         return R.ok().put("data",soilTypeInfos);
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询生长环境参数类型", operationName = "查询生长环境参数类型")
+    @RequestMapping(value = "/selectGrowthParam.action")
+    public Map<String, Object> selectGrowthParam() {
+        List<GrowthParameter> growthParameters = agricultureService.selectGrowthParam();
+        return R.ok().put("data",growthParameters);
     }
 
     @ResponseBody

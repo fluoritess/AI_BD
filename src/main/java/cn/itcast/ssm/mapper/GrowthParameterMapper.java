@@ -30,4 +30,6 @@ public interface GrowthParameterMapper {
     int updateByPrimaryKeySelective(GrowthParameter record);
 
     int updateByPrimaryKey(GrowthParameter record);
+
+    List<GrowthParameter> selectGrowthParam();
 }

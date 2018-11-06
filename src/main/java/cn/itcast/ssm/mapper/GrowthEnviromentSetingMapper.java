@@ -22,4 +22,5 @@ public interface GrowthEnviromentSetingMapper {
     int updateByExampleSelective(@Param("record") GrowthEnviromentSeting record, @Param("example") GrowthEnviromentSetingExample example);
 
     int updateByExample(@Param("record") GrowthEnviromentSeting record, @Param("example") GrowthEnviromentSetingExample example);
+
 }

@@ -27,6 +27,10 @@ public class AgricultureServiceImpl implements AgricultureService {
     SensorTypeInfoMapper sensorTypeInfoMapper;
     @Autowired
     EquipmentInfoMapper equipmentInfoMapper;
+    @Autowired
+    GrowthParameterMapper growthParameterMapper;
+    @Autowired
+    GrowthEnviromentSetingMapper growthEnviromentSetingMapper;
 
 
     @Override
@@ -103,6 +107,19 @@ public class AgricultureServiceImpl implements AgricultureService {
     @Override
     public List<SoilTypeInfo> selectSoilType() {
         return soilTypeInfoMapper.selectSoilType();
+    }
+
+    @Override
+    public boolean addGrowthParam(GrowthEnviromentSeting growthEnviromentSeting) {
+        if(growthEnviromentSetingMapper.insert(growthEnviromentSeting)>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<GrowthParameter> selectGrowthParam() {
+        return growthParameterMapper.selectGrowthParam();
     }
 
     @Override
