@@ -284,6 +284,19 @@ public class AgricultureController {
         }
     }
 
+
+    @ResponseBody
+    @ArchivesLog(operationType = "处置信息分页", operationName = "处置信息分页")
+    @RequestMapping(value = "/selectDisposalInfo.action")
+    public Map<String, Object> selectDisposalInfo(@RequestBody Map<String, Object> reMap) {
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = agricultureService.selectPaging("disposal_method_info", (active - 1) * pagelist, pagelist, null, null);
+        return R.ok("处置信息分页成功").put("data", paging);
+    }
+
     @ResponseBody
     @ArchivesLog(operationType = "增加处置信息", operationName = "增加处置信息")
     @RequestMapping(value = "/addDisposalInfo.action")
