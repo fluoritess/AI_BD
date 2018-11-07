@@ -31,6 +31,14 @@ public class AgricultureServiceImpl implements AgricultureService {
     GrowthParameterMapper growthParameterMapper;
     @Autowired
     GrowthEnviromentSetingMapper growthEnviromentSetingMapper;
+    @Autowired
+    GreenhouseInfoMapper greenhouseInfoMapper;
+    @Autowired
+    CropPlantInfoMapper cropPlantInfoMapper;
+    @Autowired
+    DisposalMethodInfoMapper disposalMethodInfoMapper;
+    @Autowired
+    AgricultureMapper agricultureMapper;
 
 
     @Override
@@ -106,7 +114,7 @@ public class AgricultureServiceImpl implements AgricultureService {
 
     @Override
     public List<SoilTypeInfo> selectSoilType() {
-        return soilTypeInfoMapper.selectSoilType();
+        return agricultureMapper.selectSoilType();
     }
 
     @Override
@@ -118,24 +126,29 @@ public class AgricultureServiceImpl implements AgricultureService {
     }
 
     @Override
+    public List<GreenhouseInfo> selectGreenHouseInfo() {
+        return agricultureMapper.selectGreenHouseInfo();
+    }
+
+    @Override
     public List<GrowthParameter> selectGrowthParam() {
-        return growthParameterMapper.selectGrowthParam();
+        return agricultureMapper.selectGrowthParam();
     }
 
     @Override
     public List<CropVarietiesInfo> selectCropType() {
-        return cropVarietiesInfoMapper.selectCropVarieties();
+        return agricultureMapper.selectCropVarieties();
     }
 
     @Override
     public List<SensorTypeInfo> selectSensorType() {
-        return sensorTypeInfoMapper.selectSensorType();
+        return agricultureMapper.selectSensorType();
     }
 
     @Override
     public List<EquipmentInfo> selectEquipmentInfo() {
 
-        return equipmentInfoMapper.selectEquipmentInfo();
+        return agricultureMapper.selectEquipmentInfo();
     }
 
 
@@ -166,5 +179,26 @@ public class AgricultureServiceImpl implements AgricultureService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public boolean addCropPlantInfo(CropPlantInfo cropPlantInfo) {
+        if(cropPlantInfoMapper.insert(cropPlantInfo)!=0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCropPlantInfo(CropPlantInfo cropPlantInfo) {
+        return false;
+    }
+
+    @Override
+    public boolean addDisposalInfo(DisposalMethodInfo disposalMethodInfo) {
+        if(disposalMethodInfoMapper.insert(disposalMethodInfo)!=0){
+            return true;
+        }
+        return false;
     }
 }

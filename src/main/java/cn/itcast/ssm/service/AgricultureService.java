@@ -19,6 +19,8 @@ public interface AgricultureService {
 
     boolean addGrowthParam(GrowthEnviromentSeting growthEnviromentSeting);
 
+    //获取大棚类型
+    List<GreenhouseInfo> selectGreenHouseInfo();
     //获取生长环境参数
     List<GrowthParameter> selectGrowthParam();
     //获取土壤类型id和name
@@ -34,4 +36,7 @@ public interface AgricultureService {
     boolean updateNodeDeviceInfo(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo);
     boolean deleteNodeDeviceInfo(Integer typeId);
 
+    boolean addCropPlantInfo(CropPlantInfo cropPlantInfo);
+    boolean updateCropPlantInfo(CropPlantInfo cropPlantInfo);
+    boolean addDisposalInfo(DisposalMethodInfo disposalMethodInfo);
 }

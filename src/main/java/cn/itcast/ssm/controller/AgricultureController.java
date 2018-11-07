@@ -160,6 +160,13 @@ public class AgricultureController {
     }
 
     @ResponseBody
+    @ArchivesLog(operationType = "查询大棚类型", operationName = "查询大棚类型")
+    @RequestMapping(value = "/selectGreenHouseInfo.action")
+    public Map<String, Object> selectGreenHouseInfo() {
+        return R.ok().put("data",agricultureService.selectGreenHouseInfo());
+    }
+
+    @ResponseBody
     @ArchivesLog(operationType = "查询作物类型", operationName = "查询作物类型")
     @RequestMapping(value = "/selectCropType.action")
     public Map<String, Object> selectCropType() {
@@ -255,6 +262,39 @@ public class AgricultureController {
     public Map<String, Object> deleteNodeTypeIno(@RequestBody Map<String, Object> deleteMap) {
         Integer nodeDeviceId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         if (agricultureService.deleteNodeDeviceInfo(nodeDeviceId)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "增加种植信息", operationName = "增加种植信息")
+    @RequestMapping(value = "/addCropPlantInfo.action")
+    public Map<String, Object> addCropPlantInfo(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
+       CropPlantInfo cropPlantInfo = new CropPlantInfo();
+        cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
+        cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
+        cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
+        if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "增加处置信息", operationName = "增加处置信息")
+    @RequestMapping(value = "/addDisposalInfo.action")
+    public Map<String, Object> addDisposalInfo(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
+        DisposalMethodInfo disposalMethodInfo = new DisposalMethodInfo();
+        disposalMethodInfo.setDisposalContent(String.valueOf(data.get("disposal_content")));
+        disposalMethodInfo.setDisposalMeasure(String.valueOf(data.get("disposal_measure")));
+        disposalMethodInfo.setDisposalMethodName(String.valueOf(data.get("disposal_method_name")));
+        disposalMethodInfo.setRemark(String.valueOf(data.get("remark")));
+        if ( agricultureService.addDisposalInfo(disposalMethodInfo)) {
             return R.ok();
         } else {
             return R.error();
