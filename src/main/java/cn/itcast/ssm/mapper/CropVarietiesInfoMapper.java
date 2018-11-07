@@ -31,5 +31,5 @@ public interface CropVarietiesInfoMapper {
 
     int updateByPrimaryKey(CropVarietiesInfo record);
 
-    List<CropVarietiesInfo> selectCropVarieties();
+
 }

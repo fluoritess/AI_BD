@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.ssm.mapper.AgricultureMapper">
+    <select id="selectCropVarieties" resultType="cn.itcast.ssm.po.CropVarietiesInfo">
+    select crop_varieties_id,crop_varieties_name from crop_varieties_info
+  </select>
+    <select id="selectEquipmentInfo" resultType="cn.itcast.ssm.po.EquipmentInfo">
+    select equipment_name,equipment_id from equipment_info
+  </select>
+    <select id="selectGreenHouseInfo" resultType="cn.itcast.ssm.po.GreenhouseInfo">
+    select greenhouse_id,greenhouse_name from greenhouse_info
+  </select>
+    <select id="selectGrowthParam" resultType="cn.itcast.ssm.po.GrowthParameter">
+    select growth_parameters_id,growth_parameters_name from growth_parameter
+  </select>
+    <select id="selectSensorType" resultType="cn.itcast.ssm.po.SensorTypeInfo">
+    select sensor_name,sensor_type_id from sensor_type_info
+  </select>
+    <select id="selectSoilType" resultType="cn.itcast.ssm.po.SoilTypeInfo">
+   select soil_type_id,soil_type_name from soil_type_info
+  </select>
+</mapper>

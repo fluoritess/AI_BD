@@ -30,4 +30,6 @@ public interface GreenhouseInfoMapper {
     int updateByPrimaryKeySelective(GreenhouseInfo record);
 
     int updateByPrimaryKey(GreenhouseInfo record);
+
+
 }
