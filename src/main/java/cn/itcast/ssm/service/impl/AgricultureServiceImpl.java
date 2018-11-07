@@ -201,4 +201,20 @@ public class AgricultureServiceImpl implements AgricultureService {
         }
         return false;
     }
+
+    @Override
+    public boolean updateDisposalInfo(DisposalMethodInfo disposalMethodInfo) {
+        if(disposalMethodInfoMapper.updateByPrimaryKeySelective(disposalMethodInfo)!=0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteDisposalInfo(Integer id) {
+        if(disposalMethodInfoMapper.deleteByPrimaryKey(id)!=0){
+            return true;
+        }
+        return false;
+    }
 }

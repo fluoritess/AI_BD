@@ -301,5 +301,35 @@ public class AgricultureController {
         }
     }
 
+    @ResponseBody
+    @ArchivesLog(operationType = "修改处置信息", operationName = "修改处置信息")
+    @RequestMapping(value = "/updateDisposalInfo.action")
+    public Map<String, Object> updateDisposalInfo(@RequestBody Map<String, Object> updateMap) {
+        Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
+        DisposalMethodInfo disposalMethodInfo = new DisposalMethodInfo();
+        disposalMethodInfo.setDisposalContent(String.valueOf(data.get("disposal_content")));
+        disposalMethodInfo.setDisposalMeasure(String.valueOf(data.get("disposal_measure")));
+        disposalMethodInfo.setDisposalMethodName(String.valueOf(data.get("disposal_method_name")));
+        disposalMethodInfo.setRemark(String.valueOf(data.get("remark")));
+        disposalMethodInfo.setDisposalMethodId(Integer.parseInt(String.valueOf(data.get("disposal_method_id"))));
+        if (agricultureService.updateDisposalInfo(disposalMethodInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "删除处置信息", operationName = "删除处置信息")
+    @RequestMapping(value = "/deleteDisposalInfo.action")
+    public Map<String, Object> deleteDisposalInfo(@RequestBody Map<String, Object> deleteMap) {
+        Integer disposalInfoId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        if (agricultureService.deleteDisposalInfo(disposalInfoId)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
 }
 
