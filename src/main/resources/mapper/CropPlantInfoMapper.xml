@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.ssm.mapper.CropPlantInfoMapper">
   <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.CropPlantInfo">
+    <id column="crop_plant_id" jdbcType="INTEGER" property="cropPlantId" />
     <result column="greenhouse_id" jdbcType="INTEGER" property="greenhouseId" />
     <result column="crop_varieties_id" jdbcType="INTEGER" property="cropVarietiesId" />
     <result column="crop_plant_starttime" jdbcType="TIMESTAMP" property="cropPlantStarttime" />
@@ -67,7 +68,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    greenhouse_id, crop_varieties_id, crop_plant_starttime, crop_plant_endtime, remark
+    crop_plant_id, greenhouse_id, crop_varieties_id, crop_plant_starttime, crop_plant_endtime, 
+    remark
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.CropPlantInfoExample" resultMap="BaseResultMap">
     select
@@ -83,6 +85,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crop_plant_info
+    where crop_plant_id = #{cropPlantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from crop_plant_info
+    where crop_plant_id = #{cropPlantId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="cn.itcast.ssm.po.CropPlantInfoExample">
     delete from crop_plant_info
     <if test="_parameter != null">
@@ -90,14 +102,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.CropPlantInfo">
-    insert into crop_plant_info (greenhouse_id, crop_varieties_id, crop_plant_starttime, 
-      crop_plant_endtime, remark)
-    values (#{greenhouseId,jdbcType=INTEGER}, #{cropVarietiesId,jdbcType=INTEGER}, #{cropPlantStarttime,jdbcType=TIMESTAMP}, 
-      #{cropPlantEndtime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+    insert into crop_plant_info (crop_plant_id, greenhouse_id, crop_varieties_id, 
+      crop_plant_starttime, crop_plant_endtime, 
+      remark)
+    values (#{cropPlantId,jdbcType=INTEGER}, #{greenhouseId,jdbcType=INTEGER}, #{cropVarietiesId,jdbcType=INTEGER}, 
+      #{cropPlantStarttime,jdbcType=TIMESTAMP}, #{cropPlantEndtime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.ssm.po.CropPlantInfo">
     insert into crop_plant_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cropPlantId != null">
+        crop_plant_id,
+      </if>
       <if test="greenhouseId != null">
         greenhouse_id,
       </if>
@@ -115,6 +132,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cropPlantId != null">
+        #{cropPlantId,jdbcType=INTEGER},
+      </if>
       <if test="greenhouseId != null">
         #{greenhouseId,jdbcType=INTEGER},
       </if>
@@ -141,6 +161,9 @@
   <update id="updateByExampleSelective" parameterType="map">
     update crop_plant_info
     <set>
+      <if test="record.cropPlantId != null">
+        crop_plant_id = #{record.cropPlantId,jdbcType=INTEGER},
+      </if>
       <if test="record.greenhouseId != null">
         greenhouse_id = #{record.greenhouseId,jdbcType=INTEGER},
       </if>
@@ -163,7 +186,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update crop_plant_info
-    set greenhouse_id = #{record.greenhouseId,jdbcType=INTEGER},
+    set crop_plant_id = #{record.cropPlantId,jdbcType=INTEGER},
+      greenhouse_id = #{record.greenhouseId,jdbcType=INTEGER},
       crop_varieties_id = #{record.cropVarietiesId,jdbcType=INTEGER},
       crop_plant_starttime = #{record.cropPlantStarttime,jdbcType=TIMESTAMP},
       crop_plant_endtime = #{record.cropPlantEndtime,jdbcType=TIMESTAMP},
@@ -171,5 +195,35 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.itcast.ssm.po.CropPlantInfo">
+    update crop_plant_info
+    <set>
+      <if test="greenhouseId != null">
+        greenhouse_id = #{greenhouseId,jdbcType=INTEGER},
+      </if>
+      <if test="cropVarietiesId != null">
+        crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER},
+      </if>
+      <if test="cropPlantStarttime != null">
+        crop_plant_starttime = #{cropPlantStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cropPlantEndtime != null">
+        crop_plant_endtime = #{cropPlantEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where crop_plant_id = #{cropPlantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.CropPlantInfo">
+    update crop_plant_info
+    set greenhouse_id = #{greenhouseId,jdbcType=INTEGER},
+      crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER},
+      crop_plant_starttime = #{cropPlantStarttime,jdbcType=TIMESTAMP},
+      crop_plant_endtime = #{cropPlantEndtime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where crop_plant_id = #{cropPlantId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -653,12 +653,19 @@ public class EquipmentController {
     @ResponseBody
     @RequestMapping(value = "/selectAllDeployNode.action")
     public Map<String,Object> selectAllDeployNode(){
-        List<DeployNodeInfo> list=new ArrayList<>();
-        list=(List<DeployNodeInfo>)equipmentService.selectAllInfo(DeployNodeInfo.class);
+        List<DeployNodeInfo> deployNodeInfos=new ArrayList<>();
+        List<DeployNodeInfo> list = new ArrayList<>();
+        deployNodeInfos=(List<DeployNodeInfo>)equipmentService.selectAllInfo(DeployNodeInfo.class);
+        for(DeployNodeInfo deployNodeInfo:deployNodeInfos){
+            if(deployNodeInfo.getParentId()==null){
+                list.add(deployNodeInfo);
+            }
+        }
         Map<String,Object> data=new HashMap<>();
         data.put("list",list);
         return R.ok().put("data",data);
     }
+
 
     @ResponseBody
     @ArchivesLog(operationType = "增加", operationName = "增加设备信息")

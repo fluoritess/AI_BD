@@ -268,16 +268,60 @@ public class AgricultureController {
         }
     }
 
+
+    @ResponseBody
+    @ArchivesLog(operationType = "种植信息分页", operationName = "种植信息分页")
+    @RequestMapping(value = "/selectCropPlantInfo.action")
+    public Map<String, Object> selectCropPlantInfo(@RequestBody Map<String, Object> reMap) {
+        Map<String, Object> page = (Map<String, Object>) reMap.get("page");
+        Integer active = Integer.valueOf(String.valueOf(page.get("active")));
+        Integer pagelist = Integer.valueOf(String.valueOf(page.get("pagelist")));
+        Paging paging = new Paging();
+        paging = agricultureService.selectPaging("crop_plant_info", (active - 1) * pagelist, pagelist, null, null);
+        return R.ok("作物信息分页成功").put("data", paging);
+    }
+
+
     @ResponseBody
     @ArchivesLog(operationType = "增加种植信息", operationName = "增加种植信息")
     @RequestMapping(value = "/addCropPlantInfo.action")
     public Map<String, Object> addCropPlantInfo(@RequestBody Map<String, Object> addMap) {
         Map<String, Object> data = (Map<String, Object>) addMap.get("data");
-       CropPlantInfo cropPlantInfo = new CropPlantInfo();
+        CropPlantInfo cropPlantInfo = new CropPlantInfo();
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
         cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
         if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "修改种植信息", operationName = "修改种植信息")
+    @RequestMapping(value = "/updateCropPlantInfo.action")
+    public Map<String, Object> updateCropPlantInfo(@RequestBody Map<String, Object> updateMap) {
+        Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
+        DisposalMethodInfo disposalMethodInfo = new DisposalMethodInfo();
+        CropPlantInfo cropPlantInfo = new CropPlantInfo();
+        cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
+        cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
+        cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
+        cropPlantInfo.setCropPlantId(Integer.parseInt(String.valueOf(data.get("crop_plant_id"))));
+        if (agricultureService.updateCropPlantInfo(cropPlantInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "删除种植信息", operationName = "删除种植信息")
+    @RequestMapping(value = "/deleteCropPlantInfo.action")
+    public Map<String, Object> deleteCropPlantInfo(@RequestBody Map<String, Object> deleteMap) {
+        Integer cropPlantInfoId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        if (agricultureService.deleteDisposalInfo(cropPlantInfoId)) {
             return R.ok();
         } else {
             return R.error();

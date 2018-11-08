@@ -191,6 +191,17 @@ public class AgricultureServiceImpl implements AgricultureService {
 
     @Override
     public boolean updateCropPlantInfo(CropPlantInfo cropPlantInfo) {
+        if(cropPlantInfoMapper.updateByPrimaryKeySelective(cropPlantInfo)!=0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteCropPlantInfo(Integer id) {
+        if(cropPlantInfoMapper.deleteByPrimaryKey(id)!=0){
+            return true;
+        }
         return false;
     }
 
