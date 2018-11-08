@@ -194,7 +194,5 @@
     where sensor_type_id = #{sensorTypeId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectSensorType" resultType="cn.itcast.ssm.po.SensorTypeInfo">
-    select sensor_name,sensor_type_id from sensor_type_info
-  </select>
+
 </mapper>

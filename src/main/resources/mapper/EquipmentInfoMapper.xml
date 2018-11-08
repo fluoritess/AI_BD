@@ -288,7 +288,5 @@
       function_explain = #{functionExplain,jdbcType=VARCHAR}
     where equipment_id = #{equipmentId,jdbcType=INTEGER}
   </update>
-  <select id="selectEquipmentInfo" resultType="cn.itcast.ssm.po.EquipmentInfo">
-    select equipment_name,equipment_id from equipment_info
-  </select>
+
 </mapper>
