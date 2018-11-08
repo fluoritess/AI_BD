@@ -228,4 +228,28 @@ public class AgricultureServiceImpl implements AgricultureService {
         }
         return false;
     }
+
+    @Override
+    public boolean addCropVarietiesInfo(CropVarietiesInfo cropVarietiesInfo) {
+        if(cropVarietiesInfoMapper.insert(cropVarietiesInfo)!=0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCropVarietiesInfo(CropVarietiesInfo cropVarietiesInfo) {
+        if(cropVarietiesInfoMapper.updateByPrimaryKeySelective(cropVarietiesInfo)!=0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteCropVarietiesInfo(Integer id) {
+        if(cropVarietiesInfoMapper.deleteByPrimaryKey(id)!=0){
+            return true;
+        }
+        return false;
+    }
 }
