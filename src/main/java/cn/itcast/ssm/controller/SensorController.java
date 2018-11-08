@@ -163,7 +163,7 @@ public class SensorController {
     }
 
     /**
-     * 可能会用到
+     * 查询部署节点子信息
      * @param deleteMap
      * @return
      */

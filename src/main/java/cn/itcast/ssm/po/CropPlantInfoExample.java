@@ -105,6 +105,66 @@ public class CropPlantInfoExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andCropPlantIdIsNull() {
+            addCriterion("crop_plant_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdIsNotNull() {
+            addCriterion("crop_plant_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdEqualTo(Integer value) {
+            addCriterion("crop_plant_id =", value, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdNotEqualTo(Integer value) {
+            addCriterion("crop_plant_id <>", value, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdGreaterThan(Integer value) {
+            addCriterion("crop_plant_id >", value, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("crop_plant_id >=", value, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdLessThan(Integer value) {
+            addCriterion("crop_plant_id <", value, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdLessThanOrEqualTo(Integer value) {
+            addCriterion("crop_plant_id <=", value, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdIn(List<Integer> values) {
+            addCriterion("crop_plant_id in", values, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdNotIn(List<Integer> values) {
+            addCriterion("crop_plant_id not in", values, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdBetween(Integer value1, Integer value2) {
+            addCriterion("crop_plant_id between", value1, value2, "cropPlantId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCropPlantIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("crop_plant_id not between", value1, value2, "cropPlantId");
+            return (Criteria) this;
+        }
+
         public Criteria andGreenhouseIdIsNull() {
             addCriterion("greenhouse_id is null");
             return (Criteria) this;
