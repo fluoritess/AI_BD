@@ -2,6 +2,7 @@ package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.service.WarningDevice;
+import cn.itcast.ssm.util.WarningException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,8 @@ public class WarningDeviceImpl implements WarningDevice {
     @Autowired
     private UserUtilMapper utilMapper;
 
-   public boolean ValueJudgment(int sensor_id,float value){
+   public WarningException ValueJudgment(int sensor_id, float value){
+       WarningException warningException=null;
        boolean flag=true;
        String Sensor_id=String.valueOf(sensor_id);
        List<LinkedHashMap<String,Object>> parameter=utilMapper.selectInspectData("parameter_threshold_view","sensor_id",Sensor_id);
@@ -31,9 +33,12 @@ public class WarningDeviceImpl implements WarningDevice {
            }
            count++;
        }
-        if(value<min||value>max){
-            flag=false;
+        if(value<min){
+          warningException=new WarningException("温度(湿度)过低",sensor_id);
         }
-        return flag;
+        if(value>max){
+            warningException=new WarningException("温度(湿度)过高",sensor_id);
+        }
+        return warningException;
     }
 }

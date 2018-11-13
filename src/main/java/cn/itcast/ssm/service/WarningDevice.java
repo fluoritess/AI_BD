@@ -1,4 +1,7 @@
 package cn.itcast.ssm.service;
+
+import cn.itcast.ssm.util.WarningException;
+
 /**
  * @author wsw
  * @Package cn.itcast.ssm.service
@@ -7,5 +10,5 @@ package cn.itcast.ssm.service;
  */
 public interface WarningDevice {
     //0.传感器编号 1.值
-   boolean ValueJudgment(int sensor_id,float value);
+    WarningException ValueJudgment(int sensor_id, float value);
 }
