@@ -56,7 +56,7 @@ public interface StatisticalAnalysisService {
     * */
     List<CollectInfoValue> StatisticalOneHour_2(Integer SensorId);
     /*
-     * 查询最新数据
+     * 查询最新数据2.0
      * */
     CollectInfoValue selectLatest_2(Integer SensorId);
 

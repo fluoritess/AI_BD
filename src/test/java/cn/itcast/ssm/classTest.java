@@ -1,6 +1,12 @@
 package cn.itcast.ssm;
 
+import cn.itcast.ssm.service.impl.WarningDeviceImpl;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.xml.ws.Action;
 
 /**
  * @author tyh
@@ -8,10 +14,12 @@ import org.junit.Test;
  * @Description:
  * @date 18-8-11 上午10:25
  */
-public class classTest {
 
+public class classTest {
+    @Autowired
+    WarningDeviceImpl warningDevice;
     @Test
     public void test(){
-        System.out.println();
+        warningDevice.ValueJudgment(1,60);
     }
 }
