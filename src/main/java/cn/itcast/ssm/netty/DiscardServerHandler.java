@@ -5,8 +5,10 @@ import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.service.impl.BaseServiceImpl;
 import cn.itcast.ssm.service.impl.EquipmentServiceImpl;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.group.ChannelGroup;
 import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 
 /**
  * @Author: LiuYang
@@ -50,6 +53,11 @@ discardServerHandler.baseService = this.baseService;
             System.out.println(a);
             //这里调用service服务
             discardServerHandler.baseService.test(a);
+            for (Map.Entry<String, Channel> entry : WebServer.getMap().entrySet()){
+
+            entry.getValue().writeAndFlush("1233");
+            }
+
         }  finally {
             ReferenceCountUtil.release(msg);
         }

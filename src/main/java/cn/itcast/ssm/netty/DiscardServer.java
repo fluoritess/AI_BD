@@ -22,6 +22,7 @@ public class DiscardServer {
     @Autowired
     private ChildChannelHandler childChannelHandler;
     public void run(int port) throws Exception {
+
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         System.out.println("准备运行端口：" + port);
