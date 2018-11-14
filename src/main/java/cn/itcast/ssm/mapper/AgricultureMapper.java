@@ -8,7 +8,6 @@ import java.util.List;
 public interface AgricultureMapper {
     List<CropVarietiesInfo> selectCropVarieties();
     List<EquipmentInfo> selectEquipmentInfo();
-    //查询大棚id和name（下拉框）
     List<GreenhouseInfo> selectGreenHouseInfo();
     List<GrowthParameter> selectGrowthParam();
     List<SensorTypeInfo> selectSensorType();

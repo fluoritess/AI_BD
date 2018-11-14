@@ -4,6 +4,7 @@ import cn.itcast.ssm.mapper.CollectInfoValueMapper;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
+import cn.itcast.ssm.service.impl.WarningDeviceImpl;
 import cn.itcast.ssm.service.impl.predictDataImpl;
 import cn.itcast.ssm.util.LeastSquare;
 import org.junit.Test;
@@ -30,7 +31,8 @@ public class AiBdApplicationTests {
    CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     predictDataImpl predictData;
-
+    @Autowired
+    WarningDeviceImpl warningDevice;
     @Test
     public void contextLoads() throws Exception{
 
@@ -50,10 +52,10 @@ public class AiBdApplicationTests {
         List<CollectInfoValue> list2=statisticalAnalysisService.StatisticalQuarter_2(1);
         CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(1);
         List<CollectInfoValue> list4=statisticalAnalysisService.StatisticalOneWeek_2(1);*/
-      predictData.predictOneDayGM(1);
-       System.out.print("sdasd");
+  /*    predictData.predictOneDayGM(1);
+       System.out.print("sdasd");*/
+  warningDevice.ValueJudgment(1,60);
       }
-
 
 
 
