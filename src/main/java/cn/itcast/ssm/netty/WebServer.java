@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -38,6 +39,7 @@ public class WebServer {
                 System.out.println("服务器开启待客户端链接.....");
                 Channel ch = bootstrap.bind(new InetSocketAddress("127.0.0.1", 8086)).sync().channel();
                 ch.closeFuture().sync();
+                System.out.println("131241");
             } catch (Exception e) {
                 e.printStackTrace();
             }finally{

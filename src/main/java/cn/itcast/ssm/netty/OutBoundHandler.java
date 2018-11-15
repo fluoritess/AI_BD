@@ -1,6 +1,7 @@
 package cn.itcast.ssm.netty;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 
 /**
@@ -11,8 +12,6 @@ import io.netty.channel.*;
  */
 public class OutBoundHandler  extends ChannelOutboundHandlerAdapter {
 
-
-
     @Override
     public void write(ChannelHandlerContext ctx, Object msg,
                       ChannelPromise promise) throws Exception {
@@ -22,20 +21,34 @@ public class OutBoundHandler  extends ChannelOutboundHandlerAdapter {
 
         String body = new String (req,"utf-8");
         System.out.println("Server"+body);
-        if (msg instanceof byte[]) {
-            byte[] bytesWrite = (byte[])msg;
-            ByteBuf buf = ctx.alloc().buffer(bytesWrite.length);
+        String response = "Hi Client";
+        ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes())).addListener(new ChannelFutureListener(){
+            @Override
+            public void operationComplete(ChannelFuture future)
+                    throws Exception {
+//                    logger.info("下发成功！");
+                System.out.println("下发成功！");
+            }
+        });
+//        if (msg instanceof byte[]) {
+//            byte[] bytesWrite = (byte[])msg;
+//            ByteBuf buf = ctx.alloc().buffer(bytesWrite.length);
 //            logger.info("向设备下发的信息为："+TCPServerNetty.bytesToHexString(bytesWrite));
 
-            buf.writeBytes(bytesWrite);
-            ctx.writeAndFlush(buf).addListener(new ChannelFutureListener(){
-                @Override
-                public void operationComplete(ChannelFuture future)
-                        throws Exception {
-//                    logger.info("下发成功！");
-                }
-            });
-        }
+//            buf.writeBytes(bytesWrite);
+//            ctx.writeAndFlush(buf).addListener(new ChannelFutureListener(){
+//                @Override
+//                public void operationComplete(ChannelFuture future)
+//                        throws Exception {
+////                    logger.info("下发成功！");
+//                    System.out.println("下发成功！");
+//                }
+//            });
+//        }
     }
+    @Override
+    public  void exceptionCaught(ChannelHandlerContext ctx, Throwable t) throws Exception {
+        ctx.close();
 
+    }
 }
