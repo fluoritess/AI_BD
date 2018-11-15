@@ -35,11 +35,13 @@ public class WebServer {
                 ServerBootstrap bootstrap = new ServerBootstrap();
                 bootstrap.group(boosGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new WebSocketServerInitializer(channelGroup));
+                        .option(ChannelOption.SO_KEEPALIVE, true)
+                        .childHandler(new WebSocketServerInitializer(channelGroup));
                 System.out.println("服务器开启待客户端链接.....");
                 Channel ch = bootstrap.bind(new InetSocketAddress("127.0.0.1", 8086)).sync().channel();
-                ch.closeFuture().sync();
                 System.out.println("131241");
+                ch.closeFuture().sync();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }finally{
