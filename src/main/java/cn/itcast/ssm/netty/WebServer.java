@@ -32,11 +32,11 @@ public class WebServer {
             System.out.println("准备运行端口：" + port);
             try {
                 ServerBootstrap bootstrap = new ServerBootstrap();
-                bootstrap.group(boosGroup, workGroup);
-                bootstrap.channel(NioServerSocketChannel.class);
-                bootstrap.childHandler(new WebSocketServerInitializer(channelGroup));
+                bootstrap.group(boosGroup, workGroup)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(new WebSocketServerInitializer(channelGroup));
                 System.out.println("服务器开启待客户端链接.....");
-                Channel ch = bootstrap.bind(new InetSocketAddress("127.0.0.1", 8060)).sync().channel();
+                Channel ch = bootstrap.bind(new InetSocketAddress("127.0.0.1", 8086)).sync().channel();
                 ch.closeFuture().sync();
             } catch (Exception e) {
                 e.printStackTrace();

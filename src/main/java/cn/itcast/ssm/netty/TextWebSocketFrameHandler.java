@@ -57,9 +57,9 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         System.out.println(msg.text());
         System.out.println("收到消息,可以推送消息了");
         //推送消息
+        WebServer.getMap().remove(InBoundHandler.getIPString(ctx));
+        WebServer.getMap().put(msg.text(), ctx.channel());
         channelGroup.writeAndFlush(msg.retain());
-
-
     }
 
 

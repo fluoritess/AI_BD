@@ -4,6 +4,7 @@ import cn.itcast.ssm.service.BaseService;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.service.impl.BaseServiceImpl;
 import cn.itcast.ssm.service.impl.EquipmentServiceImpl;
+import cn.itcast.ssm.util.test;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,9 +55,13 @@ discardServerHandler.baseService = this.baseService;
             System.out.println(a);
             //这里调用service服务
             discardServerHandler.baseService.test(a);
+            List<String> list=test.fenge(a);
             for (Map.Entry<String, Channel> entry : WebServer.getMap().entrySet()){
+            if(entry.getKey().equals(list.get(0))){
 
-            entry.getValue().writeAndFlush("1233");
+                entry.getValue().writeAndFlush(list.get(2));
+
+            }
             }
 
         }  finally {

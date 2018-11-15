@@ -16,7 +16,12 @@ public class OutBoundHandler  extends ChannelOutboundHandlerAdapter {
     @Override
     public void write(ChannelHandlerContext ctx, Object msg,
                       ChannelPromise promise) throws Exception {
+        ByteBuf buf1 = (ByteBuf) msg;
+        byte[] req = new byte[buf1.readableBytes()];
+        buf1.readBytes(req);
 
+        String body = new String (req,"utf-8");
+        System.out.println("Server"+body);
         if (msg instanceof byte[]) {
             byte[] bytesWrite = (byte[])msg;
             ByteBuf buf = ctx.alloc().buffer(bytesWrite.length);

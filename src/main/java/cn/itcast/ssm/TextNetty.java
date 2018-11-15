@@ -23,7 +23,7 @@ public class TextNetty {
                 PrintWriter printWriter=new PrintWriter(outputStream);
                 Random random = new Random();
                 int s = random.nextInt(20)%(11) + 10;
-                String senor_value=s+"";
+                String senor_value="11"+s;
                 printWriter.write(senor_value);
                 printWriter.flush();
                 socket.shutdownOutput();

@@ -20,6 +20,7 @@ public class InBoundHandler extends SimpleChannelInboundHandler<byte[]> {
 
 //        logger.info("CLIENT"+getRemoteAddress(ctx)+" 接入连接");
         //往channel map中添加channel信息
+        System.out.println(" 接入连接");
         WebServer.getMap().put(getIPString(ctx), ctx.channel());
     }
 
