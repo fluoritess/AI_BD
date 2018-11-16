@@ -25,8 +25,6 @@ import org.springframework.stereotype.Component;
 public class WebServer {
     private static Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
     private static Map<String, byte[]> messageMap = new ConcurrentHashMap<String, byte[]>();
-
-    private final ChannelGroup channelGroup = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
     private final EventLoopGroup boosGroup = new NioEventLoopGroup();
     EventLoopGroup workGroup = new NioEventLoopGroup();
         public void run(int port){
@@ -37,10 +35,10 @@ public class WebServer {
                 bootstrap.group(boosGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
                         .option(ChannelOption.SO_KEEPALIVE, true)
-                        .childHandler(new WebSocketServerInitializer(channelGroup));
+                        .option(ChannelOption.TCP_NODELAY, true)
+                        .childHandler(new WebSocketServerInitializer());
                 System.out.println("服务器开启待客户端链接.....");
                 ChannelFuture ch = bootstrap.bind(new InetSocketAddress("127.0.0.1", 8086)).sync();
-                System.out.println("131241");
                 ch.channel().closeFuture().sync();
 
             } catch (Exception e) {
