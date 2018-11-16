@@ -1,6 +1,7 @@
 package cn.itcast.ssm;
 
 import cn.itcast.ssm.mapper.CollectInfoValueMapper;
+import cn.itcast.ssm.po.AlarmInfo;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.EquipmentService;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
@@ -23,6 +24,7 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AiBdApplicationTests {
+
     @Autowired
     EquipmentService equipmentService;
     @Autowired
