@@ -28,12 +28,12 @@ public class DemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Thread t = new Thread(new Runnable(){
-            @Override
-            public void run(){
+//        Thread t = new Thread(new Runnable(){
+//            @Override
+//            public void run(){
                 webServer.run(8086);
-            }});
-        t.start();
-        discardServer.run(8088);
+//            }});
+//        t.start();
+//        discardServer.run(8088);
     }
 }

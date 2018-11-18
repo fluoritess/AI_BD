@@ -1,13 +1,26 @@
 package cn.itcast.ssm.netty;
 
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.websocketx.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.AttributeKey;
+import io.netty.util.CharsetUtil;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -16,16 +29,12 @@ import io.netty.handler.timeout.IdleStateEvent;
  * @Date: Created in 21:07 2018/11/14
  * Modified By:
  */
-public class InBoundHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-    public  static InBoundHandler inBoundHandler;
-    public ChannelGroup channelGroup;
-    public InBoundHandler(ChannelGroup channelGroup) {
-        this.channelGroup = channelGroup;
-    }
-
+public class InBoundHandler extends SimpleChannelInboundHandler<Object> {
+    ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    private WebSocketServerHandshaker handshaker;
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
+//        super.channelActive(ctx);
 
 //        logger.info("CLIENT"+getRemoteAddress(ctx)+" 接入连接");
         //往channel map中添加channel信息
@@ -40,58 +49,87 @@ public class InBoundHandler extends SimpleChannelInboundHandler<TextWebSocketFra
         System.out.println("删除Channel Map中的失效Client");
         channelGroup.remove(ctx.channel());
         WebServer.getMap().remove(getIPString(ctx));
-        ctx.channel().close();
-        super.channelInactive(ctx);
+        ctx.close();
     }
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        channelGroup.remove(ctx.channel());
-        ctx.channel().close();
-        cause.printStackTrace();
-    }
-
-
-
-//    @Override
-//    protected void messageReceived(ChannelHandlerContext ctx, byte[] msg)
-//            throws Exception {
-////        logger.info("来自设备的信息："+TCPServerNetty.bytesToHexString(msg));
-//        byte byteA3 = msg[11];
-//        byte[] addressDomain = new byte[5];
-//        System.arraycopy(msg, 7, addressDomain, 0, 5);
-//        String str1 = getKeyFromArray(addressDomain); //生成key
-////        logger.info("根据地址域生成的Key为："+str1);
-//        System.out.println(str1);
-//
-//        if (byteA3==0) {
-//
-//        }
-//        else{
-////            logger.info("上述消息是从设备采集到的消息！");
-//            WebServer.getMessageMap().put("1", msg);
-//        }
-//    }
-
-    @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
+    protected void messageReceived(ChannelHandlerContext ctx, Object msg)
             throws Exception {
-        String socketString = ctx.channel().remoteAddress().toString();
+        // TODO Auto-generated method stub
+        if(msg instanceof FullHttpRequest){
+            handleHttpRequest(ctx, (FullHttpRequest)msg);
+        }else if(msg instanceof WebSocketFrame){
+            handleWebSocketFrame(ctx, (WebSocketFrame) msg);
+        }
+    }
 
-        if (evt instanceof IdleStateEvent) {
-            IdleStateEvent event = (IdleStateEvent) evt;
-            if (event.state() == IdleState.READER_IDLE) {
-//                logger.info("Client: "+socketString+" READER_IDLE 读超时");
-                System.out.println("Client: "+socketString+" READER_IDLE 读超时");
-                ctx.disconnect();
-            } else if (event.state() == IdleState.WRITER_IDLE) {
-//                logger.info("Client: "+socketString+" WRITER_IDLE 写超时");
-                System.out.println("Client: "+socketString+" WRITER_IDLE 写超时");
-                ctx.disconnect();
-            } else if (event.state() == IdleState.ALL_IDLE) {
-//                logger.info("Client: "+socketString+" ALL_IDLE 总超时");
-                System.out.println("Client: "+socketString+"ALL_IDLE 总超时");
-                ctx.disconnect();
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
+    }
+
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+            throws Exception {
+        cause.printStackTrace();
+        ctx.close();
+    }
+
+    private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest req) throws Exception{
+        System.out.println("handleHttpRequest");
+        if(!req.decoderResult().isSuccess() || !"websocket".equals(req.headers().get("Upgrade"))){
+            sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
+            return;
+        }
+        WebSocketServerHandshakerFactory factory = new WebSocketServerHandshakerFactory("ws://localhost:8080/websocket", null, false);
+        handshaker = factory.newHandshaker(req);
+
+        if(handshaker == null){
+            WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
+        }else{
+            handshaker.handshake(ctx.channel(), req);
+        }
+    }
+
+    private void handleWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame){
+        System.out.println("handleWebSocketFrame");
+        if(frame instanceof CloseWebSocketFrame){
+            handshaker.close(ctx.channel(), (CloseWebSocketFrame)frame.retain());
+            return;
+        }
+        if(frame instanceof PingWebSocketFrame){
+            ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
+            return;
+        }
+        if(!(frame instanceof TextWebSocketFrame)){
+            throw new UnsupportedOperationException(String.format("%s frame types not support", frame.getClass().getName()));
+        }
+        String req = ((TextWebSocketFrame) frame).text();
+
+        System.out.println(String.format("%s received %s", ctx.channel(), req));
+
+        for(int i = 0; i < 10; i++){
+            ctx.channel().writeAndFlush(new TextWebSocketFrame(req+",欢迎使用Netty Websocket服务，现在时刻：" + new Date().toString()));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
+
+    }
+
+    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) throws Exception{
+        if(res.status().code() != 200){
+            ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(),CharsetUtil.UTF_8);
+            res.content().writeBytes(buf);
+            buf.release();
+            HttpHeaderUtil.setContentLength(res, res.content().readableBytes());
+        }
+
+        ChannelFuture f = ctx.channel().writeAndFlush(res);
+        if(!HttpHeaderUtil.isKeepAlive(req) || res.status().code() != 200){
+            f.addListener(ChannelFutureListener.CLOSE);
         }
     }
     public static String getIPString(ChannelHandlerContext ctx){
@@ -100,32 +138,5 @@ public class InBoundHandler extends SimpleChannelInboundHandler<TextWebSocketFra
         int colonAt = socketString.indexOf(":");
         ipString = socketString.substring(1, colonAt);
         return ipString;
-    }
-
-
-    public static String getRemoteAddress(ChannelHandlerContext ctx){
-        String socketString = "";
-        socketString = ctx.channel().remoteAddress().toString();
-        return socketString;
-    }
-
-
-    private String getKeyFromArray(byte[] addressDomain) {
-        StringBuffer sBuffer = new StringBuffer();
-        for(int i=0;i<5;i++){
-            sBuffer.append(addressDomain[i]);
-        }
-        return sBuffer.toString();
-    }
-
-
-    @Override
-    protected void messageReceived(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
-
-        System.out.println(msg.text());
-        System.out.println("收到消息,可以推送消息了");
-        //推送消息
-        channelGroup.writeAndFlush(msg.retain());
-
     }
 }

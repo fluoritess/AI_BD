@@ -12,8 +12,10 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.concurrent.ImmediateEventExecutor;
+
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PreDestroy;
 
 /**
  * @Author: LiuYang
@@ -25,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class WebServer {
     private static Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
     private static Map<String, byte[]> messageMap = new ConcurrentHashMap<String, byte[]>();
-    private final EventLoopGroup boosGroup = new NioEventLoopGroup();
+    EventLoopGroup boosGroup = new NioEventLoopGroup(1);
     EventLoopGroup workGroup = new NioEventLoopGroup();
         public void run(int port){
 
@@ -34,21 +36,32 @@ public class WebServer {
                 ServerBootstrap bootstrap = new ServerBootstrap();
                 bootstrap.group(boosGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
+//                        .option(ChannelOption.SO_BACKLOG, 100)
                         .option(ChannelOption.SO_KEEPALIVE, true)
-                        .option(ChannelOption.TCP_NODELAY, true)
+//                        .option(ChannelOption.TCP_NODELAY, true)
                         .childHandler(new WebSocketServerInitializer());
+
                 System.out.println("服务器开启待客户端链接.....");
-                ChannelFuture ch = bootstrap.bind(new InetSocketAddress("127.0.0.1", 8086)).sync();
-                ch.channel().closeFuture().sync();
+                Channel ch =  bootstrap.bind( 8086).sync().channel();
+               ch.closeFuture().sync();
 
             } catch (Exception e) {
                 e.printStackTrace();
+
             }finally{
                 boosGroup.shutdownGracefully();
                 workGroup.shutdownGracefully();
             }
-        }
 
+        }
+//    //执行之后关闭
+//    @PreDestroy
+//    public void close(){
+//        boosGroup.shutdownGracefully();
+//        workGroup.shutdownGracefully();
+//
+//
+//    }
     public static Map<String, Channel> getMap() {
         return map;
     }
