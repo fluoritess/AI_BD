@@ -178,5 +178,4 @@
       remark = #{remark,jdbcType=VARCHAR}
     where crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER}
   </update>
-
 </mapper>

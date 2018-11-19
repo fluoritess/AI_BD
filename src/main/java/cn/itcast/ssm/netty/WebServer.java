@@ -1,21 +1,16 @@
 package cn.itcast.ssm.netty;
-import java.net.InetSocketAddress;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import com.corundumstudio.socketio.Configuration;
+
+import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.listener.ConnectListener;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PreDestroy;
+
 
 /**
  * @Author: LiuYang
@@ -24,82 +19,31 @@ import javax.annotation.PreDestroy;
  * Modified By:
  */
 @Component
-public class WebServer {
-    private static Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
-    private static Map<String, byte[]> messageMap = new ConcurrentHashMap<String, byte[]>();
-    EventLoopGroup boosGroup = new NioEventLoopGroup(1);
-    EventLoopGroup workGroup = new NioEventLoopGroup();
-        public void run(int port){
+public class WebServer implements InitializingBean {
+    @Autowired
+    private EventListennter listeners;
 
-            System.out.println("准备运行端口：" + port);
-            try {
-                ServerBootstrap bootstrap = new ServerBootstrap();
-                bootstrap.group(boosGroup, workGroup)
-                .channel(NioServerSocketChannel.class)
-//                        .option(ChannelOption.SO_BACKLOG, 100)
-                        .option(ChannelOption.SO_KEEPALIVE, true)
-//                        .option(ChannelOption.TCP_NODELAY, true)
-                        .childHandler(new WebSocketServerInitializer());
+    public void startServer() {
+        Configuration config = new Configuration();
+        config.setHostname("localhost");
+        config.setPort(8086);
 
-                System.out.println("服务器开启待客户端链接.....");
-                Channel ch =  bootstrap.bind( 8086).sync().channel();
-               ch.closeFuture().sync();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }finally{
-                boosGroup.shutdownGracefully();
-                workGroup.shutdownGracefully();
+        SocketIOServer server = new SocketIOServer(config);
+        server.addConnectListener(new ConnectListener() {// 添加客户端连接监听器
+            @Override
+            public void onConnect(SocketIOClient client) {
+                System.err.println(client.getRemoteAddress() + " web客户端接入");
             }
+        });
 
-        }
-//    //执行之后关闭
-//    @PreDestroy
-//    public void close(){
-//        boosGroup.shutdownGracefully();
-//        workGroup.shutdownGracefully();
-//
-//
-//    }
-    public static Map<String, Channel> getMap() {
-        return map;
+        server.addListeners(listeners);
+        server.start();
+
     }
 
-    public static void setMap(Map<String, Channel> map) {
-        WebServer.map = map;
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("start socket");
+        this.startServer();
     }
-    public static String bytesToHexString(byte[] src){
-        StringBuilder stringBuilder = new StringBuilder();
-        if (src == null || src.length <= 0) {
-            return null;
-        }
-        for (int i = 0; i < src.length; i++) {
-            int v = src[i] & 0xFF;
-            String hv = Integer.toHexString(v);
-            if (hv.length() < 2) {
-                stringBuilder.append(0);
-            }
-            stringBuilder.append(hv);
-            stringBuilder.append(' ');
-        }
-        return stringBuilder.toString();
-    }
-
-    /**
-     * @return the messageMap
-     */
-    public static Map<String, byte[]> getMessageMap() {
-        return messageMap;
-    }
-
-    /**
-     * @param messageMap the messageMap to set
-     */
-    public static void setMessageMap(Map<String, byte[]> messageMap) {
-        WebServer.messageMap = messageMap;
-    }
-
-
-
 }
