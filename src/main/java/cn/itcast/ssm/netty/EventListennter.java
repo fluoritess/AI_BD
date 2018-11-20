@@ -29,7 +29,9 @@ public class EventListennter {
 
     @OnEvent("token")
     public void onToken(SocketIOClient client, SocketIOMessage message) {
+
         UUID uuid=client.getSessionId();
+        System.out.println("onToken"+uuid.toString());
         List<SocketIOClient> socketList = clients.get(uuid.toString());
         List<SocketIOClient> socketList1=clients1.get(uuid.toString());
         if (null == socketList || socketList.isEmpty()) {
@@ -49,6 +51,7 @@ public class EventListennter {
 
     @OnEvent("onGetValue")
     public void onGetValue(SocketIOClient client, SocketIOMessage message) {
+        System.out.println("onGetValue"+(client.getSessionId()).toString());
         List<SocketIOClient> socketList1 = clients.get((client.getSessionId()).toString());
         if (null == socketList1 || socketList1.isEmpty()) {
             List<SocketIOClient> list1 = new ArrayList<>();
@@ -59,6 +62,7 @@ public class EventListennter {
             List<SocketIOClient> list1 = new ArrayList<>();
             list1.add(client);
             clients1.remove((client.getSessionId()).toString());
+            System.out.println("onGetValue"+message.getMessage());
             clients1.put(message.getMessage(), list1);
         }
 
@@ -66,8 +70,8 @@ public class EventListennter {
 
     @OnEvent("outGetValue")
     public void outGetValue(SocketIOClient client, SocketIOMessage message) {
-
-        clients1.remove(UUID.fromString(message.getMessage()));
+        System.out.println("outGetValue"+message.getMessage());
+        clients1.remove(message.getMessage());
 
     }
 
