@@ -37,6 +37,32 @@ public class EventListennter {
         System.err.println("get token Message is " + message.getToken());
     }
 
+    @OnEvent("onGetValue")
+    public void onGetValue(SocketIOClient client, SocketIOMessage message) {
+        List<SocketIOClient> socketList = clients.get(message.getToken());
+        if (null == socketList || socketList.isEmpty()) {
+            List<SocketIOClient> list = new ArrayList<>();
+            list.add(client);
+            clients.put(message.getToken(), list);
+
+        } else {
+            List<SocketIOClient> list = new ArrayList<>();
+            list.add(client);
+            clients.remove(message.getToken());
+            clients.put(message.getMessage(), list);
+        }
+
+    }
+
+    @OnEvent("outGetValue")
+    public void outGetValue(SocketIOClient client, SocketIOMessage message) {
+
+        clients.remove(message.getMessage());
+
+    }
+
+
+
     /**
      * 新事务
      * @param client 客户端

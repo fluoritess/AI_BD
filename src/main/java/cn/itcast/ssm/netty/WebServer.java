@@ -32,6 +32,7 @@ public class WebServer implements InitializingBean {
         server.addConnectListener(new ConnectListener() {// 添加客户端连接监听器
             @Override
             public void onConnect(SocketIOClient client) {
+
                 System.err.println(client.getRemoteAddress() + " web客户端接入");
             }
         });
