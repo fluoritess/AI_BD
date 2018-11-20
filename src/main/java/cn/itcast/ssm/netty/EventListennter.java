@@ -21,6 +21,7 @@ public class EventListennter {
     //维护每个客户端的SocketIOClient
     private Map<String, List<SocketIOClient>> clients = new ConcurrentHashMap<>();
 
+    private Map<String,List<SocketIOClient>> clients1 = new ConcurrentHashMap<>();
     @OnConnect
     public void onConnect(SocketIOClient client) {
         System.err.println("建立连接");
@@ -28,28 +29,37 @@ public class EventListennter {
 
     @OnEvent("token")
     public void onToken(SocketIOClient client, SocketIOMessage message) {
-        List<SocketIOClient> socketList = clients.get(message.getToken());
+        UUID uuid=client.getSessionId();
+        List<SocketIOClient> socketList = clients.get(uuid.toString());
+        List<SocketIOClient> socketList1=clients1.get(uuid.toString());
         if (null == socketList || socketList.isEmpty()) {
             List<SocketIOClient> list = new ArrayList<>();
             list.add(client);
-            clients.put(message.getToken(), list);
+            clients.put(uuid.toString(), list);
         }
-        System.err.println("get token Message is " + message.getToken());
+        if(null == socketList1 || socketList1.isEmpty()){
+            List<SocketIOClient> list1 = new ArrayList<>();
+            list1.add(client);
+            clients1.put(uuid.toString(), list1);
+
+        }
+
+        System.err.println("get token Message is " + client.getSessionId());
     }
 
     @OnEvent("onGetValue")
     public void onGetValue(SocketIOClient client, SocketIOMessage message) {
-        List<SocketIOClient> socketList = clients.get(message.getToken());
-        if (null == socketList || socketList.isEmpty()) {
-            List<SocketIOClient> list = new ArrayList<>();
-            list.add(client);
-            clients.put(message.getToken(), list);
+        List<SocketIOClient> socketList1 = clients.get((client.getSessionId()).toString());
+        if (null == socketList1 || socketList1.isEmpty()) {
+            List<SocketIOClient> list1 = new ArrayList<>();
+            list1.add(client);
+            clients.put((client.getSessionId()).toString(), list1);
 
         } else {
-            List<SocketIOClient> list = new ArrayList<>();
-            list.add(client);
-            clients.remove(message.getToken());
-            clients.put(message.getMessage(), list);
+            List<SocketIOClient> list1 = new ArrayList<>();
+            list1.add(client);
+            clients1.remove((client.getSessionId()).toString());
+            clients1.put(message.getMessage(), list1);
         }
 
     }
@@ -57,7 +67,7 @@ public class EventListennter {
     @OnEvent("outGetValue")
     public void outGetValue(SocketIOClient client, SocketIOMessage message) {
 
-        clients.remove(message.getMessage());
+        clients1.remove(UUID.fromString(message.getMessage()));
 
     }
 
@@ -79,21 +89,21 @@ public class EventListennter {
         }
     }
 
-    /**
-     * 通知所有在线客户端
-     */
-    public void sendAllUser() {
-        Set<Map.Entry<String,List<SocketIOClient>>> entrySet = clients.entrySet();
-        for (Map.Entry<String, List<SocketIOClient>> entry : entrySet) {
-            String key = entry.getKey();
-            List<SocketIOClient> value = entry.getValue();
-            for (SocketIOClient socketIOClient : value) {
-                SocketIOMessage message = new SocketIOMessage();
-                message.setMessage("send All user Msg" + key);
-                socketIOClient.sendEvent("newAlert", message);
-            }
-        }
-    }
+//    /**
+//     * 通知所有在线客户端
+//     */
+//    public void sendAllUser() {
+//        Set<Map.Entry<String,List<SocketIOClient>>> entrySet = clients.entrySet();
+//        for (Map.Entry<String, List<SocketIOClient>> entry : entrySet) {
+//            String key = entry.getKey();
+//            List<SocketIOClient> value = entry.getValue();
+//            for (SocketIOClient socketIOClient : value) {
+//                SocketIOMessage message = new SocketIOMessage();
+//                message.setMessage("send All user Msg" + key);
+//                socketIOClient.sendEvent("newAlert", message);
+//            }
+//        }
+//    }
 
     @OnDisconnect
     public void onDisconnect(SocketIOClient client) {
