@@ -70,6 +70,7 @@ public class EventListennter {
 
     @OnEvent("outGetValue")
     public void outGetValue(SocketIOClient client, String message) {
+        System.out.println("outGetValue"+(client.getSessionId()).toString());
         System.out.println("outGetValue"+message);
         clients1.remove(message);
 
