@@ -6,6 +6,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.concurrent.ImmediateEventExecutor;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +23,10 @@ public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
     @Override
     public void initChannel(SocketChannel socketChannel) throws Exception {
 
-        socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(48));
+//        socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(48));
         socketChannel.pipeline().addLast(new StringDecoder());
+        socketChannel.pipeline().addLast(new StringEncoder());
+//        socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
         socketChannel.pipeline().addLast(new DiscardServerHandler());
 
     }

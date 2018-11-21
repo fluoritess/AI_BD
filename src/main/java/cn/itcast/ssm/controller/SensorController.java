@@ -208,4 +208,6 @@ public class SensorController {
        }
         return  R.ok().put("data",list);
     }
+
+
 }

@@ -19,9 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class EventListennter {
     //维护每个客户端的SocketIOClient
-    private Map<String, List<SocketIOClient>> clients = new ConcurrentHashMap<>();
+   public static Map<String, SocketIOClient> clients = new ConcurrentHashMap<>();
 
-    private Map<String,List<SocketIOClient>> clients1 = new ConcurrentHashMap<>();
+    public static Map<String,SocketIOClient> clients1 = new ConcurrentHashMap<>();
     @OnConnect
     public void onConnect(SocketIOClient client) {
         System.err.println("建立连接");
@@ -30,19 +30,16 @@ public class EventListennter {
     @OnEvent("token")
     public void onToken(SocketIOClient client,String s) {
         System.out.println(s);
-        UUID uuid=client.getSessionId();
-        System.out.println("onToken"+uuid.toString());
-        List<SocketIOClient> socketList = clients.get(uuid.toString());
-        List<SocketIOClient> socketList1=clients1.get(uuid.toString());
-        if (null == socketList || socketList.isEmpty()) {
-            List<SocketIOClient> list = new ArrayList<>();
-            list.add(client);
-            clients.put(uuid.toString(), list);
+//        UUID uuid=client.getSessionId();
+        System.out.println("onToken"+client.getSessionId().toString());
+
+        if (null ==  clients.get(client.getSessionId().toString()) ) {
+
+            clients.put(client.getSessionId().toString(), client);
         }
-        if(null == socketList1 || socketList1.isEmpty()){
-            List<SocketIOClient> list1 = new ArrayList<>();
-            list1.add(client);
-            clients1.put(uuid.toString(), list1);
+        if(null ==   clients1.get(client.getSessionId().toString())){
+
+            clients1.put(client.getSessionId().toString(), client);
 
         }
 
@@ -52,47 +49,42 @@ public class EventListennter {
     @OnEvent("onGetValue")
     public void onGetValue(SocketIOClient client, String message) {
         System.out.println("onGetValue"+(client.getSessionId()).toString());
-        List<SocketIOClient> socketList1 = clients.get((client.getSessionId()).toString());
-        if (null == socketList1 || socketList1.isEmpty()) {
-            List<SocketIOClient> list1 = new ArrayList<>();
-            list1.add(client);
-            clients.put((client.getSessionId()).toString(), list1);
-
+        if (null == clients1.get((client.getSessionId()).toString())) {
+            clients1.put((client.getSessionId()).toString(), client);
+            System.out.println("onGetValue"+"null");
         } else {
-            List<SocketIOClient> list1 = new ArrayList<>();
-            list1.add(client);
+
             clients1.remove((client.getSessionId()).toString());
             System.out.println("onGetValue"+message);
-            clients1.put(message, list1);
+            clients1.put(message, client);
         }
 
     }
 
     @OnEvent("outGetValue")
     public void outGetValue(SocketIOClient client, String message) {
-        System.out.println("outGetValue"+(client.getSessionId()).toString());
+        System.out.println("outGetValue"+client.getSessionId().toString());
         System.out.println("outGetValue"+message);
         clients1.remove(message);
-
     }
 
 
 
-    /**
-     * 新事务
-     * @param client 客户端
-     * @param message 消息
-     */
-    @OnEvent("newAlert")
-    public void onAlert(SocketIOClient client, SocketIOMessage message) {
-        //send to all users
-        Collection<List<SocketIOClient>> clientsList = clients.values();
-        for (List<SocketIOClient> list : clientsList) {
-            for (SocketIOClient socketIOClient : list) {
-                socketIOClient.sendEvent("newAlert", message);
-            }
-        }
-    }
+//    /**
+//     * 新事务
+//     * @param client 客户端
+//     * @param message 消息
+//     */
+//    @OnEvent("newAlert")
+//    public void onAlert(SocketIOClient client, SocketIOMessage message) {
+//        //send to all users
+//        Collection<List<SocketIOClient>> clientsList = clients.values();
+//        for (List<SocketIOClient> list : clientsList) {
+//            for (SocketIOClient socketIOClient : list) {
+//                socketIOClient.sendEvent("newAlert", message);
+//            }
+//        }
+//    }
 
 //    /**
 //     * 通知所有在线客户端
