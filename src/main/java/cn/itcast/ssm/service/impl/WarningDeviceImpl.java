@@ -14,10 +14,9 @@ import java.util.Map;
 public class WarningDeviceImpl implements WarningDevice {
     @Autowired
     private UserUtilMapper utilMapper;
-
+@Override
    public WarningException ValueJudgment(int sensor_id, float value){
        WarningException warningException=null;
-       boolean flag=true;
        String Sensor_id=String.valueOf(sensor_id);
        List<LinkedHashMap<String,Object>> parameter=utilMapper.selectInspectData("parameter_threshold_view","sensor_id",Sensor_id);
        int size=parameter.size();

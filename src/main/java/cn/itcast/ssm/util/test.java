@@ -22,8 +22,8 @@ public class test {
 
 public static List<String> fenge(String a){
     List<String> list=new ArrayList();
-    list.add(a.substring(0,2));
-    list.add(a.substring(2,4));
+    list.add(a.substring(0,2).replace(" ",""));
+    list.add(a.substring(2,4).replace(" ",""));
 //    list.add(a.substring(0,5));
 //    list.add(a.substring(5,15));
 //    list.add(a.substring(15,19));

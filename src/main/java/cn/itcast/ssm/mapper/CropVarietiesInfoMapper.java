@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 @Repository
 public interface CropVarietiesInfoMapper {
     long countByExample(CropVarietiesInfoExample example);
@@ -30,6 +29,4 @@ public interface CropVarietiesInfoMapper {
     int updateByPrimaryKeySelective(CropVarietiesInfo record);
 
     int updateByPrimaryKey(CropVarietiesInfo record);
-
-
 }
