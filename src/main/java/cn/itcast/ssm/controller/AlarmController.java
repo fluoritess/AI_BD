@@ -42,7 +42,7 @@ public class AlarmController {
 
     @ResponseBody
     @ArchivesLog(operationType = "删除信息", operationName = "删除报警信息")
-    @RequestMapping(value = "/deleteSoilTypeInfo.action")
+    @RequestMapping(value = "/deleteAlarmInfo.action")
     public Map<String, Object> deleteSenorTypeIno(@RequestBody Map<String, Object> deleteMap) {
         Integer soilTypeInfo_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
         if (alarmService.deleteAlarmInfo(soilTypeInfo_id)) {

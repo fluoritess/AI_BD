@@ -3,6 +3,7 @@ package cn.itcast.ssm.controller;
 import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
+import cn.itcast.ssm.service.impl.WarningDeviceImpl;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
 import cn.itcast.ssm.util.R;
@@ -31,7 +32,8 @@ public class StatisticalAnalysisController {
     StatisticalAnalysisService statisticalAnalysisService;
     @Autowired
     UserUtilMapper userUtilMapper;
-
+    @Autowired
+    WarningDeviceImpl warningDevice;
     /**
      * 查询环境上下限
      * @param dataMap
@@ -41,7 +43,7 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询环境上下限")
     @RequestMapping(value = "/selectParameter.action")
     public Map<String,Object> selectParameter(@RequestBody Map<String, Object> dataMap,HttpSession session){
-        List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
+      /*  List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
         if(parameter!=null){
             return R.ok().put("data",parameter);
         }
@@ -51,8 +53,17 @@ public class StatisticalAnalysisController {
         List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData2("parameter_threshold_view","sensor_id",SensorId);
         session.setAttribute("parameter",parameter2);
             return R.ok().put("data",parameter);
-        }
-
+        }*/
+        Integer SensorId=(Integer)dataMap.get("sensor_id");
+        CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
+        float[] para=warningDevice.select_minAndMax(SensorId);
+        float min=para[0];
+        float max=para[1];
+        Map<String,Object> data_=new HashMap<>();
+        data_.put("collectInfoValue",collectInfoValue);
+        data_.put("min",min);
+        data_.put("max",max);
+        return R.ok().put("data",data_);
     }
 
   /*  *//**
@@ -82,7 +93,14 @@ public class StatisticalAnalysisController {
         Map<String,Object> data_=new HashMap<>();
         data_.put("collectInfoValue",collectInfoValue);
         data_.put("parameter",parameter);*/
-        return R.ok().put("data",collectInfoValue);
+       float[] para=warningDevice.select_minAndMax(SensorId);
+       float min=para[0];
+       float max=para[1];
+        Map<String,Object> data_=new HashMap<>();
+        data_.put("collectInfoValue",collectInfoValue);
+        data_.put("min",min);
+        data_.put("max",max);
+        return R.ok().put("data",data_);
 
     }
     /**
