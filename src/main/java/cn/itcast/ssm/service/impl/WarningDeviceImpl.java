@@ -22,7 +22,7 @@ public class WarningDeviceImpl implements WarningDevice {
        int size=parameter.size();
        /*找出最新的一条数据*/
        long date=0;
-       int j=0;
+       int j=-1;
        for(int i=0;i<size;i++){
            LinkedHashMap<String,Object> linkedHashMap=parameter.get(i);
            int count=1;
@@ -72,7 +72,7 @@ public class WarningDeviceImpl implements WarningDevice {
         int size=parameter.size();
         /*找出最新的一条数据*/
         long date=0;
-        int j=0;
+        int j=-1;
         for(int i=0;i<size;i++){
             LinkedHashMap<String,Object> linkedHashMap=parameter.get(i);
             int count=1;
