@@ -22,8 +22,8 @@ public class predictDataImpl implements predictData {
     @Override
     public List<CollectInfoValue> predictOneDay(Integer SensorId){
         LeastSquare leastSquare=new LeastSquare();
-        double[] x=new double[100000000];
-        double[] y=new double[100000000];
+        double[] x=new double[1000000];
+        double[] y=new double[1000000];
         int i=0;
         double a=0;
         double b=0;
@@ -71,7 +71,7 @@ public class predictDataImpl implements predictData {
     public  List<CollectInfoValue>  predictOneDayGM(Integer SensorId){
         List<CollectInfoValue> tarlist=new ArrayList<CollectInfoValue>();
         GreyModel greyModel=new GreyModel();
-        double[] arr=new double[100000000];
+        double[] arr=new double[1000000];
         int i=0;
         List<CollectInfoValue> list=collectUtil.selectOneDay(SensorId);
         Iterator<CollectInfoValue> collectInfoValueIterator=list.iterator();
@@ -81,7 +81,7 @@ public class predictDataImpl implements predictData {
             arr[i]=value;
             i++;
         }
-        double[] tar=new double[100000000];
+        double[] tar=new double[1000000];
         int m=0;
         int hour=1;
         for(int j=0;j<list.size();j++){
