@@ -8,7 +8,7 @@ import java.util.List;
 public interface AgricultureMapper {
     List<CropVarietiesInfo> selectCropVarieties();
     List<EquipmentInfo> selectEquipmentInfo();
-    List<GreenhouseInfo> selectGreenHouseInfo();
+    List<DeployNodeInfo> selectDeployNodeInfo();
     List<GrowthParameter> selectGrowthParam();
     List<SensorTypeInfo> selectSensorType();
     List<SoilTypeInfo> selectSoilType();

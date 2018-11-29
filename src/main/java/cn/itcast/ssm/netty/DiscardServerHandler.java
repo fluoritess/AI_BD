@@ -1,20 +1,13 @@
 package cn.itcast.ssm.netty;
 
 import cn.itcast.ssm.service.BaseService;
-import cn.itcast.ssm.service.EquipmentService;
-import cn.itcast.ssm.service.impl.BaseServiceImpl;
-import cn.itcast.ssm.service.impl.EquipmentServiceImpl;
 import cn.itcast.ssm.util.test;
 import com.corundumstudio.socketio.SocketIOClient;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.*;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.util.CharsetUtil;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
