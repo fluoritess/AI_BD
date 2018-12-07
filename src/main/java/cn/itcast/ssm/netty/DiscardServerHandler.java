@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.nio.Buffer;
 import java.util.List;
 import java.util.Map;
 
@@ -45,10 +46,12 @@ public DiscardServerHandler(){
         try {
 
 
-            String a = (String)msg;
+            ByteBuf a = (ByteBuf)msg;
+            byte[] req = new byte[a.readableBytes()];
+            String body = new String(req,"utf-8");
             System.out.println("传输内容是");
-            System.out.println(a);
-            List<String> list=test.fenge(a);
+            System.out.println(body);
+            List<String> list=test.fenge(body);
             System.out.println(list);
             //这里调用service服务
             discardServerHandler.baseService.test(list.get(1));
