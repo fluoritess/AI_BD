@@ -17,14 +17,15 @@ public class TextNetty {
     public static void main(String[] args){
         try {
             while (true){
-
-                Socket socket=new Socket("localhost",8088);
+// byte[] msg = new byte[5];
+                Socket socket=new Socket("192.168.1.124",8088);
                 OutputStream outputStream = socket.getOutputStream();
                 PrintWriter printWriter=new PrintWriter(outputStream);
                 Random random = new Random();
               String s = (random.nextInt(20-10+1)+10)+"";
-//                String a = (random.nextInt(2-0+1)+0)+"";
-                String a = "1 ";
+              String a = (random.nextInt(30-0+1)+10)+"";
+//               float a = (float) 142;
+
                 String senor_value=a+s;
                 System.out.println(senor_value);
                 printWriter.write(senor_value);
