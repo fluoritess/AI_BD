@@ -126,8 +126,8 @@ public class AgricultureServiceImpl implements AgricultureService {
     }
 
     @Override
-    public List<GreenhouseInfo> selectGreenHouseInfo() {
-        return agricultureMapper.selectGreenHouseInfo();
+    public List<DeployNodeInfo> selectDeployNodeInfo() {
+        return agricultureMapper.selectDeployNodeInfo();
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface AgricultureService {
     boolean addGrowthParam(GrowthEnviromentSeting growthEnviromentSeting);
 
     //获取大棚类型
-    List<GreenhouseInfo> selectGreenHouseInfo();
+    List<DeployNodeInfo> selectDeployNodeInfo();
     //获取生长环境参数
     List<GrowthParameter> selectGrowthParam();
     //获取土壤类型id和name

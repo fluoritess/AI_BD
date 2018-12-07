@@ -161,10 +161,13 @@ public class AgricultureController {
 
     @ResponseBody
     @ArchivesLog(operationType = "查询大棚类型", operationName = "查询大棚类型")
-    @RequestMapping(value = "/selectGreenHouseInfo.action")
-    public Map<String, Object> selectGreenHouseInfo() {
-        return R.ok().put("data",agricultureService.selectGreenHouseInfo());
+    @RequestMapping(value = "/selectDeployNodeInfo.action")
+    public Map<String, Object> selectDeployNodeInfo() {
+        List<DeployNodeInfo> deployNodeInfos = agricultureService.selectDeployNodeInfo();
+        return R.ok().put("data",deployNodeInfos);
     }
+
+
 
     @ResponseBody
     @ArchivesLog(operationType = "查询作物类型", operationName = "查询作物类型")
@@ -320,7 +323,7 @@ public class AgricultureController {
     @RequestMapping(value = "/deleteCropPlantInfo.action")
     public Map<String, Object> deleteCropPlantInfo(@RequestBody Map<String, Object> deleteMap) {
         Integer cropPlantInfoId = Integer.valueOf(String.valueOf(deleteMap.get("id")));
-        if (agricultureService.deleteDisposalInfo(cropPlantInfoId)) {
+        if (agricultureService.deleteCropPlantInfo(cropPlantInfoId)) {
             return R.ok();
         } else {
             return R.error();
@@ -409,7 +412,7 @@ public class AgricultureController {
         CropVarietiesInfo cropVarietiesInfo = new CropVarietiesInfo();
         cropVarietiesInfo.setCropVarietiesName(String.valueOf(data.get("crop_varieties_name")));
         cropVarietiesInfo.setRemark(String.valueOf(data.get("remark")));
-        if (agricultureService.addCropVarietiesInfo(cropVarietiesInfo)) {
+      if (agricultureService.addCropVarietiesInfo(cropVarietiesInfo)) {
             return R.ok();
         } else {
             return R.error();

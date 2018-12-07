@@ -72,6 +72,35 @@ public class SensorController {
                     mark=sensorService.inspectData("greenhouse_info","greenhouse_name",String.valueOf(datas.get("data")));
                 }
                 break;
+            //作物品种信息管理
+            case "cropVarietyInfoM":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("crop_varieties_info","crop_varieties_name",String.valueOf(datas.get("data")));
+                }
+                break;
+            //作物信息管理
+            case "cropInfoManagement":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("crop_info","crop_name",String.valueOf(datas.get("data")));
+                }
+                break;
+            //土壤信息管理
+            case "soliInfoManagement":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("soil_type_info","soil_type_name",String.valueOf(datas.get("data")));
+                }
+                break;
+            //处置信息
+            case "disposeMethod":
+                if("name".equals(String.valueOf(datas.get("name"))))
+                {
+                    mark=sensorService.inspectData("disposal_method_info","disposal_method_name",String.valueOf(datas.get("data")));
+                }
+                break;
+
         }
         //true代表没有注册过
         if(mark) {

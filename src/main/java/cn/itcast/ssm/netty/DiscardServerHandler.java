@@ -1,15 +1,20 @@
 package cn.itcast.ssm.netty;
 
 import cn.itcast.ssm.service.BaseService;
+import cn.itcast.ssm.service.EquipmentService;
+import cn.itcast.ssm.service.impl.BaseServiceImpl;
+import cn.itcast.ssm.service.impl.EquipmentServiceImpl;
 import cn.itcast.ssm.util.test;
 import com.corundumstudio.socketio.SocketIOClient;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
-
+import io.netty.channel.group.ChannelGroup;
+import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
-
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -40,13 +45,10 @@ public DiscardServerHandler(){
         try {
 
 
-            ByteBuf a = (ByteBuf)msg;
-            byte[] req= new byte[a.readableBytes()];
-            a.readBytes(req);
-            String body = new String(req,"utf-8");
+            String a = (String)msg;
             System.out.println("传输内容是");
-            System.out.println(body);
-            List<String> list=test.fenge(body);
+            System.out.println(a);
+            List<String> list=test.fenge(a);
             System.out.println(list);
             //这里调用service服务
             discardServerHandler.baseService.test(list.get(1));
