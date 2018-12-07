@@ -18,7 +18,7 @@ public class TextNetty {
         try {
             while (true){
 // byte[] msg = new byte[5];
-                Socket socket=new Socket("192.168.1.124",8088);
+                Socket socket=new Socket("192.168.1.112",8088);
                 OutputStream outputStream = socket.getOutputStream();
                 PrintWriter printWriter=new PrintWriter(outputStream);
                 Random random = new Random();
