@@ -33,7 +33,7 @@ public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 
        socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(54));
         socketChannel.pipeline().addLast(new MyDecoder());
-//        socketChannel.pipeline().addLast(new StringEncoder());
+//        socketChannel.pipeline().addLast(new StringDecoder());
 //        socketChannel.pipeline().addLast(new MessageToMessageDecoder<Float>() {
 //            @Override
 //            protected void decode(ChannelHandlerContext channelHandlerContext, Float aFloat, List<Object> list) throws Exception {
