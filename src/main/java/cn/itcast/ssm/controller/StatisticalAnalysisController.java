@@ -3,6 +3,7 @@ package cn.itcast.ssm.controller;
 import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
+import cn.itcast.ssm.service.impl.NodedeviceServiceImpl;
 import cn.itcast.ssm.service.impl.WarningDeviceImpl;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -34,6 +35,8 @@ public class StatisticalAnalysisController {
     UserUtilMapper userUtilMapper;
     @Autowired
     WarningDeviceImpl warningDevice;
+    @Autowired
+    NodedeviceServiceImpl nodedeviceService;
     /**
      * 查询环境上下限
      * @param dataMap
@@ -43,26 +46,10 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询环境上下限")
     @RequestMapping(value = "/selectParameter.action")
     public Map<String,Object> selectParameter(@RequestBody Map<String, Object> dataMap,HttpSession session){
-      /*  List<LinkedHashMap<String,Object>> parameter=(List)session.getAttribute("parameter");
-        if(parameter!=null){
-            return R.ok().put("data",parameter);
-        }
-        else{
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-        List<LinkedHashMap<String,Object>> parameter2=userUtilMapper.selectInspectData2("parameter_threshold_view","sensor_id",SensorId);
-        session.setAttribute("parameter",parameter2);
-            return R.ok().put("data",parameter);
-        }*/
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-        float[] para=warningDevice.select_minAndMax(SensorId);
-        float min=para[0];
-        float max=para[1];
+        Integer DeviceId=(Integer)dataMap.get("device_id");
+        List<Map<String,Object>>   list=nodedeviceService.selectLatest(DeviceId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("collectInfoValue",collectInfoValue);
-        data_.put("min",min);
-        data_.put("max",max);
+        data_.put("list",list);
         return R.ok().put("data",data_);
     }
 
@@ -87,19 +74,10 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询最新的收集数据")
     @RequestMapping(value = "/selectLatest.action")
     public Map<String,Object> selectLatest(@RequestBody Map<String, Object> dataMap){
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        CollectInfoValue collectInfoValue=statisticalAnalysisService.selectLatest_2(SensorId);
-       /* List<LinkedHashMap<String,Object>> parameter=userUtilMapper.selectInspectData("parameter_threshold_view","sensor_id",SensorId);
+        Integer DeviceId=(Integer)dataMap.get("device_id");
+        List<Map<String,Object>>   list=nodedeviceService.selectLatest(DeviceId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("collectInfoValue",collectInfoValue);
-        data_.put("parameter",parameter);*/
-       float[] para=warningDevice.select_minAndMax(SensorId);
-       float min=para[0];
-       float max=para[1];
-        Map<String,Object> data_=new HashMap<>();
-        data_.put("collectInfoValue",collectInfoValue);
-        data_.put("min",min);
-        data_.put("max",max);
+        data_.put("list",list);
         return R.ok().put("data",data_);
 
     }
@@ -113,10 +91,10 @@ public class StatisticalAnalysisController {
     @RequestMapping(value = "/selectQuarter.action")
     public Map<String,Object> selectQuarter(@RequestBody Map<String, Object> dataMap){
 
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalQuarter_2(SensorId);
+        Integer DeviceId=(Integer)dataMap.get("device_id");
+        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalQuarter(DeviceId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",collectInfoValueList);
+        data_.put("list",list);
         return R.ok().put("data",data_);
 
     }
@@ -131,10 +109,11 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectOneHour(@RequestBody Map<String, Object> dataMap){
 
 
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneHour_2(SensorId);
+
+        Integer DeviceId=(Integer)dataMap.get("device_id");
+        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalOneHour(DeviceId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",collectInfoValueList);
+        data_.put("list",list);
         return R.ok().put("data",data_);
 
     }
@@ -147,10 +126,11 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一天内的收集数据")
     @RequestMapping(value = "/selectOneDay.action")
     public Map<String,Object> selectOneDay(@RequestBody Map<String, Object> dataMap){
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneDay_2(SensorId);
+
+        Integer DeviceId=(Integer)dataMap.get("device_id");
+        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalOneDay(DeviceId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",collectInfoValueList);
+        data_.put("list",list);
         return R.ok().put("data",data_);
     }
     /**
@@ -162,10 +142,11 @@ public class StatisticalAnalysisController {
     @ArchivesLog(operationType = "查询信息", operationName = "查询一周内的收集数据")
     @RequestMapping(value = "/selectOneWeek.action")
     public Map<String,Object> selectOneWeek(@RequestBody Map<String, Object> dataMap){
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        List<CollectInfoValue> collectInfoValueList=statisticalAnalysisService.StatisticalOneWeek_2(SensorId);
+
+        Integer DeviceId=(Integer)dataMap.get("device_id");
+        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalOneWeek(DeviceId);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",collectInfoValueList);
+        data_.put("list",list);
         return R.ok().put("data",data_);
     }
 
