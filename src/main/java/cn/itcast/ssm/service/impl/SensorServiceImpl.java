@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.*;
+import cn.itcast.ssm.mapper.CollectUtil;
 import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.SensorService;
 import cn.itcast.ssm.util.Paging;
