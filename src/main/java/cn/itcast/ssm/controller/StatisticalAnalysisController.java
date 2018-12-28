@@ -2,8 +2,10 @@ package cn.itcast.ssm.controller;
 
 import cn.itcast.ssm.mapper.UserUtilMapper;
 import cn.itcast.ssm.po.CollectInfoValue;
+import cn.itcast.ssm.po.CollectUtil;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
 import cn.itcast.ssm.service.impl.NodedeviceServiceImpl;
+import cn.itcast.ssm.service.impl.StatisticalAnalysisServiceImpl;
 import cn.itcast.ssm.service.impl.WarningDeviceImpl;
 import cn.itcast.ssm.spring.ArchivesLog;
 import cn.itcast.ssm.util.Paging;
@@ -37,6 +39,7 @@ public class StatisticalAnalysisController {
     WarningDeviceImpl warningDevice;
     @Autowired
     NodedeviceServiceImpl nodedeviceService;
+
     /**
      * 查询环境上下限
      * @param dataMap
@@ -92,7 +95,7 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectQuarter(@RequestBody Map<String, Object> dataMap){
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
-        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalQuarter(DeviceId);
+        List<CollectUtil> list=statisticalAnalysisService.StatisticalQuarter_3(DeviceId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);
@@ -111,7 +114,7 @@ public class StatisticalAnalysisController {
 
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
-        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalOneHour(DeviceId);
+        List<CollectUtil> list= statisticalAnalysisService.StatisticalOneHour_3(DeviceId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);
@@ -128,7 +131,7 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectOneDay(@RequestBody Map<String, Object> dataMap){
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
-        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalOneDay(DeviceId);
+        List<CollectUtil> list=statisticalAnalysisService.StatisticalOneDay_3(DeviceId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);
@@ -144,7 +147,7 @@ public class StatisticalAnalysisController {
     public Map<String,Object> selectOneWeek(@RequestBody Map<String, Object> dataMap){
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
-        List<List<CollectInfoValue>> list=nodedeviceService.StatisticalOneWeek(DeviceId);
+        List<CollectUtil> list=statisticalAnalysisService.StatisticalOneWeek_3(DeviceId);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);

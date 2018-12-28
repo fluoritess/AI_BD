@@ -16,4 +16,17 @@ public interface  CollectUtil {
     List<CollectInfoValue> selectOneHour(Integer SensorId);
 
     CollectInfoValue selectLatest(Integer SensorId);
+
+
+
+
+    List<cn.itcast.ssm.po.CollectUtil> selectOneDay_2(Integer SensorId);
+
+    List<cn.itcast.ssm.po.CollectUtil> selectOneWeek_2(Integer SensorId);
+
+    List<cn.itcast.ssm.po.CollectUtil> selectQuarter_2(Integer SensorId);
+
+    List<cn.itcast.ssm.po.CollectUtil> selectOneHour_2(Integer SensorId);
+
+    cn.itcast.ssm.po.CollectUtil selectLatest_2(Integer SensorId);
 }

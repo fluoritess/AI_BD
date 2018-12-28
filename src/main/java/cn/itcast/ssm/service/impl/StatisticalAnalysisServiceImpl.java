@@ -136,4 +136,38 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
        CollectInfoValue collectInfoValue=collectUtil.selectLatest(SensorId);
         return  collectInfoValue;
     }
+
+
+
+
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalOneDay_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectOneDay_2(device_id);
+        return list;
+    }
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalOneWeek_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectOneWeek_2(device_id);
+        return list;
+    }
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalQuarter_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectQuarter_2(device_id);
+        return list;
+    }
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalOneHour_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectOneHour_2(device_id);
+        return list;
+    }
+
+    @Override
+    public cn.itcast.ssm.po.CollectUtil selectLatest_3(Integer device_id) {
+        cn.itcast.ssm.po.CollectUtil collectInfoValue=collectUtil.selectLatest_2(device_id);
+        return collectInfoValue;
+    }
 }

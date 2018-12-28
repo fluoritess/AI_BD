@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service;
 
 import cn.itcast.ssm.po.CollectInfoValue;
+import cn.itcast.ssm.po.CollectUtil;
 
 import java.sql.Date;
 import java.util.List;
@@ -59,5 +60,27 @@ public interface StatisticalAnalysisService {
      * 查询最新数据2.0
      * */
     CollectInfoValue selectLatest_2(Integer SensorId);
-
+    /*
+    * 由于需求变更下面是3.0版本
+    * */
+    /*
+     * 统计今天的数据3.0
+     * */
+    List<CollectUtil> StatisticalOneDay_3(Integer device_id);
+    /*
+     * 统计一周内的数据3.0
+     * */
+    List<CollectUtil>  StatisticalOneWeek_3(Integer device_id);
+    /*
+     * 统计十五分钟3.0
+     * */
+    List<CollectUtil>  StatisticalQuarter_3(Integer device_id);
+    /*
+     * 统计一小时3.0
+     * */
+    List<CollectUtil> StatisticalOneHour_3(Integer device_id);
+    /*
+     * 查询最新数据3.0
+     * */
+    CollectUtil selectLatest_3(Integer device_id);
 }
