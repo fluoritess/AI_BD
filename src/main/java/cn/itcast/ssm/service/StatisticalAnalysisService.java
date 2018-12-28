@@ -5,6 +5,7 @@ import cn.itcast.ssm.po.CollectUtil;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
         * @author wsw
@@ -82,5 +83,5 @@ public interface StatisticalAnalysisService {
     /*
      * 查询最新数据3.0
      * */
-    CollectUtil selectLatest_3(Integer device_id);
+    Map selectLatest_3(Integer device_id);
 }

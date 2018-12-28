@@ -6,16 +6,17 @@ import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.*;
+
 @Service
 public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisService {
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     CollectUtil collectUtil;
+    @Autowired
+    WarningDeviceImpl warningDevice;
     @Override
 
     public CollectInfoValue selectLatest(Integer SensorId){
@@ -166,8 +167,13 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     }
 
     @Override
-    public cn.itcast.ssm.po.CollectUtil selectLatest_3(Integer device_id) {
+    public Map selectLatest_3(Integer device_id) {
         cn.itcast.ssm.po.CollectUtil collectInfoValue=collectUtil.selectLatest_2(device_id);
-        return collectInfoValue;
+        int Sensor_id=collectInfoValue.getSensorId().intValue();
+        float[] minAndMax=warningDevice.select_minAndMax(Sensor_id);
+        Map map=new HashMap();
+        map.put("收集数据",collectInfoValue);
+        map.put("环境参数",minAndMax);
+        return map;
     }
 }
