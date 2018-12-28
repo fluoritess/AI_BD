@@ -28,6 +28,10 @@ public class SensorServiceImpl implements SensorService {
     EquipmentInfoMapper equipmentInfoMapper;
     @Autowired
     NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
+    @Autowired
+    CollectInfoValueMapper collectInfoValueMapper;
+    @Autowired
+    CollectUtil collectUtil;
     @Override
     public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
         Paging page=new Paging();
@@ -154,6 +158,11 @@ return  nodedeviceSensorconfigInfos;
     public String seleceSensorName(Integer sensorTypeId) {
 
         return  sensorTypeInfoMapper.selectByPrimaryKey(sensorTypeId).getSensorName();
+    }
+    @Override
+    public  List<Map<String,Object>>  seleceSensorValue(Integer equipmentId) {
+
+        return collectUtil.sensorAllValue(equipmentId);
     }
 
 }

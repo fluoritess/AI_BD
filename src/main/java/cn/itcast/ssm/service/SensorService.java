@@ -4,6 +4,7 @@ import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.util.Paging;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SensorService {
     /**
@@ -76,4 +77,11 @@ List<DeployNodeInfo> selectGreenHouse(Integer addressId);
      * @return
      */
     String seleceSensorName(Integer sensorTypeId);
+
+    /**
+     * 查询传感器值
+     * @param equipmentId
+     * @return
+     */
+     List<Map<String,Object>> seleceSensorValue(Integer equipmentId);
 }

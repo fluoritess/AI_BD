@@ -4,6 +4,7 @@ import cn.itcast.ssm.po.CollectInfoValue;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface  CollectUtil {
@@ -16,4 +17,7 @@ public interface  CollectUtil {
     List<CollectInfoValue> selectOneHour(Integer SensorId);
 
     CollectInfoValue selectLatest(Integer SensorId);
+
+    List<Map<String,Object>>sensorAllValue (Integer EquipmentId);
+
 }
