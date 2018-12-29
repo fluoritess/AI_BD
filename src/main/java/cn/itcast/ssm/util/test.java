@@ -23,16 +23,20 @@ public class test {
 public static List<String> fenge(String a){
     List<String> list=new ArrayList();
     list.add(a.substring(0,2).replace(" ",""));
-    list.add(a.substring(2,4).replace(" ",""));
-//    list.add(a.substring(0,5));
-//    list.add(a.substring(5,15));
-//    list.add(a.substring(15,19));
-//    list.add(a.substring(17,21));
-//    list.add(a.substring(21,25));
-//    list.add(a.substring(25,29));
-//    list.add(a.substring(29,33));
-//    list.add(a.substring(33,37));
-  return  list;
+    list.add(a.substring(2,6).replace(" ",""));
+//    list.add(a.substring(6,8));
+//    list.add(a.substring(8,18));
+//    list.add(a.substring(18,22));
+//    list.add(a.substring(22,26));
+//    list.add(a.substring(26,30));
+//    list.add(a.substring(30,34));
+//    list.add(a.substring(34,38));
+//    list.add(a.substring(38,42));
+//    list.add(a.substring(42,46));
+//    list.add(a.substring(46,50));
+//    list.add(a.substring(50,54));
+
+    return  list;
 }
 
 
