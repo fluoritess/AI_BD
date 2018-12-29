@@ -8,6 +8,7 @@
         <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
 
     </resultMap>
+    <!---->
       <!--查询今天的数据-->
         <select id="selectOneDay" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT * from collect_info_value
