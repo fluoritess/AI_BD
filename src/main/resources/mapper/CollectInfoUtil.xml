@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.ssm.mapper.CollectInfoUtil">
+    <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.CollectInfoValue">
+        <id column=" collect_id" jdbcType="INTEGER" property="collectId" />
+        <result column="sensor_id" jdbcType="INTEGER" property="sensorId" />
+        <result column="sensor_value" jdbcType="REAL" property="sensorValue" />
+        <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+
+    </resultMap>
+      <!--查询今天的数据-->
+        <select id="selectOneDay" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from collect_info_value
+        where sensor_id=#{sensor_id} And TO_DAYS(now())-TO_DAYS(collect_time)&lt;1 ORDER BY collect_time
+      </select>
+        <!--查询一周的数据-->
+        <select id="selectOneWeek" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from collect_info_value
+        where sensor_id=#{sensor_id} And TO_DAYS(now())-TO_DAYS(collect_time)&lt;7 ORDER BY collect_time
+      </select>
+        <!--查询十五分钟-->
+        <select id="selectQuarter" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from collect_info_value
+      where sensor_id=#{sensor_id} And collect_time >= now()-interval 15 minute;
+      </select>
+        <!--查询一小时-->
+        <select id="selectOneHour" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from collect_info_value
+      where sensor_id=#{sensor_id} And collect_time >= now()-interval 60 minute;
+      </select>
+        <!--查询最新-->
+        <select id="selectLatest" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from collect_info_value
+    where sensor_id=#{sensor_id} And collect_time ORDER BY collect_time DESC LIMIT 1
+      </select>
+
+</mapper>
