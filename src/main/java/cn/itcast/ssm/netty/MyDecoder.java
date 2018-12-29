@@ -92,13 +92,13 @@ public class MyDecoder extends MessageToMessageDecoder<ByteBuf> {
         list1.add(s.toString());
         list1.add(String.valueOf(MyDecoder.byte2float(req,18)));
         list1.add(String.valueOf(MyDecoder.byte2float(req,22)));
-        list1.add((int)req[26]);
-        list1.add((int)req[30]);
+        list1.add(String.valueOf(req[26]));
+        list1.add(String.valueOf(req[30]));
         list1.add(String.valueOf(MyDecoder.byte2float(req,34)));
-        list1.add((int)req[38]);
-        list1.add((int)req[42]);
-        list1.add((int)req[46]);
-        list1.add((int)req[50]);
+        list1.add(String.valueOf(req[38]));
+        list1.add(String.valueOf(req[42]));
+        list1.add(String.valueOf(req[46]));
+        list1.add(String.valueOf(req[50]));
 
 //        for(int i=0;i<byteBuf.capacity();i++){
 //            byteBuf.readBytes(i);

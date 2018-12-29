@@ -27,32 +27,33 @@ public class BaseServiceImpl implements BaseService {
         NodedeviceSensorconfigInfoExample  nodedeviceSensorconfigInfoExample = new NodedeviceSensorconfigInfoExample();
         NodedeviceSensorconfigInfoExample.Criteria criteria=nodedeviceSensorconfigInfoExample.createCriteria();
         criteria.andSensorPositionEqualTo("土壤根系温度");
-        List<NodedeviceSensorconfigInfo> nodedeviceSensorconfigInfos= nodedeviceSensorconfigInfoMapper.selectByExample(nodedeviceSensorconfigInfoExample);
+        List<NodedeviceSensorconfigInfo> nodedeviceSensorconfigInfos= nodedeviceSensorconfigInfoMapper.selectByExample(null);
         Date day=new Date();
-        CollectInfoValue collectInfoValue = new CollectInfoValue();
         Date date = new Date(day.getTime());
-        collectInfoValue.setCollectTime(date);
-        collectInfoValue.setSensorId(nodedeviceSensorconfigInfos.get(0).getSensorId());
-        System.out.println(Float.parseFloat((String)add.get(4)));
-        collectInfoValue.setSensorValue(Float.parseFloat((String)add.get(4)));
-        collectInfoValueMapper.insertSelective(collectInfoValue);
-        NodedeviceSensorconfigInfoExample  nodedeviceSensorconfigInfoExample1 = new NodedeviceSensorconfigInfoExample();
-        NodedeviceSensorconfigInfoExample.Criteria criteria1=nodedeviceSensorconfigInfoExample.createCriteria();
-        criteria1.andSensorPositionEqualTo("土壤表层温度");
-        List<NodedeviceSensorconfigInfo> nodedeviceSensorconfigInfos1= nodedeviceSensorconfigInfoMapper.selectByExample(nodedeviceSensorconfigInfoExample1);
-        CollectInfoValue collectInfoValue1 = new CollectInfoValue();
-        collectInfoValue.setCollectTime(date);
-        collectInfoValue.setSensorId(nodedeviceSensorconfigInfos1.get(0).getSensorId());
-        collectInfoValue.setSensorValue(Float.parseFloat((String)add.get(5)));
-        collectInfoValueMapper.insertSelective(collectInfoValue);
-        NodedeviceSensorconfigInfoExample  nodedeviceSensorconfigInfoExample2 = new NodedeviceSensorconfigInfoExample();
-        NodedeviceSensorconfigInfoExample.Criteria criteria2=nodedeviceSensorconfigInfoExample.createCriteria();
-        criteria2.andSensorPositionEqualTo("土壤根系湿度");
-        List<NodedeviceSensorconfigInfo> nodedeviceSensorconfigInfos2= nodedeviceSensorconfigInfoMapper.selectByExample(nodedeviceSensorconfigInfoExample2);
-        CollectInfoValue collectInfoValue2 = new CollectInfoValue();
-        collectInfoValue.setCollectTime(date);
-        collectInfoValue.setSensorId(nodedeviceSensorconfigInfos2.get(0).getSensorId());
-        collectInfoValue.setSensorValue(Float.parseFloat(String.valueOf(add.get(6))));
-        collectInfoValueMapper.insertSelective(collectInfoValue);
+        for (NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo:nodedeviceSensorconfigInfos){
+           if ("土壤根系温度".equals(nodedeviceSensorconfigInfo.getSensorPosition())){
+               CollectInfoValue collectInfoValue = new CollectInfoValue();
+               collectInfoValue.setCollectTime(date);
+               collectInfoValue.setSensorId(nodedeviceSensorconfigInfo.getSensorId());
+               collectInfoValue.setSensorValue(Float.parseFloat((String)add.get(4)));
+               collectInfoValueMapper.insertSelective(collectInfoValue);
+            }
+            else  if ("土壤表层温度".equals(nodedeviceSensorconfigInfo.getSensorPosition())){
+                CollectInfoValue collectInfoValue1 = new CollectInfoValue();
+                collectInfoValue1.setCollectTime(date);
+                collectInfoValue1.setSensorId(nodedeviceSensorconfigInfo.getSensorId());
+                collectInfoValue1.setSensorValue(Float.parseFloat((String)add.get(5)));
+                collectInfoValueMapper.insertSelective(collectInfoValue1);
+            } else if ("土壤根系湿度".equals(nodedeviceSensorconfigInfo.getSensorPosition())){
+                CollectInfoValue collectInfoValue2 = new CollectInfoValue();
+                collectInfoValue2.setCollectTime(date);
+                collectInfoValue2.setSensorId(nodedeviceSensorconfigInfo.getSensorId());
+                collectInfoValue2.setSensorValue(Float.parseFloat((String)add.get(6)));
+                collectInfoValueMapper.insertSelective(collectInfoValue2);
+            }
+
+        }
+
+
     }
 }
