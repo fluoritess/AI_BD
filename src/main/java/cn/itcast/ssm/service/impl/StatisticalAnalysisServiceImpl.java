@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisService {
@@ -17,6 +18,8 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
     CollectUtil collectUtil;
     @Autowired
     WarningDeviceImpl warningDevice;
+    @Autowired
+    StatisticalAnalysisServiceImpl statisticalAnalysisService;
     @Override
 
     public CollectInfoValue selectLatest(Integer SensorId){
@@ -176,4 +179,16 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
         map.put("环境参数",minAndMax);
         return map;
     }
+
+    @Override
+    public List<List<cn.itcast.ssm.po.CollectUtil>> Classification(List<cn.itcast.ssm.po.CollectUtil> list) {
+        List<List<cn.itcast.ssm.po.CollectUtil>> grouplist=new ArrayList<>();
+        list.stream().collect(Collectors.groupingBy(cn.itcast.ssm.po.CollectUtil::getSensorId,Collectors.toList()))
+                .forEach((age,fooListBySensorId)->{
+                    grouplist.add(fooListBySensorId);
+                });
+        return grouplist;
+    }
+
+
 }

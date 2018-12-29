@@ -96,8 +96,9 @@ public class StatisticalAnalysisController {
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
         List<CollectUtil> list=statisticalAnalysisService.StatisticalQuarter_3(DeviceId);
+        List<List<CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",list);
+        data_.put("list",grouplist);
         return R.ok().put("data",data_);
 
     }
@@ -115,8 +116,9 @@ public class StatisticalAnalysisController {
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
         List<CollectUtil> list= statisticalAnalysisService.StatisticalOneHour_3(DeviceId);
+        List<List<CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",list);
+        data_.put("list",grouplist);
         return R.ok().put("data",data_);
 
     }
@@ -132,8 +134,9 @@ public class StatisticalAnalysisController {
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
         List<CollectUtil> list=statisticalAnalysisService.StatisticalOneDay_3(DeviceId);
+        List<List<CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",list);
+        data_.put("list",grouplist);
         return R.ok().put("data",data_);
     }
     /**
@@ -148,8 +151,9 @@ public class StatisticalAnalysisController {
 
         Integer DeviceId=(Integer)dataMap.get("device_id");
         List<CollectUtil> list=statisticalAnalysisService.StatisticalOneWeek_3(DeviceId);
+        List<List<CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
         Map<String,Object> data_=new HashMap<>();
-        data_.put("list",list);
+        data_.put("list",grouplist);
         return R.ok().put("data",data_);
     }
 

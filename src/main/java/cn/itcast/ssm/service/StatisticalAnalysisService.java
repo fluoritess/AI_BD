@@ -84,4 +84,9 @@ public interface StatisticalAnalysisService {
      * 查询最新数据3.0
      * */
     Map selectLatest_3(Integer device_id);
+    /*
+    * 根据传感器id来进行分组，同一个传感器的数据分为一组
+    * */
+    List<List<cn.itcast.ssm.po.CollectUtil>> Classification(List<CollectUtil> list);
+
 }
