@@ -19,6 +19,8 @@ public class predictDataImpl implements predictData {
     CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     CollectUtil collectUtil;
+    @Autowired
+    predictDataImpl predictData;
     @Override
     public List<CollectInfoValue> predictOneDay(Integer SensorId){
         LeastSquare leastSquare=new LeastSquare();
@@ -101,6 +103,38 @@ public class predictDataImpl implements predictData {
             m++;
         }
 
+        return tarlist;
+    }
+
+    @Override
+    public List<List<CollectInfoValue>> predictOneDay_Device(Integer DeviceId) {
+        List<cn.itcast.ssm.po.CollectUtil> list=statisticalAnalysisService.StatisticalOneDay_3(DeviceId);
+        List<List<cn.itcast.ssm.po.CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
+        Iterator<List<cn.itcast.ssm.po.CollectUtil>>  it=grouplist.iterator();
+        List tarlist=new ArrayList();
+        while(it.hasNext()){
+            List<cn.itcast.ssm.po.CollectUtil> list_=it.next();
+            cn.itcast.ssm.po.CollectUtil collectUtil=list.get(0);
+            int sensor_id=collectUtil.getSensorId().intValue();
+            List tarlist_son= predictData.predictOneDay(sensor_id);
+            tarlist.add(tarlist_son);
+        }
+        return tarlist;
+    }
+
+    @Override
+    public List<List<CollectInfoValue>> predictOneDayGM_Device(Integer DeviceId) {
+        List<cn.itcast.ssm.po.CollectUtil> list=statisticalAnalysisService.StatisticalOneDay_3(DeviceId);
+        List<List<cn.itcast.ssm.po.CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
+        Iterator<List<cn.itcast.ssm.po.CollectUtil>>  it=grouplist.iterator();
+        List tarlist=new ArrayList();
+        while(it.hasNext()){
+            List<cn.itcast.ssm.po.CollectUtil> list_=it.next();
+            cn.itcast.ssm.po.CollectUtil collectUtil=list.get(0);
+            int sensor_id=collectUtil.getSensorId().intValue();
+            List tarlist_son= predictData.predictOneDayGM(sensor_id);
+            tarlist.add(tarlist_son);
+        }
         return tarlist;
     }
 }

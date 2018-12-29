@@ -36,8 +36,8 @@ public class predictDataController {
     @ArchivesLog(operationType = "预测信息", operationName = "预测未来一天信息")
     @RequestMapping(value = "/predictOneDay.action")
     public Map<String,Object> predictOneDay(@RequestBody Map<String,Object> dataMap){
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        List<CollectInfoValue> list=predictData.predictOneDay(SensorId);
+        Integer DeviceID=(Integer)dataMap.get("device_id");
+        List<List<CollectInfoValue>> list=predictData.predictOneDay_Device(DeviceID);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);
@@ -51,8 +51,8 @@ public class predictDataController {
     @ArchivesLog(operationType = "预测信息", operationName = "预测未来一天信息")
     @RequestMapping(value = "/predictOneDayGM.action")
     public Map<String,Object> predictOneDayGM(@RequestBody Map<String,Object> dataMap){
-        Integer SensorId=(Integer)dataMap.get("sensor_id");
-        List<CollectInfoValue> list=predictData.predictOneDayGM(SensorId);
+        Integer DeviceID=(Integer)dataMap.get("device_id");
+        List<List<CollectInfoValue>> list=predictData.predictOneDayGM_Device(DeviceID);
         Map<String,Object> data_=new HashMap<>();
         data_.put("list",list);
         return R.ok().put("data",data_);
