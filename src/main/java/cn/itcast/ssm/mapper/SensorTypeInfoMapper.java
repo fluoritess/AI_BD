@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 @Repository
 public interface SensorTypeInfoMapper {
     long countByExample(SensorTypeInfoExample example);
@@ -30,6 +29,4 @@ public interface SensorTypeInfoMapper {
     int updateByPrimaryKeySelective(SensorTypeInfo record);
 
     int updateByPrimaryKey(SensorTypeInfo record);
-
-
 }

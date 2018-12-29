@@ -222,7 +222,7 @@ public class SensorController {
     }
 
    @ResponseBody
-    @ArchivesLog(operationType = "查询传感器", operationName = "查询传感器")
+    @ArchivesLog(operationType = "查询传感器名字", operationName = "查询传感器")
     @RequestMapping(value = "/selectSensor.action")
     public Map<String, Object> selectSensorName(@RequestBody Map<String, Object> deleteMap) {
         Integer equipment_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
@@ -238,5 +238,12 @@ public class SensorController {
         return  R.ok().put("data",list);
     }
 
-
+    @ResponseBody
+    @ArchivesLog(operationType = "查询传感器值", operationName = "查询传感器")
+    @RequestMapping(value = "/selectEquipmentSensorValue.action")
+    public Map<String, Object> selectSensorAllValue(@RequestBody Map<String, Object> deleteMap) {
+        Integer equipment_id = Integer.valueOf(String.valueOf(deleteMap.get("id")));
+        List<Map<String,Object >> list = sensorService.seleceSensorValue(1);
+        return  R.ok().put("data",list);
+    }
 }

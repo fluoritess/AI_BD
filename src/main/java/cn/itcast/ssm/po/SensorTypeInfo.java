@@ -11,6 +11,8 @@ public class SensorTypeInfo implements Serializable {
 
     private String remark;
 
+    private String unit;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getSensorTypeId() {
@@ -45,6 +47,14 @@ public class SensorTypeInfo implements Serializable {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -55,6 +65,7 @@ public class SensorTypeInfo implements Serializable {
         sb.append(", sensorName=").append(sensorName);
         sb.append(", sensorFuncationRemark=").append(sensorFuncationRemark);
         sb.append(", remark=").append(remark);
+        sb.append(", unit=").append(unit);
         sb.append("]");
         return sb.toString();
     }

@@ -1,5 +1,6 @@
 package cn.itcast.ssm.service.impl;
 
+import cn.itcast.ssm.mapper.CollectInfoUtil;
 import cn.itcast.ssm.mapper.CollectInfoValueMapper;
 import cn.itcast.ssm.mapper.CollectUtil;
 import cn.itcast.ssm.po.CollectInfoValue;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-/**/
+/*  */
 @Service
 public class predictDataImpl implements predictData {
     @Autowired
@@ -19,6 +20,10 @@ public class predictDataImpl implements predictData {
     CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     CollectUtil collectUtil;
+    @Autowired
+    predictDataImpl predictData;
+    @Autowired
+    CollectInfoUtil collectInfoUtil;
     @Override
     public List<CollectInfoValue> predictOneDay(Integer SensorId){
         LeastSquare leastSquare=new LeastSquare();
@@ -73,7 +78,7 @@ public class predictDataImpl implements predictData {
         GreyModel greyModel=new GreyModel();
         double[] arr=new double[1000000];
         int i=0;
-        List<CollectInfoValue> list=collectUtil.selectOneDay(SensorId);
+        List<CollectInfoValue> list=collectInfoUtil.selectOneDay(SensorId);
         Iterator<CollectInfoValue> collectInfoValueIterator=list.iterator();
         while(collectInfoValueIterator.hasNext()){
             CollectInfoValue collectInfoValue=collectInfoValueIterator.next();
@@ -101,6 +106,38 @@ public class predictDataImpl implements predictData {
             m++;
         }
 
+        return tarlist;
+    }
+
+    @Override
+    public List<List<CollectInfoValue>> predictOneDay_Device(Integer DeviceId) {
+        List<cn.itcast.ssm.po.CollectUtil> list=statisticalAnalysisService.StatisticalOneDay_3(DeviceId);
+        List<List<cn.itcast.ssm.po.CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
+        Iterator<List<cn.itcast.ssm.po.CollectUtil>>  it=grouplist.iterator();
+        List tarlist=new ArrayList();
+        while(it.hasNext()){
+            List<cn.itcast.ssm.po.CollectUtil> list_=it.next();
+            cn.itcast.ssm.po.CollectUtil collectUtil=list.get(0);
+            int sensor_id=collectUtil.getSensorId().intValue();
+            List tarlist_son= predictData.predictOneDay(sensor_id);
+            tarlist.add(tarlist_son);
+        }
+        return tarlist;
+    }
+
+    @Override
+    public List<List<CollectInfoValue>> predictOneDayGM_Device(Integer DeviceId) {
+        List<cn.itcast.ssm.po.CollectUtil> list=statisticalAnalysisService.StatisticalOneDay_3(DeviceId);
+        List<List<cn.itcast.ssm.po.CollectUtil>> grouplist=statisticalAnalysisService.Classification(list);
+        Iterator<List<cn.itcast.ssm.po.CollectUtil>>  it=grouplist.iterator();
+        List tarlist=new ArrayList();
+        while(it.hasNext()){
+            List<cn.itcast.ssm.po.CollectUtil> list_=it.next();
+            cn.itcast.ssm.po.CollectUtil collectUtil=list.get(0);
+            int sensor_id=collectUtil.getSensorId().intValue();
+            List tarlist_son= predictData.predictOneDayGM(sensor_id);
+            tarlist.add(tarlist_son);
+        }
         return tarlist;
     }
 }

@@ -6,16 +6,20 @@ import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.StatisticalAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Service
 public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisService {
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
     CollectUtil collectUtil;
+    @Autowired
+    WarningDeviceImpl warningDevice;
+    @Autowired
+    StatisticalAnalysisServiceImpl statisticalAnalysisService;
     @Override
 
     public CollectInfoValue selectLatest(Integer SensorId){
@@ -136,4 +140,55 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
        CollectInfoValue collectInfoValue=collectUtil.selectLatest(SensorId);
         return  collectInfoValue;
     }
+
+
+
+
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalOneDay_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectOneDay_2(device_id);
+        return list;
+    }
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalOneWeek_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectOneWeek_2(device_id);
+        return list;
+    }
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalQuarter_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectQuarter_2(device_id);
+        return list;
+    }
+
+    @Override
+    public List<cn.itcast.ssm.po.CollectUtil> StatisticalOneHour_3(Integer device_id) {
+        List<cn.itcast.ssm.po.CollectUtil> list=collectUtil.selectOneHour_2(device_id);
+        return list;
+    }
+
+    @Override
+    public Map selectLatest_3(Integer device_id) {
+        cn.itcast.ssm.po.CollectUtil collectInfoValue=collectUtil.selectLatest_2(device_id);
+        int Sensor_id=collectInfoValue.getSensorId().intValue();
+        float[] minAndMax=warningDevice.select_minAndMax(Sensor_id);
+        Map map=new HashMap();
+        map.put("收集数据",collectInfoValue);
+        map.put("环境参数",minAndMax);
+        return map;
+    }
+
+    @Override
+    public List<List<cn.itcast.ssm.po.CollectUtil>> Classification(List<cn.itcast.ssm.po.CollectUtil> list) {
+        List<List<cn.itcast.ssm.po.CollectUtil>> grouplist=new ArrayList<>();
+        list.stream().collect(Collectors.groupingBy(cn.itcast.ssm.po.CollectUtil::getSensorId,Collectors.toList()))
+                .forEach((age,fooListBySensorId)->{
+                    grouplist.add(fooListBySensorId);
+                });
+        return grouplist;
+    }
+
+
 }

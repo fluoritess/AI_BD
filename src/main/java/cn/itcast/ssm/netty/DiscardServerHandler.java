@@ -1,15 +1,27 @@
 package cn.itcast.ssm.netty;
 
 import cn.itcast.ssm.service.BaseService;
+import cn.itcast.ssm.service.EquipmentService;
+import cn.itcast.ssm.service.impl.BaseServiceImpl;
+import cn.itcast.ssm.service.impl.EquipmentServiceImpl;
 import cn.itcast.ssm.util.test;
 import com.corundumstudio.socketio.SocketIOClient;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.*;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.handler.codec.MessageToMessageDecoder;
+import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.Buffer;
 import java.util.List;
 import java.util.Map;
 
@@ -22,47 +34,46 @@ import java.util.Map;
 
 
 @Component
-public class DiscardServerHandler extends SimpleChannelInboundHandler<Object> {
+public class DiscardServerHandler extends  ChannelInboundHandlerAdapter{
 
     @Autowired
-BaseService baseService;
+    BaseService baseService;
 
-public static  DiscardServerHandler discardServerHandler;
+    public static  DiscardServerHandler discardServerHandler;
 
-public DiscardServerHandler(){
+    public DiscardServerHandler(){
 
-}
-
+    }
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg)  {
         try {
 
 
-            String a = (String)msg;
-            System.out.println("传输内容是");
-            System.out.println(a);
-            List<String> list=test.fenge(a);
-            System.out.println(list);
-            //这里调用service服务
-            discardServerHandler.baseService.test(list.get(1));
 
-           for (Map.Entry<String, SocketIOClient> entry : EventListennter.clients1.entrySet()){
-               if(entry.getKey().equals(list.get(0))){
-                System.out.println("sendEvent");
-                  entry.getValue().sendEvent("onGetValue",list.get(1));
+            List msg1=(List)msg;
+            System.out.println("传输内容是");
+            System.out.println(msg);
+            //这里调用service服务
+            discardServerHandler.baseService.test(msg1);
+
+            for (Map.Entry<String, SocketIOClient> entry : EventListennter.clients1.entrySet()){
+                if(entry.getKey().equals(msg1.get(3))){
+                    System.out.println("sendEvent");
+                    entry.getValue().sendEvent("onGetValue",msg1.get(1));
                 }
-           }
+            }
 
         }  finally {
             ReferenceCountUtil.release(msg);
         }
+//        ((ByteBuf) msg).release();
     }
 
 
     @PostConstruct
     public void init() {
-discardServerHandler =this;
-discardServerHandler.baseService = this.baseService;
+        discardServerHandler =this;
+        discardServerHandler.baseService = this.baseService;
 
     }
 

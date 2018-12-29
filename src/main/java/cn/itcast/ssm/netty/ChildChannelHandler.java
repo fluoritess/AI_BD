@@ -1,14 +1,22 @@
 package cn.itcast.ssm.netty;
 
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.MessageToMessageDecoder;
+import io.netty.handler.codec.bytes.ByteArrayDecoder;
+import io.netty.handler.codec.memcache.binary.BinaryMemcacheRequestEncoder;
+import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.concurrent.ImmediateEventExecutor;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.Charset;
+import java.util.List;
 
 
 /**
@@ -23,9 +31,15 @@ public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
     @Override
     public void initChannel(SocketChannel socketChannel) throws Exception {
 
-//        socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(48));
-        socketChannel.pipeline().addLast(new StringDecoder());
-        socketChannel.pipeline().addLast(new StringEncoder());
+       socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(54));
+        socketChannel.pipeline().addLast(new MyDecoder());
+//        socketChannel.pipeline().addLast(new StringEncoder());
+//        socketChannel.pipeline().addLast(new MessageToMessageDecoder<Float>() {
+//            @Override
+//            protected void decode(ChannelHandlerContext channelHandlerContext, Float aFloat, List<Object> list) throws Exception {
+//list.add(String.valueOf(aFloat));
+//            }
+//        });
 //        socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
         socketChannel.pipeline().addLast(new DiscardServerHandler());
 

@@ -18,14 +18,13 @@ import javax.annotation.Resource;
 public class DemoApplication implements CommandLineRunner {
     @Resource
     private DiscardServer discardServer;
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-
-       discardServer.run(8088);
+        discardServer.run(8088);
     }
 }
