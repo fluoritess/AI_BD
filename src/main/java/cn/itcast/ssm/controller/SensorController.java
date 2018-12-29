@@ -213,7 +213,7 @@ public class SensorController {
         List<EquipmentInfo> equipmentInfos=sensorService.selectGreenHouseEquipment(node_id);
         for (EquipmentInfo equipmentInf:equipmentInfos){
             Map<String,Object> map = new HashMap<>();
-            map.put("id","0123456789");
+            map.put("id",equipmentInf.getEquipmentId());
             map.put("name",equipmentInf.getEquipmentName());
             map.put("address",sensorService.selectInsideLocation(node_id));
             list.add(map);
@@ -237,6 +237,7 @@ public class SensorController {
        }
         return  R.ok().put("data",list);
     }
+
     @ResponseBody
     @ArchivesLog(operationType = "查询传感器", operationName = "查询传感器")
     @RequestMapping(value = "/selectSensor.action")
@@ -246,9 +247,4 @@ public class SensorController {
 
         return  R.ok().put("data",list);
     }
-
-
-
-
-
 }

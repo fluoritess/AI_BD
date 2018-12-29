@@ -30,8 +30,6 @@ public class SensorServiceImpl implements SensorService {
     @Autowired
     NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
     @Autowired
-    CollectInfoValueMapper collectInfoValueMapper;
-    @Autowired
     CollectUtil collectUtil;
     @Override
     public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
@@ -165,5 +163,4 @@ return  nodedeviceSensorconfigInfos;
 
         return collectUtil.sensorAllValue(equipmentId);
     }
-
 }

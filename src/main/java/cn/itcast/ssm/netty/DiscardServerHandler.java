@@ -37,13 +37,13 @@ import java.util.Map;
 public class DiscardServerHandler extends  ChannelInboundHandlerAdapter{
 
     @Autowired
-BaseService baseService;
+    BaseService baseService;
 
-public static  DiscardServerHandler discardServerHandler;
+    public static  DiscardServerHandler discardServerHandler;
 
-public DiscardServerHandler(){
+    public DiscardServerHandler(){
 
-}
+    }
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)  {
         try {
@@ -72,8 +72,8 @@ public DiscardServerHandler(){
 
     @PostConstruct
     public void init() {
-discardServerHandler =this;
-discardServerHandler.baseService = this.baseService;
+        discardServerHandler =this;
+        discardServerHandler.baseService = this.baseService;
 
     }
 

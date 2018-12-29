@@ -21,7 +21,7 @@ public class BaseServiceImpl implements BaseService {
     @Autowired
     CollectInfoValueMapper collectInfoValueMapper;
     @Autowired
-   NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
+    NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
     @Override
     public void test(List add) {
         NodedeviceSensorconfigInfoExample  nodedeviceSensorconfigInfoExample = new NodedeviceSensorconfigInfoExample();

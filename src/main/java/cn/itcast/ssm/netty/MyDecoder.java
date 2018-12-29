@@ -6,7 +6,6 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,6 +16,7 @@ import java.util.List;
  */
 
 public class MyDecoder extends MessageToMessageDecoder<ByteBuf> {
+
     private final Charset charset;
 
     public MyDecoder() {
@@ -43,31 +43,31 @@ public class MyDecoder extends MessageToMessageDecoder<ByteBuf> {
     }
     public static byte[] float2byte(float f) {
 
-           // 把float转换为byte[]
-           int fbit = Float.floatToIntBits(f);
+        // 把float转换为byte[]
+        int fbit = Float.floatToIntBits(f);
 
-             byte[] b = new byte[4];
-            for (int i = 0; i < 4; i++) {
-                     b[i] = (byte) (fbit >> (24 - i * 8));
-                    }
+        byte[] b = new byte[4];
+        for (int i = 0; i < 4; i++) {
+            b[i] = (byte) (fbit >> (24 - i * 8));
+        }
 
-               // 翻转数组
-                int len = b.length;
-                // 建立一个与源数组元素类型相同的数组
-                 byte[] dest = new byte[len];
-                 // 为了防止修改源数组，将源数组拷贝一份副本
-                 System.arraycopy(b, 0, dest, 0, len);
-               byte temp;
-               // 将顺位第i个与倒数第i个交换
-               for (int i = 0; i < len / 2; ++i) {
-                       temp = dest[i];
-                        dest[i] = dest[len - i - 1];
-                        dest[len - i - 1] = temp;
-                    }
+        // 翻转数组
+        int len = b.length;
+        // 建立一个与源数组元素类型相同的数组
+        byte[] dest = new byte[len];
+        // 为了防止修改源数组，将源数组拷贝一份副本
+        System.arraycopy(b, 0, dest, 0, len);
+        byte temp;
+        // 将顺位第i个与倒数第i个交换
+        for (int i = 0; i < len / 2; ++i) {
+            temp = dest[i];
+            dest[i] = dest[len - i - 1];
+            dest[len - i - 1] = temp;
+        }
 
-                 return dest;
+        return dest;
 
-           }
+    }
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
@@ -76,9 +76,9 @@ public class MyDecoder extends MessageToMessageDecoder<ByteBuf> {
         StringBuilder s = new StringBuilder();
         byte[] req = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(req);
-      list1.add(String.valueOf(req[0]));
-      list1.add(""+(char)((int)req[2])+(char)((int)req[3])+(char)((int)req[4])+(char)((int)req[5]));
-   list1.add(""+(char)((int)req[6])+(char)((int)req[7]));
+        list1.add(String.valueOf(req[0]));
+        list1.add(""+(char)((int)req[2])+(char)((int)req[3])+(char)((int)req[4])+(char)((int)req[5]));
+        list1.add(""+(char)((int)req[6])+(char)((int)req[7]));
         s.append((char)((int)req[8]));
         s.append((char)((int)req[9]));
         s.append((char)((int)req[10]));
@@ -96,7 +96,7 @@ public class MyDecoder extends MessageToMessageDecoder<ByteBuf> {
         list1.add((int)req[30]);
         list1.add(String.valueOf(MyDecoder.byte2float(req,34)));
         list1.add((int)req[38]);
-      list1.add((int)req[42]);
+        list1.add((int)req[42]);
         list1.add((int)req[46]);
         list1.add((int)req[50]);
 
@@ -111,7 +111,7 @@ public class MyDecoder extends MessageToMessageDecoder<ByteBuf> {
 //        }
 
 //        System.out.println("====>"+byteBuf.toString(this.charset));
-System.out.println(list1);
-list.add(list1);
+        System.out.println(list1);
+        list.add(list1);
     }
 }

@@ -83,5 +83,5 @@ List<DeployNodeInfo> selectGreenHouse(Integer addressId);
      * @param equipmentId
      * @return
      */
-     List<Map<String,Object>> seleceSensorValue(Integer equipmentId);
+    List<Map<String,Object>> seleceSensorValue(Integer equipmentId);
 }

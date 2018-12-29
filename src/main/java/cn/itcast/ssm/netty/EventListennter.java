@@ -53,6 +53,7 @@ public class EventListennter {
             clients1.put((client.getSessionId()).toString(), client);
             System.out.println("onGetValue"+"null");
         } else {
+
             clients1.remove((client.getSessionId()).toString());
             System.out.println("onGetValue"+message);
             clients1.put(message, client);
