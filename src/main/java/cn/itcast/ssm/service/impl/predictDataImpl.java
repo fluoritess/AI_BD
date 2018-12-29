@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.CollectInfoValueMapper;
+import cn.itcast.ssm.mapper.CollectInfoValueUtil;
 import cn.itcast.ssm.mapper.CollectUtil;
 import cn.itcast.ssm.po.CollectInfoValue;
 import cn.itcast.ssm.service.predictData;
@@ -21,6 +22,8 @@ public class predictDataImpl implements predictData {
     CollectUtil collectUtil;
     @Autowired
     predictDataImpl predictData;
+    @Autowired
+    CollectInfoValueUtil collectInfoValueUtil;
     @Override
     public List<CollectInfoValue> predictOneDay(Integer SensorId){
         LeastSquare leastSquare=new LeastSquare();
@@ -75,7 +78,7 @@ public class predictDataImpl implements predictData {
         GreyModel greyModel=new GreyModel();
         double[] arr=new double[1000000];
         int i=0;
-        List<CollectInfoValue> list=collectUtil.selectOneDay(SensorId);
+        List<CollectInfoValue> list=collectInfoValueUtil.selectOneDay(SensorId);
         Iterator<CollectInfoValue> collectInfoValueIterator=list.iterator();
         while(collectInfoValueIterator.hasNext()){
             CollectInfoValue collectInfoValue=collectInfoValueIterator.next();
