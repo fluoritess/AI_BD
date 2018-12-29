@@ -4,7 +4,7 @@ import cn.itcast.ssm.po.CollectInfoValue;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**/
 @Repository
 public interface CollectInfoUtil {
     List<cn.itcast.ssm.po.CollectInfoValue> selectOneDay(Integer SensorId);
