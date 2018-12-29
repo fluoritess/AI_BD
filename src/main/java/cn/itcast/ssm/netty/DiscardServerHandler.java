@@ -37,34 +37,29 @@ import java.util.Map;
 public class DiscardServerHandler extends  ChannelInboundHandlerAdapter{
 
     @Autowired
-BaseService baseService;
+    BaseService baseService;
 
-public static  DiscardServerHandler discardServerHandler;
+    public static  DiscardServerHandler discardServerHandler;
 
-public DiscardServerHandler(){
+    public DiscardServerHandler(){
 
-}
+    }
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)  {
         try {
 
 
 
-
-//           byte[] req = new byte[a.readableBytes()];
-//        String body= new String(req,"utf-8");
+            List msg1=(List)msg;
             System.out.println("传输内容是");
             System.out.println(msg);
-            String b="1234";
-            List<String> list=test.fenge(b);
-            System.out.println(list);
             //这里调用service服务
-            discardServerHandler.baseService.test(list.get(1));
+            discardServerHandler.baseService.test(msg1);
 
             for (Map.Entry<String, SocketIOClient> entry : EventListennter.clients1.entrySet()){
-                if(entry.getKey().equals(list.get(0))){
+                if(entry.getKey().equals(msg1.get(3))){
                     System.out.println("sendEvent");
-                    entry.getValue().sendEvent("onGetValue",list.get(1));
+                    entry.getValue().sendEvent("onGetValue",msg1.get(1));
                 }
             }
 
@@ -77,8 +72,8 @@ public DiscardServerHandler(){
 
     @PostConstruct
     public void init() {
-discardServerHandler =this;
-discardServerHandler.baseService = this.baseService;
+        discardServerHandler =this;
+        discardServerHandler.baseService = this.baseService;
 
     }
 

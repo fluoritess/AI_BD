@@ -1,6 +1,7 @@
 package cn.itcast.ssm.service.impl;
 
 import cn.itcast.ssm.mapper.*;
+import cn.itcast.ssm.mapper.CollectUtil;
 import cn.itcast.ssm.po.*;
 import cn.itcast.ssm.service.SensorService;
 import cn.itcast.ssm.util.Paging;
@@ -28,6 +29,8 @@ public class SensorServiceImpl implements SensorService {
     EquipmentInfoMapper equipmentInfoMapper;
     @Autowired
     NodedeviceSensorconfigInfoMapper nodedeviceSensorconfigInfoMapper;
+    @Autowired
+    CollectUtil collectUtil;
     @Override
     public Paging selectPaging(String name, int offset, int pageSize, String limitName, String limitValue) {
         Paging page=new Paging();
@@ -155,5 +158,9 @@ return  nodedeviceSensorconfigInfos;
 
         return  sensorTypeInfoMapper.selectByPrimaryKey(sensorTypeId).getSensorName();
     }
+    @Override
+    public  List<Map<String,Object>>  seleceSensorValue(Integer equipmentId) {
 
+        return collectUtil.sensorAllValue(equipmentId);
+    }
 }

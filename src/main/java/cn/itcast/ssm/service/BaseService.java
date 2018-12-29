@@ -1,5 +1,7 @@
 package cn.itcast.ssm.service;
 
+import java.util.List;
+
 /**
  * @Author: LiuYang
  * @Description:
@@ -10,6 +12,6 @@ public interface BaseService {
     /**
      * 测试接口
      */
-    void test(String add);
+    void test(List add);
 
 }

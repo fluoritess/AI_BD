@@ -72,4 +72,16 @@ where sensor_id=#{sensor_id} And collect_time ORDER BY collect_time DESC LIMIT 1
     SELECT * from repeat_value
 where device_id=#{device_id} And collect_time ORDER BY collect_time DESC LIMIT 1
   </select>
+
+    <select id="sensorAllValue" statementType="CALLABLE" parameterType="java.lang.Integer" resultType="java.util.LinkedHashMap">>
+         { call sensor_info(
+             #{equipment_id,mode=IN,jdbcType=INTEGER},
+             #{sensor_id, mode=OUT, jdbcType=INTEGER},
+             #{sensor_name, mode=OUT, jdbcType=VARCHAR},
+             #{sensor_value, mode=OUT, jdbcType=FLOAT},
+             #{unit, mode=OUT, jdbcType=VARCHAR},
+             #{growth_parameter_max, mode=OUT, jdbcType=VARCHAR},
+              #{growth_parameter_min, mode=OUT, jdbcType=VARCHAR}
+             ) }
+    </select>
 </mapper>
