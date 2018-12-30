@@ -8,7 +8,7 @@ public class CropPlantInfo implements Serializable {
 
     private Integer greenhouseId;
 
-    private Integer cropVarietiesId;
+    private Integer cropId;
 
     private Date cropPlantStarttime;
 
@@ -34,12 +34,12 @@ public class CropPlantInfo implements Serializable {
         this.greenhouseId = greenhouseId;
     }
 
-    public Integer getCropVarietiesId() {
-        return cropVarietiesId;
+    public Integer getCropId() {
+        return cropId;
     }
 
-    public void setCropVarietiesId(Integer cropVarietiesId) {
-        this.cropVarietiesId = cropVarietiesId;
+    public void setCropId(Integer cropId) {
+        this.cropId = cropId;
     }
 
     public Date getCropPlantStarttime() {
@@ -74,7 +74,7 @@ public class CropPlantInfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", cropPlantId=").append(cropPlantId);
         sb.append(", greenhouseId=").append(greenhouseId);
-        sb.append(", cropVarietiesId=").append(cropVarietiesId);
+        sb.append(", cropId=").append(cropId);
         sb.append(", cropPlantStarttime=").append(cropPlantStarttime);
         sb.append(", cropPlantEndtime=").append(cropPlantEndtime);
         sb.append(", remark=").append(remark);

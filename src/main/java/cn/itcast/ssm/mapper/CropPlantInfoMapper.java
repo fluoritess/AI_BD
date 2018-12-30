@@ -3,11 +3,10 @@ package cn.itcast.ssm.mapper;
 import cn.itcast.ssm.po.CropPlantInfo;
 import cn.itcast.ssm.po.CropPlantInfoExample;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Component
+@Repository
 public interface CropPlantInfoMapper {
     long countByExample(CropPlantInfoExample example);
 

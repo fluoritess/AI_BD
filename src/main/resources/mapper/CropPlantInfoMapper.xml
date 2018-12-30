@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.CropPlantInfo">
     <id column="crop_plant_id" jdbcType="INTEGER" property="cropPlantId" />
     <result column="greenhouse_id" jdbcType="INTEGER" property="greenhouseId" />
-    <result column="crop_varieties_id" jdbcType="INTEGER" property="cropVarietiesId" />
+    <result column="crop_id" jdbcType="INTEGER" property="cropId" />
     <result column="crop_plant_starttime" jdbcType="TIMESTAMP" property="cropPlantStarttime" />
     <result column="crop_plant_endtime" jdbcType="TIMESTAMP" property="cropPlantEndtime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    crop_plant_id, greenhouse_id, crop_varieties_id, crop_plant_starttime, crop_plant_endtime, 
+    crop_plant_id, greenhouse_id, crop_id, crop_plant_starttime, crop_plant_endtime, 
     remark
   </sql>
   <select id="selectByExample" parameterType="cn.itcast.ssm.po.CropPlantInfoExample" resultMap="BaseResultMap">
@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.itcast.ssm.po.CropPlantInfo">
-    insert into crop_plant_info (crop_plant_id, greenhouse_id, crop_varieties_id, 
+    insert into crop_plant_info (crop_plant_id, greenhouse_id, crop_id, 
       crop_plant_starttime, crop_plant_endtime, 
       remark)
-    values (#{cropPlantId,jdbcType=INTEGER}, #{greenhouseId,jdbcType=INTEGER}, #{cropVarietiesId,jdbcType=INTEGER}, 
+    values (#{cropPlantId,jdbcType=INTEGER}, #{greenhouseId,jdbcType=INTEGER}, #{cropId,jdbcType=INTEGER}, 
       #{cropPlantStarttime,jdbcType=TIMESTAMP}, #{cropPlantEndtime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
@@ -118,8 +118,8 @@
       <if test="greenhouseId != null">
         greenhouse_id,
       </if>
-      <if test="cropVarietiesId != null">
-        crop_varieties_id,
+      <if test="cropId != null">
+        crop_id,
       </if>
       <if test="cropPlantStarttime != null">
         crop_plant_starttime,
@@ -138,8 +138,8 @@
       <if test="greenhouseId != null">
         #{greenhouseId,jdbcType=INTEGER},
       </if>
-      <if test="cropVarietiesId != null">
-        #{cropVarietiesId,jdbcType=INTEGER},
+      <if test="cropId != null">
+        #{cropId,jdbcType=INTEGER},
       </if>
       <if test="cropPlantStarttime != null">
         #{cropPlantStarttime,jdbcType=TIMESTAMP},
@@ -167,8 +167,8 @@
       <if test="record.greenhouseId != null">
         greenhouse_id = #{record.greenhouseId,jdbcType=INTEGER},
       </if>
-      <if test="record.cropVarietiesId != null">
-        crop_varieties_id = #{record.cropVarietiesId,jdbcType=INTEGER},
+      <if test="record.cropId != null">
+        crop_id = #{record.cropId,jdbcType=INTEGER},
       </if>
       <if test="record.cropPlantStarttime != null">
         crop_plant_starttime = #{record.cropPlantStarttime,jdbcType=TIMESTAMP},
@@ -188,7 +188,7 @@
     update crop_plant_info
     set crop_plant_id = #{record.cropPlantId,jdbcType=INTEGER},
       greenhouse_id = #{record.greenhouseId,jdbcType=INTEGER},
-      crop_varieties_id = #{record.cropVarietiesId,jdbcType=INTEGER},
+      crop_id = #{record.cropId,jdbcType=INTEGER},
       crop_plant_starttime = #{record.cropPlantStarttime,jdbcType=TIMESTAMP},
       crop_plant_endtime = #{record.cropPlantEndtime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=VARCHAR}
@@ -202,8 +202,8 @@
       <if test="greenhouseId != null">
         greenhouse_id = #{greenhouseId,jdbcType=INTEGER},
       </if>
-      <if test="cropVarietiesId != null">
-        crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER},
+      <if test="cropId != null">
+        crop_id = #{cropId,jdbcType=INTEGER},
       </if>
       <if test="cropPlantStarttime != null">
         crop_plant_starttime = #{cropPlantStarttime,jdbcType=TIMESTAMP},
@@ -220,7 +220,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.itcast.ssm.po.CropPlantInfo">
     update crop_plant_info
     set greenhouse_id = #{greenhouseId,jdbcType=INTEGER},
-      crop_varieties_id = #{cropVarietiesId,jdbcType=INTEGER},
+      crop_id = #{cropId,jdbcType=INTEGER},
       crop_plant_starttime = #{cropPlantStarttime,jdbcType=TIMESTAMP},
       crop_plant_endtime = #{cropPlantEndtime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}

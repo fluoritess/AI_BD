@@ -225,63 +225,63 @@ public class CropPlantInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdIsNull() {
-            addCriterion("crop_varieties_id is null");
+        public Criteria andCropIdIsNull() {
+            addCriterion("crop_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdIsNotNull() {
-            addCriterion("crop_varieties_id is not null");
+        public Criteria andCropIdIsNotNull() {
+            addCriterion("crop_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdEqualTo(Integer value) {
-            addCriterion("crop_varieties_id =", value, "cropVarietiesId");
+        public Criteria andCropIdEqualTo(Integer value) {
+            addCriterion("crop_id =", value, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdNotEqualTo(Integer value) {
-            addCriterion("crop_varieties_id <>", value, "cropVarietiesId");
+        public Criteria andCropIdNotEqualTo(Integer value) {
+            addCriterion("crop_id <>", value, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdGreaterThan(Integer value) {
-            addCriterion("crop_varieties_id >", value, "cropVarietiesId");
+        public Criteria andCropIdGreaterThan(Integer value) {
+            addCriterion("crop_id >", value, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("crop_varieties_id >=", value, "cropVarietiesId");
+        public Criteria andCropIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("crop_id >=", value, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdLessThan(Integer value) {
-            addCriterion("crop_varieties_id <", value, "cropVarietiesId");
+        public Criteria andCropIdLessThan(Integer value) {
+            addCriterion("crop_id <", value, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdLessThanOrEqualTo(Integer value) {
-            addCriterion("crop_varieties_id <=", value, "cropVarietiesId");
+        public Criteria andCropIdLessThanOrEqualTo(Integer value) {
+            addCriterion("crop_id <=", value, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdIn(List<Integer> values) {
-            addCriterion("crop_varieties_id in", values, "cropVarietiesId");
+        public Criteria andCropIdIn(List<Integer> values) {
+            addCriterion("crop_id in", values, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdNotIn(List<Integer> values) {
-            addCriterion("crop_varieties_id not in", values, "cropVarietiesId");
+        public Criteria andCropIdNotIn(List<Integer> values) {
+            addCriterion("crop_id not in", values, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdBetween(Integer value1, Integer value2) {
-            addCriterion("crop_varieties_id between", value1, value2, "cropVarietiesId");
+        public Criteria andCropIdBetween(Integer value1, Integer value2) {
+            addCriterion("crop_id between", value1, value2, "cropId");
             return (Criteria) this;
         }
 
-        public Criteria andCropVarietiesIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("crop_varieties_id not between", value1, value2, "cropVarietiesId");
+        public Criteria andCropIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("crop_id not between", value1, value2, "cropId");
             return (Criteria) this;
         }
 

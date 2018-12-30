@@ -31,5 +31,5 @@ public interface  CollectUtil {
 
     cn.itcast.ssm.po.CollectUtil selectLatest_2(Integer SensorId);
 
-    List<Map<String,Object>>sensorAllValue (Integer EquipmentId);
+    List<Map<String,Object>> sensorAllValue (Integer EquipmentId);
 }
