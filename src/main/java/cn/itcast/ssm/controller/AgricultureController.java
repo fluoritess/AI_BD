@@ -285,38 +285,40 @@ public class AgricultureController {
     }
 
 
-//    @ResponseBody
-//    @ArchivesLog(operationType = "增加种植信息", operationName = "增加种植信息")
-//    @RequestMapping(value = "/addCropPlantInfo.action")
-//    public Map<String, Object> addCropPlantInfo(@RequestBody Map<String, Object> addMap) {
-//        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
-//        CropPlantInfo cropPlantInfo = new CropPlantInfo();
-//        cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
-//        cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
-//        cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
-//        if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
-//            return R.ok();
-//        } else {
-//            return R.error();
-//        }
-//    }
 
-//    @ResponseBody
-//    @ArchivesLog(operationType = "修改种植信息", operationName = "修改种植信息")
-//    @RequestMapping(value = "/updateCropPlantInfo.action")
-//    public Map<String, Object> updateCropPlantInfo(@RequestBody Map<String, Object> updateMap) {
-//        Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
-//        CropPlantInfo cropPlantInfo = new CropPlantInfo();
-//        cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
-//        cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
-//        cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
-//        cropPlantInfo.setCropPlantId(Integer.parseInt(String.valueOf(data.get("crop_plant_id"))));
-//        if (agricultureService.updateCropPlantInfo(cropPlantInfo)) {
-//            return R.ok();
-//        } else {
-//            return R.error();
-//        }
-//    }
+    @ResponseBody
+    @ArchivesLog(operationType = "增加种植信息", operationName = "增加种植信息")
+    @RequestMapping(value = "/addCropPlantInfo.action")
+    public Map<String, Object> addCropPlantInfo(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
+        CropPlantInfo cropPlantInfo = new CropPlantInfo();
+        cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
+        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
+        cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
+        if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "修改种植信息", operationName = "修改种植信息")
+    @RequestMapping(value = "/updateCropPlantInfo.action")
+    public Map<String, Object> updateCropPlantInfo(@RequestBody Map<String, Object> updateMap) {
+        Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
+        CropPlantInfo cropPlantInfo = new CropPlantInfo();
+        cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
+        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop__id"))));
+        cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
+        cropPlantInfo.setCropPlantId(Integer.parseInt(String.valueOf(data.get("crop_plant_id"))));
+        if (agricultureService.updateCropPlantInfo(cropPlantInfo)) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
 
     @ResponseBody
     @ArchivesLog(operationType = "删除种植信息", operationName = "删除种植信息")
