@@ -292,7 +292,7 @@ public class AgricultureController {
         Map<String, Object> data = (Map<String, Object>) addMap.get("data");
         CropPlantInfo cropPlantInfo = new CropPlantInfo();
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
-        cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
+        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
         if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
             return R.ok();
@@ -308,7 +308,7 @@ public class AgricultureController {
         Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
         CropPlantInfo cropPlantInfo = new CropPlantInfo();
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
-        cropPlantInfo.setCropVarietiesId(Integer.parseInt(String.valueOf(data.get("crop_varieties_id"))));
+        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop__id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
         cropPlantInfo.setCropPlantId(Integer.parseInt(String.valueOf(data.get("crop_plant_id"))));
         if (agricultureService.updateCropPlantInfo(cropPlantInfo)) {
