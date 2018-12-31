@@ -31,6 +31,8 @@ public interface AgricultureService {
     List<SensorTypeInfo> selectSensorType();
     //查询所属设备
     List<EquipmentInfo> selectEquipmentInfo();
+    //查询作物信息
+    List<CropInfo> selectCropInfo();
 
     boolean addNodeDeviceInfos(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo);
     boolean updateNodeDeviceInfo(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo);

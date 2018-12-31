@@ -151,6 +151,11 @@ public class AgricultureServiceImpl implements AgricultureService {
         return agricultureMapper.selectEquipmentInfo();
     }
 
+    @Override
+    public List<CropInfo> selectCropInfo() {
+        return agricultureMapper.selectCropInfo();
+    }
+
 
     @Override
     public boolean addNodeDeviceInfos(NodedeviceSensorconfigInfo nodedeviceSensorconfigInfo) {

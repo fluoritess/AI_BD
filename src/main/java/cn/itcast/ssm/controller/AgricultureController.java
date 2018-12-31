@@ -176,6 +176,15 @@ public class AgricultureController {
        return R.ok().put("data",agricultureService.selectCropType());
     }
 
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询作物信息", operationName = "查询作物信息")
+    @RequestMapping(value = "/selectCropInfo.action")
+    public Map<String, Object> selectCropInfo() {
+        return R.ok().put("data",agricultureService.selectCropInfo());
+    }
+
+
     @ResponseBody
     @ArchivesLog(operationType = "查询土壤类型", operationName = "查询土壤类型")
     @RequestMapping(value = "/selectSoilType.action")
@@ -309,7 +318,7 @@ public class AgricultureController {
         Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
         CropPlantInfo cropPlantInfo = new CropPlantInfo();
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
-        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop__id"))));
+        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
         cropPlantInfo.setCropPlantId(Integer.parseInt(String.valueOf(data.get("crop_plant_id"))));
         if (agricultureService.updateCropPlantInfo(cropPlantInfo)) {

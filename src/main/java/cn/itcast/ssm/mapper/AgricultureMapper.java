@@ -12,4 +12,5 @@ public interface AgricultureMapper {
     List<GrowthParameter> selectGrowthParam();
     List<SensorTypeInfo> selectSensorType();
     List<SoilTypeInfo> selectSoilType();
+    List<CropInfo> selectCropInfo();
 }
