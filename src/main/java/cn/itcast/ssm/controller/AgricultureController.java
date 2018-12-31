@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -304,6 +305,7 @@ public class AgricultureController {
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
         cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
+        cropPlantInfo.setCropPlantStarttime(new Date());
         if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
             return R.ok();
         } else {
