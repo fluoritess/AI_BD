@@ -13,4 +13,5 @@ public interface AgricultureMapper {
     List<SensorTypeInfo> selectSensorType();
     List<SoilTypeInfo> selectSoilType();
     List<CropInfo> selectCropInfo();
+    boolean addEndTime();
 }

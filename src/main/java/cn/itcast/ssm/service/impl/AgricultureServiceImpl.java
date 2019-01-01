@@ -7,6 +7,8 @@ import cn.itcast.ssm.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -205,6 +207,16 @@ public class AgricultureServiceImpl implements AgricultureService {
     @Override
     public boolean deleteCropPlantInfo(Integer id) {
         if(cropPlantInfoMapper.deleteByPrimaryKey(id)!=0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addEndTime(Integer id) {
+        CropPlantInfo cropPlantInfo = cropPlantInfoMapper.selectByPrimaryKey(id);
+        cropPlantInfo.setCropPlantEndtime(new Timestamp(new Date().getTime()));
+        if(cropPlantInfoMapper.updateByPrimaryKey(cropPlantInfo)!=0){
             return true;
         }
         return false;

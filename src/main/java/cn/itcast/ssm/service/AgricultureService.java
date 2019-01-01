@@ -41,6 +41,7 @@ public interface AgricultureService {
     boolean addCropPlantInfo(CropPlantInfo cropPlantInfo);
     boolean updateCropPlantInfo(CropPlantInfo cropPlantInfo);
     boolean deleteCropPlantInfo(Integer id);
+    boolean addEndTime(Integer id);
 
     boolean addDisposalInfo(DisposalMethodInfo disposalMethodInfo);
     boolean updateDisposalInfo(DisposalMethodInfo disposalMethodInfo);

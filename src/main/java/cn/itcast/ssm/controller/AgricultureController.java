@@ -308,12 +308,24 @@ public class AgricultureController {
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
         Timestamp timestamp = new Timestamp(new Date().getTime());
         cropPlantInfo.setCropPlantStarttime(timestamp);
-        cropPlantInfo.setCropPlantEndtime(timestamp);
+        cropPlantInfo.setCropPlantEndtime(new Timestamp(0));
         if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
             return R.ok();
         } else {
             return R.error();
         }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "增加种植结束信息", operationName = "增加种植结束信息")
+    @RequestMapping(value = "/addEndTime.action")
+    public Map<String, Object> addEndTime(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
+        Integer id = Integer.parseInt(String.valueOf(data.get("id")));
+        if(agricultureService.addEndTime(id)){
+            return R.ok();
+        }
+        return R.error("结束时间有误，请联系管理员");
     }
 
     @ResponseBody
