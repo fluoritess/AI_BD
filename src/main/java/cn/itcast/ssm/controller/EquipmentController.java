@@ -422,7 +422,7 @@ public class EquipmentController {
         paging = equipmentService.selectPaging("deploy_node_info", (active - 1) * pagelist, pagelist,null,null);
         List list=paging.getLists();
         for(int i=0;i<list.size();i++){
-            Map<String,String> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map=(LinkedHashMap)list.get(i);
             Collection collection=map.values();
             if(collection.size()<7){
@@ -437,7 +437,9 @@ public class EquipmentController {
                         entity.getValue();
                         DeployNodeInfo deployNodeInfo=equipmentService.selectDeployNode(Integer.parseInt(String.valueOf(entity.getValue())));
                         String parentName=deployNodeInfo.getNodeName();
-                        map.put("parent_id",parentName);
+                        int parentId=deployNodeInfo.getParentId();
+                        map.put("parent_id",parentId);
+                        map.put("parentName",parentName);
                     }
                 }
             }
