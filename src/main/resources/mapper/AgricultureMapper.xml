@@ -19,4 +19,7 @@
     <select id="selectSoilType" resultType="cn.itcast.ssm.po.SoilTypeInfo">
    select soil_type_id,soil_type_name from soil_type_info
   </select>
+  <select id="selectCropInfo" resultType="cn.itcast.ssm.po.CropInfo">
+    select crop_id,crop_name from crop_info
+  </select>
 </mapper>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -176,6 +178,15 @@ public class AgricultureController {
        return R.ok().put("data",agricultureService.selectCropType());
     }
 
+
+    @ResponseBody
+    @ArchivesLog(operationType = "查询作物信息", operationName = "查询作物信息")
+    @RequestMapping(value = "/selectCropInfo.action")
+    public Map<String, Object> selectCropInfo() {
+        return R.ok().put("data",agricultureService.selectCropInfo());
+    }
+
+
     @ResponseBody
     @ArchivesLog(operationType = "查询土壤类型", operationName = "查询土壤类型")
     @RequestMapping(value = "/selectSoilType.action")
@@ -295,11 +306,26 @@ public class AgricultureController {
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
         cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
+        Timestamp timestamp = new Timestamp(new Date().getTime());
+        cropPlantInfo.setCropPlantStarttime(timestamp);
+        cropPlantInfo.setCropPlantEndtime(new Timestamp(0));
         if ( agricultureService.addCropPlantInfo(cropPlantInfo)) {
             return R.ok();
         } else {
             return R.error();
         }
+    }
+
+    @ResponseBody
+    @ArchivesLog(operationType = "增加种植结束信息", operationName = "增加种植结束信息")
+    @RequestMapping(value = "/addEndTime.action")
+    public Map<String, Object> addEndTime(@RequestBody Map<String, Object> addMap) {
+        Map<String, Object> data = (Map<String, Object>) addMap.get("data");
+        Integer id = Integer.parseInt(String.valueOf(data.get("id")));
+        if(agricultureService.addEndTime(id)){
+            return R.ok();
+        }
+        return R.error("结束时间有误，请联系管理员");
     }
 
     @ResponseBody
@@ -309,7 +335,7 @@ public class AgricultureController {
         Map<String, Object> data = (Map<String, Object>) updateMap.get("data");
         CropPlantInfo cropPlantInfo = new CropPlantInfo();
         cropPlantInfo.setGreenhouseId(Integer.parseInt(String.valueOf(data.get("greenhouse_id"))));
-        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop__id"))));
+        cropPlantInfo.setCropId(Integer.parseInt(String.valueOf(data.get("crop_id"))));
         cropPlantInfo.setRemark(String.valueOf(data.get("remark")));
         cropPlantInfo.setCropPlantId(Integer.parseInt(String.valueOf(data.get("crop_plant_id"))));
         if (agricultureService.updateCropPlantInfo(cropPlantInfo)) {
