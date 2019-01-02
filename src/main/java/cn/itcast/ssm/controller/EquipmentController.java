@@ -437,8 +437,7 @@ public class EquipmentController {
                         entity.getValue();
                         DeployNodeInfo deployNodeInfo=equipmentService.selectDeployNode(Integer.parseInt(String.valueOf(entity.getValue())));
                         String parentName=deployNodeInfo.getNodeName();
-                        int parentId=deployNodeInfo.getParentId();
-                        map.put("parent_id",parentId);
+                        map.put("parent_id",Integer.parseInt(String.valueOf(entity.getValue())));
                         map.put("parentName",parentName);
                     }
                 }
