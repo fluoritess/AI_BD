@@ -55,6 +55,7 @@ public class NodedeviceServiceImpl implements NodedeviceService {
             float max=para[1];
             data_=new HashMap<>();
             data_.put("collectInfoValue",collectInfoValue);
+
             data_.put("min",min);
             data_.put("max",max);
             tarlist.add(data_);

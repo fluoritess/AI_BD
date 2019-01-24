@@ -42,6 +42,7 @@ public class BaseServiceImpl implements BaseService,Constant {
                collectInfoValue.setSensorId(nodedeviceSensorconfigInfo.getSensorId());
                collectInfoValue.setSensorValue(Float.parseFloat((String)add.get(4)));
                collectInfoValueMapper.insertSelective(collectInfoValue);
+
             }
             else  if ("土壤表层温度".equals(nodedeviceSensorconfigInfo.getSensorPosition())){
                map.put("土壤表层温度",nodedeviceSensorconfigInfo.getSensorId());
