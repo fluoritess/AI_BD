@@ -8,7 +8,7 @@
     select equipment_name,equipment_id from equipment_info
   </select>
     <select id="selectDeployNodeInfo" resultType="cn.itcast.ssm.po.DeployNodeInfo">
-    select deploy_node_id,node_name from deploy_node_info
+    select deploy_node_id,node_name from deploy_node_info where parent_id is null
   </select>
     <select id="selectGrowthParam" resultType="cn.itcast.ssm.po.GrowthParameter">
     select growth_parameters_id,growth_parameters_name from growth_parameter
