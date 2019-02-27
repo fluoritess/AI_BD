@@ -14,7 +14,7 @@
     select growth_parameters_id,growth_parameters_name from growth_parameter
   </select>
     <select id="selectSensorType" resultType="cn.itcast.ssm.po.SensorTypeInfo">
-    select sensor_name,sensor_type_id from sensor_type_info
+    select sensor_type_name,sensor_type_id from sensor_type_info
   </select>
     <select id="selectSoilType" resultType="cn.itcast.ssm.po.SoilTypeInfo">
    select soil_type_id,soil_type_name from soil_type_info

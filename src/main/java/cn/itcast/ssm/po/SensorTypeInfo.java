@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class SensorTypeInfo implements Serializable {
     private Integer sensorTypeId;
 
-    private String sensorName;
+    private String sensorTypeName;
 
     private String sensorFuncationRemark;
 
@@ -24,11 +24,11 @@ public class SensorTypeInfo implements Serializable {
     }
 
     public String getSensorName() {
-        return sensorName;
+        return sensorTypeName;
     }
 
     public void setSensorName(String sensorName) {
-        this.sensorName = sensorName == null ? null : sensorName.trim();
+        this.sensorTypeName = sensorName == null ? null : sensorName.trim();
     }
 
     public String getSensorFuncationRemark() {
@@ -62,7 +62,7 @@ public class SensorTypeInfo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", sensorTypeId=").append(sensorTypeId);
-        sb.append(", sensorName=").append(sensorName);
+        sb.append(", sensorTypeName=").append(sensorTypeName);
         sb.append(", sensorFuncationRemark=").append(sensorFuncationRemark);
         sb.append(", remark=").append(remark);
         sb.append(", unit=").append(unit);

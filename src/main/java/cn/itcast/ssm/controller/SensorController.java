@@ -61,7 +61,7 @@ public class SensorController {
             case "sensorTypeInfo":
                 if("name".equals(String.valueOf(datas.get("name"))))
                 {
-                    mark=sensorService.inspectData("sensor_type_info","sensor_name",String.valueOf(datas.get("data")));
+                    mark=sensorService.inspectData("sensor_type_info","sensor_type_name",String.valueOf(datas.get("data")));
                 }
                 break;
 
@@ -118,7 +118,7 @@ public class SensorController {
     public Map<String, Object> addSensorTypeInfo(@RequestBody Map<String, Object> addMap) {
         Map<String, Object> data = (Map<String, Object>) addMap.get("data");
         SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
-        sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_name")));
+        sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_type_name")));
         sensorTypeInfo.setRemark(String.valueOf(data.get("remark")));
         sensorTypeInfo.setSensorFuncationRemark(String.valueOf(data.get("sensor_funcation_remark")));
         if (sensorService.addSensorTypeInfos(sensorTypeInfo)) {
@@ -136,7 +136,7 @@ public class SensorController {
         SensorTypeInfo sensorTypeInfo = new SensorTypeInfo();
         sensorTypeInfo.setSensorTypeId(Integer.valueOf(String.valueOf(data.get("sensor_type_id"))));
         sensorTypeInfo.setSensorFuncationRemark(String.valueOf(data.get("sensor_funcation_remark")));
-        sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_name")));
+        sensorTypeInfo.setSensorName(String.valueOf(data.get("sensor_type_name")));
         sensorTypeInfo.setRemark(String.valueOf(data.get("remark")));
         if (sensorService.updateSensorTypeInfo(sensorTypeInfo)) {
             return R.ok();
