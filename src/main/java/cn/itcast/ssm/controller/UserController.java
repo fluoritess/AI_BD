@@ -1,6 +1,5 @@
 package cn.itcast.ssm.controller;
 
-import cn.itcast.ssm.po.RoleDistribute;
 import cn.itcast.ssm.po.UserInf;
 import cn.itcast.ssm.service.UserService;
 import cn.itcast.ssm.spring.ArchivesLog;
@@ -278,7 +277,7 @@ public class UserController {
     @ResponseBody
     @ArchivesLog(operationName = "用户登录",operationType = "查询信息")
     @RequestMapping("/login.action" )
-    public R login(@RequestBody Map<String,String > map,HttpSession session){
+    public R login(@RequestBody Map<String,String> map,HttpSession session){
         System.out.println("进入登录...");
         String username=map.get("id");
         String password=map.get("pass");
