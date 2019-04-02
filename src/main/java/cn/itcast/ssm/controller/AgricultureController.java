@@ -298,7 +298,7 @@ public class AgricultureController {
 
 
     @ResponseBody
-    @ArchivesLog(operationType = "增加种植信息", operationName = "增加种植信息")
+    @ArchivesLog(operationType = "增加种植信息", operationName = "增加种植信 息")
     @RequestMapping(value = "/addCropPlantInfo.action")
     public Map<String, Object> addCropPlantInfo(@RequestBody Map<String, Object> addMap) {
         Map<String, Object> data = (Map<String, Object>) addMap.get("data");
